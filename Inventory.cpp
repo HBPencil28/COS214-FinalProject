@@ -56,3 +56,10 @@ PlantIterator* Inventory::createIterator(){
 }
 
 std::vector<Plant*>& Inventory::getPlants() { return plants; }
+
+Inventory::~Inventory() {
+    // Clean up plants if needed
+    for(Plant* plant : plants) {
+        delete plant;
+    }
+}
