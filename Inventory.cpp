@@ -12,3 +12,44 @@ Inventory* Inventory::getInstance(){
 
 //static variables must be initialise out of line
 Inventory* Inventory::instance = nullptr;
+
+void Inventory::addPlant(Plant* p){
+    //TODO: ensure plants getter prints some type of name or type
+    if(p == nullptr){
+        std::cout << "There is no plant to be added"<< std::endl; 
+        return;
+    }
+    plants.push_back(p);
+    std::cout << "Successfully added plant: "<< p->getName() << " to the inventory\n";
+}
+
+bool Inventory::removePlant(Plant* p) {
+
+    if(p == nullptr) {
+        std::cout << "The plant entered is not in stock" << std::endl;
+        return false;
+    }
+
+    Iterator* itr = createIterator();
+    bool found = false;
+    
+    for(itr->first(); !itr->isDone(); itr->next()) {
+        if(itr->currentItem() == p) {
+            // Find the plant in the vector and remove it
+            auto it = std::find(plants.begin(), plants.end(), p);
+            if(it != plants.end()) {
+                plants.erase(it);
+                std::cout << "Successfully removed plant: " << p->getName() << " from inventory\n";
+                found = true;
+                break;
+            }
+        }
+    }
+
+    delete itr; // Clean up iterator
+    return found;
+}
+
+Iterator* Inventory::createIterator(){
+    return new PlantIterator();
+}

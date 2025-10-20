@@ -2,6 +2,9 @@
 #define INVENTORY_H
 //singleton class
 #include <vector>
+#include <iostream>
+#include <algorithm> // i am not making any find function squad
+
 
 class Inventory{
     private:
