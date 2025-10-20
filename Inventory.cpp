@@ -1,5 +1,6 @@
 #include "Inventory.h"
-
+#include "PlantIterator.h"
+#include "Plant.h"
 Inventory::Inventory(){}
 
 Inventory* Inventory::getInstance(){
@@ -30,11 +31,11 @@ bool Inventory::removePlant(Plant* p) {
         return false;
     }
 
-    Iterator* itr = createIterator();
+    PlantIterator* itr = createIterator();
     bool found = false;
     
-    for(itr->first(); !itr->isDone(); itr->next()) {
-        if(itr->currentItem() == p) {
+    for(itr->first(); !itr->hasNext(); itr->next()) {
+        if(itr->current() == p) {
             // Find the plant in the vector and remove it
             auto it = std::find(plants.begin(), plants.end(), p);
             if(it != plants.end()) {
@@ -50,6 +51,8 @@ bool Inventory::removePlant(Plant* p) {
     return found;
 }
 
-Iterator* Inventory::createIterator(){
-    return new PlantIterator();
+PlantIterator* Inventory::createIterator(){
+    return new PlantIterator;
 }
+
+std::vector<Plant*>& Inventory::getPlants() { return plants; }
