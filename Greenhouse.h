@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <stdexcept>
 
 /**
  * @file Greenhouse.h
@@ -14,8 +15,7 @@
  * @brief Abstract base class (Component) in the Composite pattern.
  *
  * Derived classes represent Leaves or Composites. Provides a common operation
- * (execute) and optional child-management operations with default "not supported"
- * implementations for leaf components.
+ * (execute) implementations for leaf components.
  */
 class Greenhouse{
 public:

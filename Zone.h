@@ -3,7 +3,7 @@
 #define ZONE_H
 /**
  * @file Zone.h
- * @author Banidle Mnyandu(github: bandilem-git)
+ * @author Bandile Mnyandu (github: bandilem-git)
  * @brief 
  * @version 0.1
  * @date 2025-10-20
@@ -12,6 +12,7 @@
  * 
  */
 #include "Greenhouse.h"
+#include <algorithm>
 #include <vector>
 
 /**
