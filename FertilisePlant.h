@@ -9,8 +9,15 @@
 
 using namespace std;
 
-class FertilisePlant{
-
+class FertilisePlant : public CareCommand{
+    protected:
+        Plant* plant;
+    public:
+        virtual void execute() {
+            // Implementation for fertilising a plant
+            cout << "Fertilising plant..." << endl;
+            plant->fertilise();
+        }
 };
 
 #endif

@@ -9,8 +9,15 @@
 
 using namespace std;
 
-class HarvestAndStore{
-
+class HarvestAndStore : public CareCommand{
+    protected:
+        Plant* plant;
+    public:
+        virtual void execute(CareStaff& staff) {
+            // Implementation for harvesting and storing a plant
+            cout << "Harvesting and storing plant..." << endl;
+            plant->harvestAndStore();
+        }
 };
 
 #endif

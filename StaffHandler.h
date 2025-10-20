@@ -8,7 +8,17 @@
 using namespace std;
 
 class StaffHandler{
+    protected:
+        StaffHandler* nextHandler;
+    public:
+        StaffHandler() : nextHandler(nullptr) {}
+        
+        void setNextHandler(StaffHandler* handler) {
+            nextHandler = handler;
+        }
 
+        virtual void handleRequest(const string& request) = 0;
+        virtual ~StaffHandler() {}
 };
 
 #endif

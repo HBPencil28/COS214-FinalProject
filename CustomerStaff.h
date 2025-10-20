@@ -9,8 +9,15 @@
 
 using namespace std;
 
-class CustomerStaff {
-    
+class CustomerStaff :public Staff {
+    public:
+        CustomerStaff() : Staff("Customer Service", "Customer Support Representative") {}
+        ~CustomerStaff() {}
+
+        virtual void performDuty() const
+        {
+            cout << "Assisting customers with their needs." << endl;
+        }
 };
 
 #endif

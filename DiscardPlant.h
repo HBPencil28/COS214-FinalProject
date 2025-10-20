@@ -9,8 +9,17 @@
 
 using namespace std;
 
-class DiscardPlant{
-
+class DiscardPlant : public CareCommand{
+    protected:
+        Plant* plant;
+    public:
+        DiscardPlant(Plant* p) : plant(p) {}
+        
+        virtual void execute() {
+            // Implementation for discarding a plant
+            cout << "Discarding plant..." << endl;
+            plant->discard();
+        }
 };
 
 #endif

@@ -9,7 +9,11 @@
 
 using namespace std;
 
-class DeliveryFactory{
+class DeliveryFactory :public StaffFactory{
+    public:
+        virtual void createStaff(const string& name) const {
+            cout << "Creating Delivery Staff: " << name << endl;
+        }
 
 };
 

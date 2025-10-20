@@ -10,7 +10,10 @@
 using namespace std;
 
 class SeniorManager{
-
+    public:
+        virtual void handleRequest(const string& request) {
+                cout << "Request reviewed by Senior Manager: "<< request << endl;
+        }
 };
 
 #endif
