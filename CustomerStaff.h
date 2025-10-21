@@ -1,0 +1,19 @@
+#ifndef CUSTOMERSTAFF_H
+#define CUSTOMERSTAFF_H
+
+#include "Staff.h"
+
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+class CustomerStaff : public Staff {
+public:    
+    void changed() override;
+    string get() override;
+    void set(string) override;
+};
+
+#endif

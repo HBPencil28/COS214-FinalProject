@@ -1,0 +1,21 @@
+#ifndef DELIVERYSTAFF_H
+#define DELIVERYSTAFF_H
+
+#include "Staff.h"
+
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+class DeliveryStaff : public Staff {
+
+public:
+    // DeliveryStaff(string name, int id);
+    void changed() override;
+    string get() override;
+    void set(string) override;
+};
+
+#endif
