@@ -17,56 +17,51 @@ class Plant;
 
 /**
  * @class PlantIterator
- * @brief Iterator class for traversing plants in the inventory
- * 
- * This class implements the Iterator design pattern to provide
- * sequential access to plants stored in the Inventory without
- * exposing the underlying implementation details.
+ * @brief Iterator for a vector<Plant*> that operates on the actual container.
  */
 class PlantIterator {
 private:
-    /** @brief Current position in the plant collection */
     int currentIndex;
-    
-    /** @brief Pointer to the Inventory singleton instance */
-    Inventory* Inventory;
+    std::vector<Plant*>* plants; ///< pointer to container being iterated
 
 public:
-    /**
-     * @brief Default constructor
-     * Initializes the iterator with currentIndex set to -1
-     */
-    PlantIterator() : currentIndex(-1) {}
+    /** Construct iterator for given container (nullptr allowed). */
+    PlantIterator(std::vector<Plant*>* container = nullptr);
 
     /**
-     * @brief Checks if there is a next element in the collection
-     * @return true if there is a next element, false otherwise
+     * @brief checks if vector has next (for loops)
+     * 
+     * @return true 
+     * @return false 
      */
-    bool hasNext();
-
+    bool hasNext() const;
     /**
-     * @brief Advances to the next element in the collection
-     * @return Pointer to the next Plant or nullptr if at the end
+     * @brief moves index to next value ()
+     * 
+     * @return Plant* 
+     * @return nullptr
      */
     Plant* next();
-
     /**
-     * @brief Gets the current element without moving the iterator
-     * @return Pointer to the current Plant or nullptr if invalid position
+     * @brief returns current index-s value
+     * 
+     * @return * Plant*
+     * @return nullptr 
      */
-    Plant* current();
-
+    Plant* current() const;
     /**
-     * @brief Removes the current element from the collection
-     * @return Pointer to the removed Plant or nullptr if operation failed
+     * @brief removes current and returns the removed Plant
+     * 
+     * @return Plant* 
+     * @return nullptr
      */
-    Plant* removeCurr();
-
+    Plant* removeCurr();   // removes current element and returns it
     /**
-     * @brief Resets the iterator to the first element
-     * @return Pointer to the first Plant or nullptr if collection is empty
+     * @brief  return's first Plant*
+     * 
+     * @return Plant* 
+     * @return nullptr
      */
-    Plant* first();
+    Plant* first();        // reset to first and return it
 };
-
 #endif

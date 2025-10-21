@@ -1,35 +1,46 @@
 #include "PlantIterator.h"
 #include "Plant.h"
 
-Plant* PlantIterator::first() {
-    currentIndex = 0;
-    return current();
+PlantIterator::PlantIterator(std::vector<Plant*>* container)
+    : currentIndex(-1), plants(container) { }
+
+bool PlantIterator::hasNext() const {
+    if (!plants) return false;
+    return (currentIndex + 1) < static_cast<int>(plants->size());// prevent Werrors
 }
 
-Plant* PlantIterator::current() {
-    if (currentIndex < Inventory->getInstance()->getPlants().size()) {
-        return Inventory->getInstance()->getPlants()[currentIndex];
+Plant* PlantIterator::next() {
+    if (!plants) return nullptr;
+    if (hasNext()) {
+        ++currentIndex;
+        return (*plants)[currentIndex];
     }
     return nullptr;
 }
 
-bool PlantIterator::hasNext() {
-    return currentIndex < Inventory->getInstance()->getPlants().size() - 1;
-}
-
-Plant* PlantIterator::next() {
-    if (hasNext()) {
-        currentIndex++;
-        return current();
-    }
+Plant* PlantIterator::current() const {
+    if (!plants) return nullptr;
+    if (currentIndex >= 0 && currentIndex < static_cast<int>(plants->size()))
+        return (*plants)[currentIndex];
     return nullptr;
 }
 
 Plant* PlantIterator::removeCurr() {
-    if (currentIndex >= 0 && currentIndex < Inventory->getInstance()->getPlants().size()) {
-        Plant* temp = current();
-        Inventory->getInstance()->removePlant(temp);
-        return temp;
+    if (!plants) return nullptr;
+    if (currentIndex < 0 || currentIndex >= static_cast<int>(plants->size()))
+        return nullptr;
+    Plant* removed = (*plants)[currentIndex];
+    plants->erase(plants->begin() + currentIndex);
+    // step back so that next() advances to the element that shifted into this index
+    --currentIndex;
+    return removed;
+}
+
+Plant* PlantIterator::first() {
+    if (!plants || plants->empty()) {
+        currentIndex = -1;
+        return nullptr;
     }
-    return nullptr;
+    currentIndex = 0;
+    return (*plants)[0];
 }
