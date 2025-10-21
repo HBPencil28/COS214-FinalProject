@@ -15,7 +15,7 @@ class FertilisePlant : public CareCommand{
     public:
         virtual void execute() {
             // Implementation for fertilising a plant
-            cout << "Fertilising plant..." << endl;
+            cout << "[Command] Fertilising plant (" << plant->getStateName() << " (state)..." << endl;
             plant->fertilise();
         }
 };

@@ -17,7 +17,7 @@ class DiscardPlant : public CareCommand{
         
         virtual void execute() {
             // Implementation for discarding a plant
-            cout << "Discarding plant..." << endl;
+            cout << "[Command] Discarding plant..." << plant->getStateName() << " (state)..." << endl;
             plant->discard();
         }
 };

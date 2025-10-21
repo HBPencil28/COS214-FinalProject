@@ -10,7 +10,7 @@ using namespace std;
 class StaffFactory{
     public:
         virtual ~StaffFactory() {}
-        virtual void createStaff(const string& name) const = 0;
+        virtual Staff* createStaff(const string& name) const = 0;
 };
 
 #endif

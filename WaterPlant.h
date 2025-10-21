@@ -15,7 +15,7 @@ class WaterPlant : public CareCommand{
     public:
         virtual void execute(CareStaff& staff) {
             // Implementation for watering a plant
-            cout << "Watering plant..." << endl;
+            cout << "[Command] Watering plant (" << plant->getStateName()<< " (state)..." << endl;
             plant->water();
         }
 };

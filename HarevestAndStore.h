@@ -15,7 +15,7 @@ class HarvestAndStore : public CareCommand{
     public:
         virtual void execute(CareStaff& staff) {
             // Implementation for harvesting and storing a plant
-            cout << "Harvesting and storing plant..." << endl;
+            cout << "[Command] Harvesting and storing plant (" << plant->getStateName() << " (state)..." << endl;
             plant->harvestAndStore();
         }
 };

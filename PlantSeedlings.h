@@ -15,7 +15,7 @@ class PlantSeedlings : public CareCommand{
     public:
         virtual void execute(CareStaff& staff) {
             // Implementation for planting seedlings
-            cout << "Planting seedlings..." << endl;
+            cout << "[Command] Planting seedling (" << plant->getStateName() << " (state)..." << endl;
             plant->plantSeedlings();
         }
 };

@@ -11,8 +11,9 @@ using namespace std;
 
 class DeliveryFactory :public StaffFactory{
     public:
-        virtual void createStaff(const string& name) const {
+        virtual Staff* createStaff(const string& name) const {
             cout << "Creating Delivery Staff: " << name << endl;
+            return new DeliveryStaff(name);
         }
 
 };
