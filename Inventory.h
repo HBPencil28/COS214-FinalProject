@@ -58,10 +58,9 @@ class Inventory{
         /**
          * @brief Removes plant from plants vector
          * 
-         * @return true 
-         * @return false 
+         * @return Plant*
          */
-        bool removePlant(Plant*);   //this line only works once plants actually exists
+        Plant* removePlant(Plant*);   //this line only works once plants actually exists
         /**
          * @brief Create a Iterator object
          * 

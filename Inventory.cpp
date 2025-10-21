@@ -1,9 +1,10 @@
 #include "Inventory.h"
 #include "PlantIterator.h"
 #include "Plant.h"
+
 Inventory::Inventory(){}
 
-Inventory* Inventory::getInstance(){
+Inventory* Inventory::getInstance(){ // initialises and gets alr existing
     if(instance == nullptr){
         instance = new Inventory();
     }
@@ -24,31 +25,49 @@ void Inventory::addPlant(Plant* p){
     std::cout << "Successfully added plant: "<< p->getName() << " to the inventory\n";
 }
 
-bool Inventory::removePlant(Plant* p) {
-
+Plant* Inventory::removePlant(Plant* p) {
     if(p == nullptr) {
-        std::cout << "The plant entered is not in stock" << std::endl;
-        return false;
+        std::cout << "Cannot remove null plant from inventory" << std::endl;
+        return nullptr;
     }
 
     PlantIterator* itr = createIterator();
-    bool found = false;
+    Plant* removedPlant = nullptr;
     
-    for(itr->first(); !itr->hasNext(); itr->next()) {
-        if(itr->current() == p) {
+    // Start from the first element
+    Plant* current = itr->first();
+    
+    while(current != nullptr && itr->hasNext()) {
+        if(current == p) {
             // Find the plant in the vector and remove it
             auto it = std::find(plants.begin(), plants.end(), p);
             if(it != plants.end()) {
+                removedPlant = *it;
                 plants.erase(it);
-                std::cout << "Successfully removed plant: " << p->getName() << " from inventory\n";
-                found = true;
+                std::cout << "Successfully removed plant: " << p->getType() << " from inventory\n";
                 break;
             }
+        }
+        current = itr->next();
+    }
+
+    // Check the last element if not found yet
+    if(removedPlant == nullptr && current == p) {
+        auto it = std::find(plants.begin(), plants.end(), p);
+        if(it != plants.end()) {
+            removedPlant = *it;
+            plants.erase(it);
+            std::cout << "Successfully removed plant: " << p->getType() << " from inventory\n";
         }
     }
 
     delete itr; // Clean up iterator
-    return found;
+    
+    if(removedPlant == nullptr) {
+        std::cout << "Plant not found in inventory" << std::endl;
+    }
+    
+    return removedPlant;
 }
 
 PlantIterator* Inventory::createIterator(){
