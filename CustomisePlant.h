@@ -12,7 +12,8 @@ private:
     std::string customisationDetails;
 
 public:
-    CustomisePlant(const std::string& name, int id, const std::string& details/*, Plant* toCustomise*/);
+    CustomisePlant( const std::string& details, Staff* staff /*, Plant* toCustomise*/):
+        CustomerCommand(staff), customisationDetails(details) /*, toBeCustomized(toCustomise)*/ {};
     void execute() override;    
 };
 

@@ -11,7 +11,7 @@ private:
     std::string issueDescription;
 
 public:
-    RequestHelp(const std::string& name, int id, const std::string& issue);
+    RequestHelp(const std::string& issue, Staff* staff) : CustomerCommand(staff), issueDescription(issue) {};
     void execute() override;    
 };
 

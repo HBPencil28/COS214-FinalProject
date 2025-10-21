@@ -4,14 +4,15 @@
 #include <iostream>
 #include <string>
 
+#include "Staff.h"
+
 class CustomerCommand{
 
 protected:
-    std::string customerName;
-    int customerID;
+    Staff* assistant;
 
 public:
-    CustomerCommand(const std::string& name, int id);
+    CustomerCommand(Staff* staff) : assistant(staff) {};
     virtual void execute() = 0; 
 };
 

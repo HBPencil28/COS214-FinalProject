@@ -11,7 +11,7 @@ private:
     std::string plantToPurchase;
 
 public:
-    BuyPlant(const std::string& name, int id, const std::string& plant);
+    BuyPlant(const std::string& plant, Staff* staff) : CustomerCommand(staff), plantToPurchase(plant) {};
     void execute() override;    
 };
 
