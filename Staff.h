@@ -19,6 +19,7 @@ protected:
 public:
     Staff();
     void registerMediator(NurseryMediator* mediator);
+    void deregisterMediator();
 
     // this would be the method use to take or add to the inventory
     // CareStaff when they add a mature plant, DeliveryStaff && CustomerStaff when they take a plant
