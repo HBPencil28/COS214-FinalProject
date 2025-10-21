@@ -11,7 +11,7 @@ using namespace std;
 
 class CareStaff : public Staff {
     public:
-        CareStaff() : Staff("Care Team", "Caregiver") {}
+        CareStaff() : Staff("Care") {}
         ~CareStaff() {}
 
         virtual void performDuty() const

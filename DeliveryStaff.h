@@ -11,7 +11,7 @@ using namespace std;
 
 class DeliveryStaff :public Staff {
     public:
-        DeliveryStaff() : Staff("Delivery Team", "Delivery Driver") {}
+        DeliveryStaff() : Staff("Delivery") {}
         ~DeliveryStaff() {}
 
         virtual void performDuty() const

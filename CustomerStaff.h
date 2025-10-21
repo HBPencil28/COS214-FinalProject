@@ -11,7 +11,7 @@ using namespace std;
 
 class CustomerStaff :public Staff {
     public:
-        CustomerStaff() : Staff("Customer Service", "Customer Support Representative") {}
+        CustomerStaff() : Staff("Customer") {}
         ~CustomerStaff() {}
 
         virtual void performDuty() const
