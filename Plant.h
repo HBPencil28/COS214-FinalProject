@@ -31,7 +31,7 @@ class Plant{
         Zone* zone;
         int ageDays;
         int hydrationLevel;
-        vector<Plant*> decorations; // For Decorator pattern
+        //vector<Plant*> decorations; // For Decorator pattern
 
     public: 
         Plant(const string& plantName, const string& plantType);
@@ -45,9 +45,6 @@ class Plant{
         int getAgeDays() const;
         int getHydrationLevel() const;
 
-        void setCareStrategy(CareStrategy strat);
-        CareStrategy* getCareStrategy() const;
-
         void setState(PlantState* newState);
 
         void water();
@@ -59,7 +56,7 @@ class Plant{
         virtual Plant* clone() = 0;
 
         // ----- Decorator / Composite Pattern -----
-        virtual void add(Plant* extraDecoration);
+        //virtual void add(Plant* extraDecoration);
 
         virtual void display() const;
 

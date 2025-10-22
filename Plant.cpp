@@ -47,16 +47,6 @@ int Plant::getHydrationLevel() const
     return hydrationLevel;
 }
 
-void Plant::setZone(Zone* z) 
-{
-    zone = z;
-}
-
-Zone* Plant::getZone() const 
-{
-    return zone;
-}
-
 void Plant::setState(PlantState* newState) 
 {
     if (state)  
@@ -65,12 +55,6 @@ void Plant::setState(PlantState* newState)
     }  
 
     state = newState; 
-}
-
-
-void add (Plant* extraDecoration) 
-{
-    decorations.push_back(extraDecoration);
 }
 
 void Plant::display() const 
