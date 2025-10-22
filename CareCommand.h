@@ -13,8 +13,10 @@ using namespace std;
 class CareStaff;
 
 class CareCommand{
+    protected:
+        Plant* plant;
     public:
-        virtual void execute() = 0;
+        virtual void execute(CareStaff& staff) = 0;
         virtual ~CareCommand(){}
 };
 

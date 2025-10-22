@@ -10,13 +10,12 @@
 using namespace std;
 
 class WaterPlant : public CareCommand{
-    protected:
-        Plant* plant;
     public:
         WaterPlant(Plant* p) : plant(p) {}
-        virtual void execute(CareStaff& staff) {
+        virtual void execute(CareStaff& staff) 
+        {
             // Implementation for watering a plant
-            cout << "[Command] Watering plant (" << plant->getStateName()<< " (state)..." << endl;
+            cout << "[Command] Watering plant (" << plant->getName() << " (name) in" << plant->getStateName()<< " (state)..." << endl;
             plant->water();
         }
 };

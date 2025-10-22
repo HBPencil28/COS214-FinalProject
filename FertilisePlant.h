@@ -10,13 +10,11 @@
 using namespace std;
 
 class FertilisePlant : public CareCommand{
-    protected:
-        Plant* plant;
     public:
         FertilisePlant(Plant* p) : plant(p) {}
         virtual void execute() {
             // Implementation for fertilising a plant
-            cout << "[Command] Fertilising plant (" << plant->getStateName() << " (state)..." << endl;
+            cout << "[Command] Fertilising plant (" << plant->getName() << " (name) in" << plant->getStateName()<< " (state)..." << endl;
             plant->fertilise();
         }
 };
