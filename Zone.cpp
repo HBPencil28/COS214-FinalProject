@@ -4,6 +4,13 @@ void Zone::add(Greenhouse* child) {
     if (!child) {
         throw std::invalid_argument("Cannot add null child to Zone");
     }
+
+    // if zoneCategory is non-empty enforce matching types (adjust policy as needed)
+    if (!zoneCategory.empty() && child->getType() != zoneCategory) {
+        throw std::invalid_argument("Cannot add child with type '" + child->getType()
+                                  + "' to zone with category '" + zoneCategory + "'");
+    }
+
     children.push_back(child);
 }
 
@@ -37,4 +44,18 @@ void Zone::execute() {
             child->execute();
         }
     }
+}
+
+Zone::Zone(std::string Z_Name, std::string C_Name):zoneName(Z_Name), zoneCategory(C_Name) {}
+
+void Zone::setZoneName(std::string name){
+        this->zoneName = name;
+    }
+
+std::string Zone::getZoneName(){
+        return this->zoneName;
+}
+
+void Zone::setZoneCategory(std::string category){
+        this->zoneCategory = category;
 }

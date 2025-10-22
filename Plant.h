@@ -9,8 +9,9 @@ class Plant : public Greenhouse{
     private:
         std::string type;
     public:
-        Plant();
-        std::string getType();
+        virtual ~Plant();
+        Plant(std::string);
+        std::string getType() const;
         void execute() override;
 };
 

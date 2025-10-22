@@ -22,10 +22,12 @@
 class Zone : public Greenhouse {
 private:
     std::vector<Greenhouse*> children; /**< Container for child components */
+    std::string zoneName;
+    std::string zoneCategory;
 
 public:
-    /** @brief Default constructor */
-    Zone() = default;
+    /** @brief Paramaterised constructor */
+    Zone(std::string Z_Name, std::string C_Name);
     
     /** @brief Virtual destructor */
     virtual ~Zone() override = default;
@@ -65,6 +67,27 @@ public:
      * @brief Execute operation on this component and children
      */
     void execute() override;
+
+    /**
+     * @brief Set the Zone Name object
+     * 
+     * @param name 
+     */
+    void setZoneName(std::string name);
+
+    /**
+     * @brief Get the Zone Name object
+     * 
+     * @return std::string 
+     */
+    std::string getZoneName();
+
+    /**
+     * @brief Set the Zone Category object
+     * 
+     * @param category 
+     */
+    void setZoneCategory(std::string category);
 };
 
 #endif
