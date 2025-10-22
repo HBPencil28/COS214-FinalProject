@@ -1,8 +1,10 @@
-#ifndef CARECOMMAND_H
-#define CARECOMMAND_H
+#ifndef PLANT_H
+#define PLANT_H
 
 #include "CareStaff.h"
 #include "CareCommand.h"
+#include "PlantState.h"
+#include "CareStrategy.h"
 
 #include <string>
 #include <vector>
@@ -12,67 +14,55 @@
 
 using namespace std;
 
+// Forward declarations of concrete states
 class Seedling;
 class Growing;
 class Mature;
 class Withered;
 
+// Forward declaration for Greenhouse (if Composite pattern
+class Greenhouse;
+
 class Plant{
     private:
-        string name; 
+        string name;
+        string type; 
         PlantState* state;
+        CareStrategy careStrat;
+        int ageDays;
+        int hydrationLevel;
+        vector<Plant*> decorations; // For Decorator pattern
 
     public: 
-        Plant(const string& plantName) : name(plantName) {
-            state = new Seedling();
-        }
+        Plant(const string& plantName, const string& plantType, CareStrategy strat);
+        virtual ~Plant();
 
-        ~Plant() {
-            delete state;
-        }
+        void initState(PlantState* initialState);
 
-        string getName() const 
-        {
-            return name; 
-        }
+        string getName() const;
+        string getStateName() const;
+        string getType() const;
+        int getAgeDays() const;
+        int getHydrationLevel() const;
 
-        string getStateName() const 
-        {
-            return state->getStateName();
-        }
+        void setCareStrategy(CareStrategy strat);
+        CareStrategy* getCareStrategy() const;
 
-        void setState(PlantState* newState) 
-        {
-            if (state) 
-            {
-                delete state;
-            }
+        void setState(PlantState* newState);
 
-            state = newState;
-        }
+        void water();
+        void fertilize();
+        void harvestAndStore();
+        void discard();
+        
+        // ----- Prototype Pattern -----
+        virtual Plant* clone() = 0;
 
-        void water() {
-            cout << "Watering plant: " << name << endl;
-            state->water(this);
-        }
+        // ----- Decorator / Composite Pattern -----
+        virtual void add(Plant* extraDecoration);
 
-        void fertilize() {
-            cout << "Fertilizing plant: " << name << endl;
-            state->fertilize(this);
-        }
+        virtual void display() const;
 
-        void plantSeedlings() {
-            cout << "Planting seeds for: " << name << endl;
-            state->plantSeedlings(this);
-        }
-
-        void harvestAndStore() {
-            cout << "Harvesting and storing plant: " << name << endl;
-            state->harvestAndStore(this);
-        }
-
-        void discard() {
-            cout << "Discarding plant: " << name << endl;
-            state->discard(this);
-        }
-}
+        void dailyTick();
+        bool needsWatering();
+}   
