@@ -2,6 +2,7 @@
 #define MANAGER_H\
 
 #include "StaffHandler.h"
+#include "NurseryMediator.h"
 
 #include <string>
 #include <vector>
@@ -9,7 +10,7 @@
 
 using namespace std;
 
-class Manager : public StaffHandler{
+class Manager : public StaffHandler, public NurseryMediator {
     public:
         virtual void handleRequest(const string& request) {
             if (request.contains("inventory") || request.contains("staff") || request.contains("financial report")) {
