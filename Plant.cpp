@@ -1,10 +1,7 @@
 #include "Plant.h"
 
 Plant::Plant(const string& plantName = "Unknown", const string& plantType = "Generic", CareStrategy strat = NULL)  
-    : name(plantName), type(plantType), state(nullptr), careStrat(strat), ageDays(0), hydrationLevel(50)
-{
-    state = nullptr;
-}
+    : name(plantName), type(plantType), state(nullptr), zone(nullptr), ageDays(0), hydrationLevel(50) {}
 
 Plant::~Plant() 
 {
@@ -50,14 +47,14 @@ int Plant::getHydrationLevel() const
     return hydrationLevel;
 }
 
-void setCareStrategy(CareStrategy strat) 
+void Plant::setZone(Zone* z) 
 {
-    careStrat = strat;
+    zone = z;
 }
 
-CareStrategy* getCareStrategy() const 
+Zone* Plant::getZone() const 
 {
-    return careStrat;
+    return zone;
 }
 
 void Plant::setState(PlantState* newState) 
@@ -78,9 +75,8 @@ void add (Plant* extraDecoration)
 
 void Plant::display() const 
 {
-    std::string pad(indent, ' ');
-    cout << pad << "- " << name << " (" << type << ") - State: " << state->getStateName()
-         << pad << "  Age (days): " << ageDays << ", Hydration Level: " << hydrationLevel << endl;
+    std::cout << "🌿 " << name << " (" << type << ") - State: " << getStateName();
+        if (zone) std::cout << " [Zone: " << zone->getName() << "]";std::cout << std::endl;
 
     for (size_t i = 0; i < decorations.size(); i++) 
     {
@@ -116,10 +112,25 @@ void Plant::dailyTick()
     // strategy may decide watering needed (caller will check needsWater)
 }
 
-bool Plant::needsWatering() 
+bool Plant::needsWatering() const 
 {
-    return careStrat ? careStrat->needsWatering(this) : false; 
-    return hydrationLevel < 50;
+    if(zone && zone->getStrategy())
+    {
+        return zone->getStrategy()->needsWatering(*this);
+    }
+    return hydrationLevel < 50; // Default threshold
 }
 
+bool Plant::needsFertilizing() const 
+{
+    if(zone && zone->getStrategy())
+    {
+        return zone->getStrategy()->needsFertilizing(*this);
+    }
+    return ageDays % 7 == 0; // Default: needs fertilizing every 7 days
+}
 
+bool Plant::isMature() const 
+{
+    return state->getStateName() == "Mature";
+}

@@ -4,7 +4,7 @@
 #include "CareStaff.h"
 #include "CareCommand.h"
 #include "PlantState.h"
-#include "CareStrategy.h"
+#include "Zone.h"
 
 #include <string>
 #include <vector>
@@ -28,13 +28,13 @@ class Plant{
         string name;
         string type; 
         PlantState* state;
-        CareStrategy careStrat;
+        Zone* zone;
         int ageDays;
         int hydrationLevel;
         vector<Plant*> decorations; // For Decorator pattern
 
     public: 
-        Plant(const string& plantName, const string& plantType, CareStrategy strat);
+        Plant(const string& plantName, const string& plantType);
         virtual ~Plant();
 
         void initState(PlantState* initialState);
@@ -65,4 +65,8 @@ class Plant{
 
         void dailyTick();
         bool needsWatering();
-}   
+        bool needsFertilizing();
+        bool isMature();
+};
+
+#endif
