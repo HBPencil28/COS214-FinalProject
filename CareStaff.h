@@ -2,6 +2,7 @@
 #define CARESTAFF_H
 
 #include "Staff.h"
+#include "CareCommand.h"
 
 #include <iostream>
 #include <string>
@@ -11,12 +12,12 @@ using namespace std;
 
 class CareStaff : public Staff {
     public:
-        CareStaff() : Staff("Care") {}
+        CareStaff(const string &name) : Staff(name, "Care") {}
         ~CareStaff() {}
 
         virtual void performDuty() const
         {
-            cout << "Providing care and support to clients." << endl;
+            
         }
 };
 

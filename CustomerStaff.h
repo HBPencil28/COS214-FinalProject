@@ -2,6 +2,7 @@
 #define CUSTOMERSTAFF_H
 
 #include "Staff.h"
+#include "CustomerCommand.h"
 
 #include <iostream>
 #include <string>
@@ -10,13 +11,15 @@
 using namespace std;
 
 class CustomerStaff :public Staff {
+    private: 
+        vector<string> requests;
     public:
-        CustomerStaff() : Staff("Customer") {}
+        CustomerStaff(string name) : Staff(name, "Customer") {}
         ~CustomerStaff() {}
 
         virtual void performDuty() const
         {
-            cout << "Assisting customers with their needs." << endl;
+            
         }
 };
 

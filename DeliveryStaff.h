@@ -11,14 +11,13 @@ using namespace std;
 
 class DeliveryStaff :public Staff {
     public:
-        DeliveryStaff() : Staff("Delivery") {}
+        DeliveryStaff(string name) : Staff(name, "Delivery") {}
         ~DeliveryStaff() {}
 
         virtual void performDuty() const
         {
             cout << "Delivering packages to customers." << endl;
         }
-
 };
 
 #endif
