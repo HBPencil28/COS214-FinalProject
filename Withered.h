@@ -1,17 +1,24 @@
-#ifndef WILTED_H
-#define WILTED_H
+#ifndef WITHERED_H
+#define WITHERED_H
 
 #include "PlantState.h"
 
-class Wilted : public PlantState {
+class Withered : public PlantState {
     public:
-        ~Wilted() override;
-        std::string name() const override;
-        void onEnter() override;
-        void update() override;
-        void onExit() override;
+        Withered();
+        ~Withered();
+        std::string getStateName() const ;
+
+        void onEnter(Plant* plant);
+        void onExit(Plant* plant);
+
+        void dailyTick(Plant* plant);        // remains withered
+        void water(Plant* plant);            // no effect
+        void fertilize(Plant* plant);        // no effect
+        void harvestAndStore(Plant* plant);  // no-op
+        void discard(Plant* plant);          // already withered
 
 };
 
 
-#endif // WILTED_H
+#endif // WITHERED_H
