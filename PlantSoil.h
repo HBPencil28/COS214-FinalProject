@@ -2,7 +2,7 @@
 #define PLANTSOIL
 
 #include <string>
-#include "PlantComponents.h"
+#include "PlantComponent.h"
 
 class PlantSoil : public PlantComponent{
     public:

@@ -2,7 +2,7 @@
 #define PLANTPOT
 
 #include <string>
-#include "PlantComponents.h"
+#include "PlantComponent.h"
 
 class PlantPot: public PlantComponent{
     public:

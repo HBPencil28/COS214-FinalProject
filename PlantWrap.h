@@ -2,7 +2,7 @@
 #define PLANTWRAP
 
 #include <string>
-#include "PlantComponents.h"
+#include "PlantComponent.h"
 
 class PlantWrap : public PlantComponent{
     public:

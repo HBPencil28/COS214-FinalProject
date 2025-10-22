@@ -14,8 +14,9 @@ class PlantDecorator : public BasePlant{
     protected:
         ~PlantDecorator();
         BasePlant* getDecoration();
-            // Decorator
-            void add(BasePlant *plantDecoration) override;
+        // Decorator
+        void add(BasePlant *plantDecoration) override;
+        void addPart(PlantComponent *plant)override{}
 
     private:
         BasePlant* decoration;

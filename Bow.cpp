@@ -5,6 +5,7 @@ Bow::Bow(){
     this->style = "Basic";
 }
 Bow::~Bow(){}
+
 void Bow::changeStyle(std::string newStyle){
     this->style = newStyle;
 }
