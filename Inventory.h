@@ -13,8 +13,9 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
+#include "Plant.h"
 
-class Plant;         ///< Forward declaration for Plant
+
 class PlantIterator; ///< Forward declaration for PlantIterator
 
 /**
@@ -265,7 +266,7 @@ public:
      * @param p Pointer to the Plant to remove.
      * @return Pointer to the removed Plant if found, otherwise nullptr.
      */
-    Plant* removeSeed(Plant* p);
+    Plant* removeSeed(const std::string& type);
 
     /**
      * @brief Grant PlantIterator access to Inventory internals.
@@ -276,7 +277,21 @@ public:
      // Iterator
      ///////////////////////
 
-     PlantIterator* createIterator();
+     /**
+      * @brief Create a Iterator object
+      * 
+      * @param x 
+      * @return PlantIterator* 
+      */
+    PlantIterator* createIterator(std::vector<Plant*>* x);
+
+    /**
+     * @brief turns string to all lowercase
+     * 
+     * @param s 
+     * @return std::string 
+     */
+    std::string lower(const std::string &s);
     friend class PlantIterator;
 };
 

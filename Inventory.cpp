@@ -57,16 +57,31 @@ Inventory::~Inventory() {
 }
 
 
+std::string Inventory::lower(const std::string &s) { // lowercase comparison
+    std::string result = s;
+    std::transform(result.begin(), result.end(), result.begin(),
+                   [](unsigned char c){ return std::tolower(c); });
+    return result;
+}
+
 ///////////////////////
 // Flowers
 ///////////////////////
 
 bool Inventory::isRosesEmpty() const { return Roses.empty(); }
+
 void Inventory::addRose(Plant* p) {
     if (!p) { std::cout << "Cannot add null Rose\n"; return; }
+
+    if(lower(p->getName()) == "rose"){
     Roses.push_back(p);
-    std::cout << "Added Rose: " << p->getType() << '\n';
-}
+    std::cout << "Added Rose to Roses in Inventory"<< '\n';
+    }
+    else{
+        std::cout << "Added plant is NOT a Rose";
+    }
+};
+
 Plant* Inventory::removeRose(Plant* p) {
     if (!p) { std::cout << "Cannot remove null Rose\n"; return nullptr; }
     auto it = std::find(Roses.begin(), Roses.end(), p);
@@ -77,8 +92,13 @@ Plant* Inventory::removeRose(Plant* p) {
 bool Inventory::isDaisiesEmpty() const { return Daisies.empty(); }
 void Inventory::addDaisy(Plant* p) {
     if (!p) { std::cout << "Cannot add null Daisy\n"; return; }
+    if(lower(p->getName()) == "daisy"){
     Daisies.push_back(p);
-    std::cout << "Added Daisy: " << p->getType() << '\n';
+    std::cout << "Added Daisy to Dasies in Inventory"<< '\n';
+    }
+    else{
+        std::cout << "Added plant is NOT a Daisy";
+    }
 }
 Plant* Inventory::removeDaisy(Plant* p) {
     if (!p) { std::cout << "Cannot remove null Daisy\n"; return nullptr; }
@@ -90,8 +110,13 @@ Plant* Inventory::removeDaisy(Plant* p) {
 bool Inventory::isTulipsEmpty() const { return Tulips.empty(); }
 void Inventory::addTulip(Plant* p) {
     if (!p) { std::cout << "Cannot add null Tulip\n"; return; }
+    if(lower(p->getName()) == "tulip"){
     Tulips.push_back(p);
-    std::cout << "Added Tulip: " << p->getType() << '\n';
+    std::cout << "Added Tulip to Tulips in Inventory"<< '\n';
+    }
+    else{
+        std::cout << "Added plant is NOT a Tulip";
+    }
 }
 Plant* Inventory::removeTulip(Plant* p) {
     if (!p) { std::cout << "Cannot remove null Tulip\n"; return nullptr; }
@@ -107,8 +132,13 @@ Plant* Inventory::removeTulip(Plant* p) {
 bool Inventory::isSucculentsEmpty() const { return Succulents.empty(); }
 void Inventory::addSucculent(Plant* p) {
     if (!p) { std::cout << "Cannot add null Succulent\n"; return; }
+    if(lower(p->getName()) == "succulent"){
     Succulents.push_back(p);
-    std::cout << "Added Succulent: " << p->getType() << '\n';
+    std::cout << "Added Succulent to Succulents in Inventory"<< '\n';
+    }
+    else{
+        std::cout << "Added plant is NOT a Succulent";
+    }
 }
 Plant* Inventory::removeSucculent(Plant* p) {
     if (!p) { std::cout << "Cannot remove null Succulent\n"; return nullptr; }
@@ -120,8 +150,13 @@ Plant* Inventory::removeSucculent(Plant* p) {
 bool Inventory::isCactusesEmpty() const { return Cactuses.empty(); }
 void Inventory::addCactus(Plant* p) {
     if (!p) { std::cout << "Cannot add null Cactus\n"; return; }
+    if(lower(p->getName()) == "cactus"){
     Cactuses.push_back(p);
-    std::cout << "Added Cactus: " << p->getType() << '\n';
+    std::cout << "Added Cactus to Cactuses in Inventory"<< '\n';
+    }
+    else{
+        std::cout << "Plant is NOT a Cactus";
+    }
 }
 Plant* Inventory::removeCactus(Plant* p) {
     if (!p) { std::cout << "Cannot remove null Cactus\n"; return nullptr; }
@@ -137,8 +172,13 @@ Plant* Inventory::removeCactus(Plant* p) {
 bool Inventory::isBasilsEmpty() const { return Basils.empty(); }
 void Inventory::addBasil(Plant* p) {
     if (!p) { std::cout << "Cannot add null Basil\n"; return; }
+   if(lower(p->getName()) == "basil"){
     Basils.push_back(p);
-    std::cout << "Added Basil: " << p->getType() << '\n';
+    std::cout << "Added Basil to Basils in Inventory"<< '\n';
+    }
+    else{
+        std::cout << "Plant is NOT a Basil";
+    }
 }
 Plant* Inventory::removeBasil(Plant* p) {
     if (!p) { std::cout << "Cannot remove null Basil\n"; return nullptr; }
@@ -150,8 +190,13 @@ Plant* Inventory::removeBasil(Plant* p) {
 bool Inventory::isMintsEmpty() const { return Mints.empty(); }
 void Inventory::addMint(Plant* p) {
     if (!p) { std::cout << "Cannot add null Mint\n"; return; }
+    if(lower(p->getName()) == "mint"){
     Mints.push_back(p);
-    std::cout << "Added Mint: " << p->getType() << '\n';
+    std::cout << "Added Mint to Mints in Inventory"<< '\n';
+    }
+    else{
+        std::cout << "Plant is NOT a Mint";
+    }
 }
 Plant* Inventory::removeMint(Plant* p) {
     if (!p) { std::cout << "Cannot remove null Mint\n"; return nullptr; }
@@ -163,8 +208,13 @@ Plant* Inventory::removeMint(Plant* p) {
 bool Inventory::isParsleysEmpty() const { return Parsleys.empty(); }
 void Inventory::addParsley(Plant* p) {
     if (!p) { std::cout << "Cannot add null Parsley\n"; return; }
+    if(lower(p->getName()) == "parsley"){
     Parsleys.push_back(p);
-    std::cout << "Added Parsley: " << p->getType() << '\n';
+    std::cout << "Added Parsley to Parsleys in Inventory"<< '\n';
+    }
+    else{
+        std::cout << "Plant is NOT a Parsley";
+    }
 }
 Plant* Inventory::removeParsley(Plant* p) {
     if (!p) { std::cout << "Cannot remove null Parsley\n"; return nullptr; }
@@ -176,8 +226,13 @@ Plant* Inventory::removeParsley(Plant* p) {
 bool Inventory::isCoriandersEmpty() const { return Corianders.empty(); }
 void Inventory::addCoriander(Plant* p) {
     if (!p) { std::cout << "Cannot add null Coriander\n"; return; }
+    if(lower(p->getName()) == "coriander"){
     Corianders.push_back(p);
-    std::cout << "Added Coriander: " << p->getType() << '\n';
+    std::cout << "Added Coriander to Corianders in Inventory"<< '\n';
+    }
+    else{
+        std::cout << "Plant is NOT a Coriander";
+    }
 }
 Plant* Inventory::removeCoriander(Plant* p) {
     if (!p) { std::cout << "Cannot remove null Coriander\n"; return nullptr; }
@@ -189,8 +244,13 @@ Plant* Inventory::removeCoriander(Plant* p) {
 bool Inventory::isLavendersEmpty() const { return Lavenders.empty(); }
 void Inventory::addLavender(Plant* p) {
     if (!p) { std::cout << "Cannot add null Lavender\n"; return; }
+    if(lower(p->getName()) == "lavender"){
     Lavenders.push_back(p);
-    std::cout << "Added Lavender: " << p->getType() << '\n';
+    std::cout << "Added Lavender to Lavenders in Inventory"<< '\n';
+    }
+    else{
+        std::cout << "Plant is NOT a Lavender";
+    }
 }
 Plant* Inventory::removeLavender(Plant* p) {
     if (!p) { std::cout << "Cannot remove null Lavender\n"; return nullptr; }
@@ -202,8 +262,13 @@ Plant* Inventory::removeLavender(Plant* p) {
 bool Inventory::isRosemaryEmpty() const { return Rosemary.empty(); }
 void Inventory::addRosemary(Plant* p) {
     if (!p) { std::cout << "Cannot add null Rosemary\n"; return; }
+    if(lower(p->getName()) == "rosemary"){
     Rosemary.push_back(p);
-    std::cout << "Added Rosemary: " << p->getType() << '\n';
+    std::cout << "Added Rosemary to Rosemary in Inventory"<< '\n';
+    }
+    else{
+        std::cout << "Plant is NOT a Rosemary";
+    }
 }
 Plant* Inventory::removeRosemary(Plant* p) {
     if (!p) { std::cout << "Cannot remove null Rosemary\n"; return nullptr; }
@@ -215,8 +280,13 @@ Plant* Inventory::removeRosemary(Plant* p) {
 bool Inventory::isLemonBalmsEmpty() const { return LemonBalms.empty(); }
 void Inventory::addLemonBalm(Plant* p) {
     if (!p) { std::cout << "Cannot add null LemonBalm\n"; return; }
+    if(lower(p->getName()) == "lemonbalm"){
     LemonBalms.push_back(p);
-    std::cout << "Added LemonBalm: " << p->getType() << '\n';
+    std::cout << "Added LemonBalm to LemonBalms in Inventory"<< '\n';
+    }
+    else{
+        std::cout << "Plant is NOT a LemonBalm";
+    }
 }
 Plant* Inventory::removeLemonBalm(Plant* p) {
     if (!p) { std::cout << "Cannot remove null LemonBalm\n"; return nullptr; }
@@ -232,8 +302,13 @@ Plant* Inventory::removeLemonBalm(Plant* p) {
 bool Inventory::isHibiscusEmpty() const { return Hibiscus.empty(); }
 void Inventory::addHibiscus(Plant* p) {
     if (!p) { std::cout << "Cannot add null Hibiscus\n"; return; }
+    if(lower(p->getName()) == "hibiscus"){
     Hibiscus.push_back(p);
-    std::cout << "Added Hibiscus: " << p->getType() << '\n';
+    std::cout << "Added Hibiscus to Hibiscus in Inventory"<< '\n';
+    }
+    else{
+        std::cout << "Plant is NOT a Hibiscus";
+    }
 }
 Plant* Inventory::removeHibiscus(Plant* p) {
     if (!p) { std::cout << "Cannot remove null Hibiscus\n"; return nullptr; }
@@ -245,8 +320,13 @@ Plant* Inventory::removeHibiscus(Plant* p) {
 bool Inventory::isHydrangeaEmpty() const { return Hydrangea.empty(); }
 void Inventory::addHydrangea(Plant* p) {
     if (!p) { std::cout << "Cannot add null Hydrangea\n"; return; }
+    if(lower(p->getName()) == "hydrangea"){
     Hydrangea.push_back(p);
-    std::cout << "Added Hydrangea: " << p->getType() << '\n';
+    std::cout << "Added Hydrangea to Hydrangea in Inventory"<< '\n';
+    }
+    else{
+        std::cout << "Plant is NOT a Hydrangea";
+    }
 }
 Plant* Inventory::removeHydrangea(Plant* p) {
     if (!p) { std::cout << "Cannot remove null Hydrangea\n"; return nullptr; }
@@ -258,8 +338,13 @@ Plant* Inventory::removeHydrangea(Plant* p) {
 bool Inventory::isBoxwoodEmpty() const { return Boxwood.empty(); }
 void Inventory::addBoxwood(Plant* p) {
     if (!p) { std::cout << "Cannot add null Boxwood\n"; return; }
+    if(lower(p->getName()) == "boxwood"){
     Boxwood.push_back(p);
-    std::cout << "Added Boxwood: " << p->getType() << '\n';
+    std::cout << "Added Boxwood to Boxwood in Inventory"<< '\n';
+    }
+    else{
+        std::cout << "Plant is NOT a Boxwood";
+    }
 }
 Plant* Inventory::removeBoxwood(Plant* p) {
     if (!p) { std::cout << "Cannot remove null Boxwood\n"; return nullptr; }
@@ -271,8 +356,13 @@ Plant* Inventory::removeBoxwood(Plant* p) {
 bool Inventory::isOakEmpty() const { return Oak.empty(); }
 void Inventory::addOak(Plant* p) {
     if (!p) { std::cout << "Cannot add null Oak\n"; return; }
+    if(lower(p->getName()) == "oak"){
     Oak.push_back(p);
-    std::cout << "Added Oak: " << p->getType() << '\n';
+    std::cout << "Added Oak to Oak in Inventory"<< '\n';
+    }
+    else{
+        std::cout << "Plant is NOT a Oak";
+    }
 }
 Plant* Inventory::removeOak(Plant* p) {
     if (!p) { std::cout << "Cannot remove null Oak\n"; return nullptr; }
@@ -284,8 +374,13 @@ Plant* Inventory::removeOak(Plant* p) {
 bool Inventory::isBaobabEmpty() const { return Baobab.empty(); }
 void Inventory::addBaobab(Plant* p) {
     if (!p) { std::cout << "Cannot add null Baobab\n"; return; }
+    if(lower(p->getName()) == "baobab"){
     Baobab.push_back(p);
-    std::cout << "Added Baobab: " << p->getType() << '\n';
+    std::cout << "Added Baobab to Baobab in Inventory"<< '\n';
+    }
+    else{
+        std::cout << "Plant is NOT a Baobab";
+    }
 }
 Plant* Inventory::removeBaobab(Plant* p) {
     if (!p) { std::cout << "Cannot remove null Baobab\n"; return nullptr; }
@@ -301,13 +396,30 @@ Plant* Inventory::removeBaobab(Plant* p) {
 bool Inventory::isSeedsEmpty() const { return seeds.empty(); }
 void Inventory::addSeed(Plant* p) {
     if (!p) { std::cout << "Cannot add null Seed\n"; return; }
+    if(lower(p->getStateName()) == "seedling"){
     seeds.push_back(p);
-    std::cout << "Added Seed: " << p->getType() << '\n';
+    std::cout << "Added Seed to Seeds in Inventory"<< '\n';
+    }
+    else{
+        std::cout << "Plant is NOT a seed";
+    }
 }
-Plant* Inventory::removeSeed(Plant* p) {
-    if (!p) { std::cout << "Cannot remove null Seed\n"; return nullptr; }
-    auto it = std::find(seeds.begin(), seeds.end(), p);
-    if (it != seeds.end()) { Plant* removed = *it; seeds.erase(it); return removed; }
+Plant* Inventory::removeSeed(const std::string& type) {
+    if (type.empty()) { 
+        std::cout << "Cannot remove seed with empty type\n"; 
+        return nullptr; 
+    }
+    
+    for (auto it = seeds.begin(); it != seeds.end(); ++it) {
+        if (lower((*it)->getName()) == lower(type)) {
+            Plant* removed = *it;
+            seeds.erase(it);
+            std::cout << "Removed seed of type: " << type << '\n';
+            return removed;
+        }
+    }
+    
+    std::cout << "No seed found of type: " << type << '\n';
     return nullptr;
 }
 
