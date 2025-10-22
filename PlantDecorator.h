@@ -5,18 +5,20 @@
 #include <iostream>
 
 #include "Plant.h"
+#include "BasePlant.h"
 
-class PlantDecorator : public Plant{
+class PlantDecorator : public BasePlant{
     public:
         PlantDecorator();
         
     protected:
         ~PlantDecorator();
+        BasePlant* getDecoration();
+            // Decorator
+            void add(BasePlant *plantDecoration) override;
 
-        // Decorator
-        void add(Plant* plantDecoration) override;
     private:
-        Plant* decoration;
+        BasePlant* decoration;
 };
 
 #endif

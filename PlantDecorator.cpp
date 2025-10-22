@@ -9,7 +9,9 @@ PlantDecorator::~PlantDecorator(){
     decoration = nullptr;
 }
 
-void PlantDecorator::add(Plant *plantDecoration){
+BasePlant* PlantDecorator::getDecoration() { return this->decoration; }
+
+void PlantDecorator::add(BasePlant *plantDecoration){
     if (plantDecoration == nullptr){
         std::cout << "Trying to add nullptr decoration" << std::endl;
         return;
@@ -20,5 +22,4 @@ void PlantDecorator::add(Plant *plantDecoration){
     }else{
         this->decoration->add(plantDecoration);
     }
-    
 }
