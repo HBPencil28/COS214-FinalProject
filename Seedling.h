@@ -4,8 +4,8 @@
 
 class Seedling : public PlantState {
 public:
-    Seedling();
-    ~Seedling();
+    Seedling() = default;
+    ~Seedling() = default;
 
     std::string getStateName() const ;
 

@@ -5,18 +5,18 @@
 
 class Withered : public PlantState {
     public:
-        Withered();
-        ~Withered();
+        Withered() = default;
+        ~Withered() override = default;
         std::string getStateName() const ;
 
-        void onEnter(Plant* plant);
-        void onExit(Plant* plant);
+        void onEnter(Plant* plant)override;
+        void onExit(Plant* plant)override;
 
-        void dailyTick(Plant* plant);        // remains withered
-        void water(Plant* plant);            // no effect
-        void fertilize(Plant* plant);        // no effect
-        void harvestAndStore(Plant* plant);  // no-op
-        void discard(Plant* plant);          // already withered
+        void dailyTick(Plant* plant)override;        // remains withered
+        void water(Plant* plant)override;            // no effect
+        void fertilize(Plant* plant)override;        // no effect
+        void harvestAndStore(Plant* plant)override;  // no-op
+        void discard(Plant* plant)override;          // already withered
 
 };
 

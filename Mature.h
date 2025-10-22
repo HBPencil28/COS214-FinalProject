@@ -4,8 +4,8 @@
 
 class Mature : public PlantState {
 public:
-    Mature();
-    ~Mature();
+    Mature() = default;
+    ~Mature() = default;
 
     std::string getStateName() const override;
 

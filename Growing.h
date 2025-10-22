@@ -4,8 +4,8 @@
 
 class Growing : public PlantState {
 public:
-    Growing();
-    ~Growing();
+    Growing() = default;
+    ~Growing() = default;
 
      std::string getStateName() const override;
 

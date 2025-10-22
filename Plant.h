@@ -1,10 +1,10 @@
 #ifndef PLANT_H
 #define PLANT_H
 
-#include "CareStaff.h"
-#include "CareCommand.h"
+// #include "CareStaff.h"
+// #include "CareCommand.h"
 #include "PlantState.h"
-#include "Zone.h"
+// #include "Zone.h"
 
 #include <string>
 #include <vector>
@@ -28,13 +28,13 @@ class Plant{
         string name;
         string type; 
         PlantState* state;
-        Zone* zone;
+        // Zone* zone;
         int ageDays;
         int hydrationLevel;
         //vector<Plant*> decorations; // For Decorator pattern
 
     public: 
-        Plant(const string& plantName, const string& plantType);
+        // Plant(const string& plantName, const string& plantType);
         virtual ~Plant();
 
         void initState(PlantState* initialState);
