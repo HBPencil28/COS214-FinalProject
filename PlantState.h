@@ -19,7 +19,7 @@ protected:
     PlantState() = default;
 
     // Aggregation back-pointer into the Plant context (commented for now).
-    // Plant* ctx = nullptr;
+    // Plant* ctx = NULL;
 };
 
 
