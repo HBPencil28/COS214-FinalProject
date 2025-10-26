@@ -6,9 +6,11 @@
 
 class HighCare : public CareStrategy{
     public:
-        HighCare();
+        HighCare(Plant *plant);
         ~HighCare();
-        void care() override;
+        // void care() override;
+        void care(CareStaff *staff) override;
+
     private:
 };
 

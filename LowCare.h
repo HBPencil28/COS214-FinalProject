@@ -3,12 +3,15 @@
 
 #include "CareStrategy.h"
 #include <iostream>
+#include <string>
 
 class LowCare : public CareStrategy{
     public:
-        LowCare();
+        LowCare(Plant* plant);
         ~LowCare();
-        void care() override;
+        // void care() override;
+        void care(CareStaff *staff) override;
+
     private:
 };
 
