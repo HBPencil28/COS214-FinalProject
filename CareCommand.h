@@ -16,7 +16,9 @@ class CareCommand{
     protected:
         Plant* plant;
     public:
-        virtual void execute(CareStaff& staff) = 0;
+        CareCommand(Plant* p) : plant(p) {}
+
+        virtual void execute(CareStaff& staff, double waterAmount, double fertiliseAmount) = 0;
         virtual ~CareCommand(){}
 };
 
