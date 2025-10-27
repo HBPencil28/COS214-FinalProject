@@ -1,5 +1,5 @@
-#ifndef POTPLANTBUILDER_H
-#define POTPLANTBUILDER_H
+#ifndef WRAPPLANTBUILDER_H
+#define WRAPPLANTBUILDER_H
 
 #include "PlantBuilder.h"
 
