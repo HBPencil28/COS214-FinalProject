@@ -1,3 +1,5 @@
 *.vpp.*
 UML_Class_Diagram.jpg
 Inventory.h
+main.cpp
+settings.json
