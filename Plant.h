@@ -5,6 +5,7 @@
 #include "CareCommand.h"
 #include "PlantState.h"
 #include "Zone.h"
+#include "Greenhouse.h"
 
 #include <string>
 #include <vector>
@@ -20,10 +21,10 @@ class Growing;
 class Mature;
 class Withered;
 
-// Forward declaration for Greenhouse (if Composite pattern
-class Greenhouse;
+// // Forward declaration for Greenhouse (if Composite pattern
+// class Greenhouse;
 
-class Plant{
+class Plant: public Greenhouse{
     private:
         string name;
         string type; 
@@ -35,6 +36,7 @@ class Plant{
 
     public: 
         Plant(const string& plantName, const string& plantType);
+        Plant(const Plant& plant);
         virtual ~Plant();
 
         void initState(PlantState* initialState);
@@ -53,7 +55,7 @@ class Plant{
         void discard();
         
         // ----- Prototype Pattern -----
-        virtual Plant* clone() = 0;
+        Plant* clone() override;
 
         // ----- Decorator / Composite Pattern -----
         //virtual void add(Plant* extraDecoration);
@@ -61,9 +63,11 @@ class Plant{
         virtual void display() const;
 
         void dailyTick();
-        bool needsWatering();
-        bool needsFertilizing();
-        bool isMature();
+        bool needsWatering() const;
+        bool needsFertilizing() const;
+        bool isMature() const;
+
+        void execute(){};
 };
 
 #endif

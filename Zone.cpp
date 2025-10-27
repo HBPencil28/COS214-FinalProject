@@ -1,34 +1,63 @@
 #include "Zone.h"
 
-Zone::Zone() : strategy(nullptr){}
-
-Zone::~Zone(){
-    // If main does not handle memory management
-    // if (strategy){
-    //     delete strategy;
-    //     strategy = nullptr;
-    // }
-    
-}
-
-void Zone::useStrategy(){
-    if (strategy){
-        strategy->care();
+void Zone::add(Greenhouse* child) {
+    if (!child) {
+        throw std::invalid_argument("Cannot add null child to Zone");
     }
-    
+
+    // if zoneCategory is non-empty enforce matching types (adjust policy as needed)
+    if (!zoneCategory.empty() && child->getType() != zoneCategory) {
+        throw std::invalid_argument("Cannot add child with type '" + child->getType()
+                                  + "' to zone with category '" + zoneCategory + "'");
+    }
+
+    children.push_back(child);
 }
 
-void Zone::setStrategy(CareStrategy *strategy){
-    if (strategy == nullptr){
-        std::cout << "Trying to set a nullptrStrategy";
-        return;
+void Zone::remove(Greenhouse* child) {
+    auto it = std::find(children.begin(), children.end(), child);
+    if (it == children.end()) {
+        throw std::runtime_error("Child not found in Zone");
     }
-    // What should be done with the old strategy?
-    // if (this->strategy != nullptr){
-    //     delete this->strategy;
-    //     this->strategy = nullptr;
-    // }
-    
-    this->strategy = strategy;
-    
+    children.erase(it);
 }
+
+Greenhouse* Zone::getChild(std::size_t index) {
+    if (index >= children.size()) {
+        throw std::out_of_range("Index out of range in Zone::getChild");
+    }
+    return children[index];
+}
+
+const std::vector<Greenhouse*>& Zone::getChildren() const {
+    return children;
+}
+
+bool Zone::isComposite() const {
+    return true;
+}
+
+void Zone::execute() {
+    // Execute operation on all children
+    for (auto* child : children) {
+        if (child) {
+            child->execute();
+        }
+    }
+}
+
+Zone::Zone(std::string Z_Name, std::string C_Name):zoneName(Z_Name), zoneCategory(C_Name) {}
+
+void Zone::setZoneName(std::string name){
+        this->zoneName = name;
+    }
+
+std::string Zone::getZoneName(){
+        return this->zoneName;
+}
+
+void Zone::setZoneCategory(std::string category){
+        this->zoneCategory = category;
+}
+
+CareStrategy *Zone::getStrategy(){ return this->strategy;}
