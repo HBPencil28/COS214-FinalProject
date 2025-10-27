@@ -5,6 +5,7 @@
 
 class WrapPlantBuilder : public PlantBuilder{
     public:
+        WrapPlantBuilder(BasePlant *product);
         void addWrap() override;
 };
 

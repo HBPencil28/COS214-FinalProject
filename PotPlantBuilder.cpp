@@ -1,5 +1,7 @@
 #include "PotPlantBuilder.h"
 
+PotPlantBuilder::PotPlantBuilder(BasePlant* product) : PlantBuilder(product) {}
+
 void PotPlantBuilder::addPot(){
     PlantComponent* pot = new PlantPot();
     this->product->addPart(pot);
