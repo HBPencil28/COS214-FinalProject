@@ -9,6 +9,7 @@ class PotPlantBuilder : public PlantBuilder{
         PotPlantBuilder(BasePlant *product);
         void addPot() override;
         void addSoil() override;
+        void addWrap(){}
 };
 
 #endif

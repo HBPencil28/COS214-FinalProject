@@ -6,6 +6,8 @@
 class WrapPlantBuilder : public PlantBuilder{
     public:
         WrapPlantBuilder(BasePlant *product);
+        void addPot(){}
+        void addSoil(){}
         void addWrap() override;
 };
 
