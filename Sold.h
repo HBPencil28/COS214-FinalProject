@@ -5,11 +5,8 @@
 
 class Sold : public PlantStatus {
 public:
-    ~Sold();
-
-    std::string code() const ;
-    void apply() ;
-    void revoke() ;
+    const char* code() const override { return "Sold"; }
+    void onReturn(Plant& p, const std::string& reason) override; // -> Returned
 };
 
 #endif // SOLD_H

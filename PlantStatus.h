@@ -1,24 +1,22 @@
 #ifndef PLANTSTATUS_H
 #define PLANTSTATUS_H
-#include <string>
+#include <string>   
+
+class Plant; // forward declaration to avoid circular dependency
 
 class PlantStatus {
 public:
     virtual ~PlantStatus() = default;
 
-    // --- Minimal “status” interface ---
-    virtual std::string code() const = 0;   // e.g., "InStorage", "Sold"
-    virtual void apply() = 0;               // when status is set
-    virtual void revoke() = 0;              // when status ends / changes
+    virtual const char* code() const = 0;
 
-    // Context wiring (keep commented until Plant is available).
-    // virtual void setContext(Plant* p) { ctx = p; }
+    // lifecycle hooks when a state becomes active/inactive
+    virtual void enter(Plant&) {}
+    virtual void exit(Plant&)  {}
 
-protected:
-    PlantStatus() = default;
-
-    // Aggregation back-pointer into the Plant context (commented for now).
-    // Plant* ctx = nullptr;
+    // events the system can trigger
+    virtual void onSell(Plant&) {}
+    virtual void onReturn(Plant&, const std::string& reason) {}
 };
 
 #endif // PLANTSTATUS_H

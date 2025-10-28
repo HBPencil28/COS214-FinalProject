@@ -2,13 +2,11 @@
 #define INSTORAGE_H
 
 #include "PlantStatus.h"
+
 class InStorage : public PlantStatus {
 public:
-    ~InStorage();
-
-    std::string code();
-    void apply();
-    void revoke();
+    const char* code() const override { return "InStorage"; }
+    void onSell(Plant& p) override; // -> Sold
 };
 
 #endif // INSTORAGE_H

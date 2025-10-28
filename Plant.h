@@ -8,6 +8,7 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 #include <iostream>
 
 #include "PlantState.h"
@@ -32,6 +33,7 @@ class Plant{
         int ageDays;
         int hydrationLevel;
         //vector<Plant*> decorations; // For Decorator pattern
+        std::unique_ptr<PlantStatus> status_;
 
     public: 
         // Plant(const string& plantName, const string& plantType);
@@ -64,6 +66,16 @@ class Plant{
         bool needsWatering();
         bool needsFertilizing();
         bool isMature();
+
+        void sell();                                 // InStorage -> Sold
+        void markReturned(const std::string& why);   // Sold -> Returned -> InStorage
+        const char* statusCode() const;              // e.g., "InStorage"
+
+        // --- Used by states ---
+        void changeStatus(std::unique_ptr<PlantStatus> next);
+        void auditStatusChange(const char* from, const char* to, const std::string& why = "");
+        
+
 };
 
 #endif

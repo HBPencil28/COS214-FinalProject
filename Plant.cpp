@@ -1,4 +1,8 @@
 #include "Plant.h"
+#include "PlantStatus.h"
+#include "InStorage.h"
+#include <utility>
+#include <memory>
 
 // Plant::Plant(const string& plantName = "Unknown", const string& plantType = "Generic", CareStrategy strat = NULL)  
 //     : name(plantName), type(plantType), state(nullptr), zone(nullptr), ageDays(0), hydrationLevel(50) {}
@@ -124,3 +128,6 @@ void Plant::dailyTick()
 // {
 //     return state->getStateName() == "Mature";
 // }
+
+
+/* These have been added for PlantStatus*/
