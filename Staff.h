@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <map>
 #include <iostream>
 
 #include "NurseryMediator.h"
@@ -13,9 +14,9 @@ using namespace std;
 
 class Staff{
 protected:
-    
     NurseryMediator* mediator;
     Inventory* inv;
+    map<string, bool> stockAvailability; // keeps track of available stock, true = available, false = out of stock
 public:
     Staff();
     void registerMediator(NurseryMediator* mediator);
@@ -26,10 +27,10 @@ public:
     virtual void changed() = 0; 
 
     // CareStaff will say the plant they restocked, DeliveryStaff && CustomerStaff will say the plant they finished
-    virtual std::string get() = 0;
+    virtual std::map<std::string, bool> get() = 0;
 
     // receive notification from the mediator
-    virtual void set(std::string) = 0;
+    virtual void set(std::map<std::string, bool>) = 0;
 
 
 };

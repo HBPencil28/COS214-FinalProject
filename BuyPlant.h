@@ -4,14 +4,15 @@
 #include <iostream>
 #include <string>  
 #include "CustomerCommand.h"
+#include "order.h"
 
 class BuyPlant : public CustomerCommand {
 
 private:
-    std::string plantToPurchase;
+    Order plantDetails;
 
 public:
-    BuyPlant(const std::string& plant, Staff* staff) : CustomerCommand(staff), plantToPurchase(plant) {};
+    BuyPlant(Order& plant, Staff* staff) : CustomerCommand(staff), plantDetails(plant) {};
     void execute() override;    
 };
 

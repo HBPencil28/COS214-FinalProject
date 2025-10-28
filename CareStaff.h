@@ -11,13 +11,14 @@
 using namespace std;
 
 class CareStaff : public Staff, public PlantObserver {
-    
-public:
-    void update(/*PlantState* state*/) override;
-    void changed() override;
-    string get() override;
-    void set(string) override;
+private:
+    void insertToInventory(Plant* plant, bool& toUpdate);
 
+public:
+    void update() override;
+    void changed() override;
+    std::map<std::string, bool> get() override;
+    void set(std::map<std::string, bool>) override;
 };
 
 #endif
