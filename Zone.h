@@ -12,6 +12,8 @@
  * 
  */
 #include "Greenhouse.h"
+#include "HighCare.h"
+#include "CareStaff.h"
 #include "CareStrategy.h"
 #include <algorithm>
 #include <vector>
@@ -26,20 +28,20 @@ private:
     std::vector<Greenhouse*> children; /**< Container for child components */
     std::string zoneName;
     std::string zoneCategory;
-
-public:
     /**
      * @brief strategy to be used for all plants
-     * 
+     *
      */
-    CareStrategy* strategy;
+    CareStrategy *strategy;
+    CareStaff* staff;
 
+public:
 
     /** @brief Paramaterised constructor */
-    Zone(std::string Z_Name, std::string C_Name);
+    Zone(std::string Z_Name, std::string C_Name, CareStaff* s);
     
     /** @brief Virtual destructor */
-    virtual ~Zone() override = default;
+    virtual ~Zone();
 
     /**
      * @brief Add a child component
@@ -100,9 +102,9 @@ public:
 
     /**
      * @brief Studded clone method
-     *
+     * @return nullptr
      */
-    Plant *clone(){}
+    Plant *clone(){ return nullptr;}
 
     /**
      * @brief Get the Zone strategy object
@@ -110,6 +112,11 @@ public:
      * @return CareStrategy
      */
     CareStrategy* getStrategy();
+
+
+
+    void setStrategy(CareStrategy *strategy);
+    void setStaff(CareStaff* staff);
 };
 
 #endif

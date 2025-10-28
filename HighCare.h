@@ -6,10 +6,10 @@
 
 class HighCare : public CareStrategy{
     public:
-        HighCare(Plant *plant);
+        HighCare(Zone *zone, CareStaff *c);
         ~HighCare();
         // void care() override;
-        void care(CareStaff *staff) override;
+        void care() override;
 
     private:
 };

@@ -78,13 +78,14 @@ void Plant::display() const
     // }
 }
 
-void Plant::water() 
+void Plant::water(int amount) 
 {
-    hydrationLevel = std::min(100, hydrationLevel + 50);
+    // hydrationLevel = std::min(100, hydrationLevel + 50);
+    hydrationLevel += amount;
     state->water(this);
 }
 
-void Plant::fertilize() 
+void Plant::fertilize(int amount) 
 {
     state->fertilize(this);
 }

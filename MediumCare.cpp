@@ -1,15 +1,13 @@
 #include "MediumCare.h"
 
-MediumCare::MediumCare(Plant *plant) : CareStrategy(50, 5, plant) {}
+MediumCare::MediumCare(Zone *zone, CareStaff *c) : CareStrategy(50, 5, zone, c) {}
 
 MediumCare::~MediumCare(){}
 
 // void MediumCare::care(){
-void MediumCare::care(CareStaff *staff){
+void MediumCare::care(){
     std::cout << "Begining the Medium care process" << std::endl;
     // Medium care operations
-    // waterCommand->execute(this->water);
-    waterCommand->execute(*staff);
-    // fertiliseCommand->execute(this->fertilizer);
-    fertiliseCommand->execute(*staff);
+    fertiliseCommand->execute(this->zone);
+    waterCommand->execute(this->zone);
 }

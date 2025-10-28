@@ -1,15 +1,13 @@
 #include "HighCare.h"
 
-HighCare::HighCare(Plant *plant) : CareStrategy(100, 10, plant) {}
+HighCare::HighCare(Zone *zone, CareStaff *c) : CareStrategy(100, 10, zone, c) {}
 
 HighCare::~HighCare(){}
 
 // void HighCare::care(){
-void HighCare::care(CareStaff *staff){
+void HighCare::care(){
     std::cout << "Begining the High care process" << std::endl;
     // High care operations
-    // waterCommand->execute(this->water);
-    waterCommand->execute(*staff);
-    // fertiliseCommand->execute(this->fertilizer);
-    fertiliseCommand->execute(*staff);
+    fertiliseCommand->execute(this->zone);
+    waterCommand->execute(this->zone);
 }

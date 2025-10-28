@@ -7,10 +7,10 @@
 
 class LowCare : public CareStrategy{
     public:
-        LowCare(Plant* plant);
+        LowCare(Zone *zone, CareStaff *c);
         ~LowCare();
         // void care() override;
-        void care(CareStaff *staff) override;
+        void care() override;
 
     private:
 };

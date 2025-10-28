@@ -2,6 +2,7 @@
 #define CARECOMMAND_H
 
 #include "CareStaff.h"
+#include "Greenhouse.h"
 #include "Plant.h"
 
 #include <string>
@@ -13,11 +14,13 @@ using namespace std;
 class CareStaff;
 
 class CareCommand{
-    protected:
-        Plant* plant;
-    public:
-        virtual void execute(CareStaff& staff) = 0;
-        virtual ~CareCommand(){}
+protected:
+    CareStaff *staff;
+
+public:
+    CareCommand(CareStaff* s) : staff(s) {}
+    virtual void execute(Zone* z) = 0;
+    virtual ~CareCommand() {}
 };
 
 #endif

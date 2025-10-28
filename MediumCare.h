@@ -6,10 +6,10 @@
 
 class MediumCare : public CareStrategy{
     public:
-        MediumCare(Plant *plant);
+        MediumCare(Zone *zone, CareStaff *c);
         ~MediumCare();
         // void care() override;
-        void care(CareStaff* staff) override;
+        void care() override;
     private:
 };
 

@@ -6,8 +6,8 @@ void Zone::add(Greenhouse* child) {
     }
 
     // if zoneCategory is non-empty enforce matching types (adjust policy as needed)
-    if (!zoneCategory.empty() && child->getType() != zoneCategory) {
-        throw std::invalid_argument("Cannot add child with type '" + child->getType()
+    if (!zoneCategory.empty() && static_cast<Plant*>(child)->getType() != zoneCategory) {
+        throw std::invalid_argument("Cannot add child with type '" + static_cast<Plant*>(child)->getType()
                                   + "' to zone with category '" + zoneCategory + "'");
     }
 
@@ -44,9 +44,12 @@ void Zone::execute() {
             child->execute();
         }
     }
+    this->strategy->care();
 }
 
-Zone::Zone(std::string Z_Name, std::string C_Name):zoneName(Z_Name), zoneCategory(C_Name) {}
+Zone::Zone(std::string Z_Name, std::string C_Name, CareStaff *s) : zoneName(Z_Name), zoneCategory(C_Name), staff(s) {
+    this->strategy = new HighCare(this, this->staff);
+}
 
 void Zone::setZoneName(std::string name){
         this->zoneName = name;
@@ -61,3 +64,26 @@ void Zone::setZoneCategory(std::string category){
 }
 
 CareStrategy *Zone::getStrategy(){ return this->strategy;}
+
+void Zone::setStrategy(CareStrategy *strategy){
+    if (!strategy){
+    }
+    else{
+        if (this->strategy)
+        {
+            delete this->strategy;
+        }
+        this->strategy = strategy;
+    }
+}
+
+void Zone::setStaff(CareStaff *staff){
+    if (staff){
+        this->staff = staff;
+    }
+    
+}
+
+Zone::~Zone(){
+    delete this->strategy;
+}

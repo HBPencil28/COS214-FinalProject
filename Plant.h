@@ -50,8 +50,8 @@ class Plant: public Greenhouse{
 
         void setState(PlantState* newState);
 
-        void water();
-        void fertilize();
+        void water(int amount);
+        void fertilize(int amount);
         void harvestAndStore();
         void discard();
         
