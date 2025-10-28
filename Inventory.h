@@ -104,10 +104,9 @@ public:
 
     /**
      * @brief Remove a Plant from the Roses collection.
-     * @param p Pointer to the Plant to remove.
      * @return Pointer to the removed Plant if found, otherwise nullptr.
      */
-    Plant* removeRose(Plant* p);
+    Plant* removeRose();
 
     /**
      * @brief Check whether the Daisies collection is empty.
@@ -123,10 +122,9 @@ public:
 
     /**
      * @brief Remove a Plant from the Daisies collection.
-     * @param p Pointer to the Plant to remove.
      * @return Pointer to the removed Plant if found, otherwise nullptr.
      */
-    Plant* removeDaisy(Plant* p);
+    Plant* removeDaisy();
 
     /**
      * @brief Check whether the Tulips collection is empty.
@@ -142,10 +140,9 @@ public:
 
     /**
      * @brief Remove a Plant from the Tulips collection.
-     * @param p Pointer to the Plant to remove.
      * @return Pointer to the removed Plant if found, otherwise nullptr.
      */
-    Plant* removeTulip(Plant* p);
+    Plant* removeTulip();
 
     // --------------------
     // Succulents & Cactuses
@@ -165,10 +162,9 @@ public:
 
     /**
      * @brief Remove a Plant from the Succulents collection.
-     * @param p Pointer to the Plant to remove.
      * @return Pointer to the removed Plant if found, otherwise nullptr.
      */
-    Plant* removeSucculent(Plant* p);
+    Plant* removeSucculent();
 
     /**
      * @brief Check whether the Cactuses collection is empty.
@@ -184,10 +180,9 @@ public:
 
     /**
      * @brief Remove a Plant from the Cactuses collection.
-     * @param p Pointer to the Plant to remove.
      * @return Pointer to the removed Plant if found, otherwise nullptr.
      */
-    Plant* removeCactus(Plant* p);
+    Plant* removeCactus();
 
     // --------------------
     // Herbs & Aromatics
@@ -195,55 +190,135 @@ public:
 
     bool isBasilsEmpty() const;
     void addBasil(Plant* p);
-    Plant* removeBasil(Plant* p);
+    Plant* removeBasil();
 
     bool isMintsEmpty() const;
     void addMint(Plant* p);
-    Plant* removeMint(Plant* p);
+    Plant* removeMint();
 
     bool isParsleysEmpty() const;
     void addParsley(Plant* p);
-    Plant* removeParsley(Plant* p);
+    Plant* removeParsley();
 
     bool isCoriandersEmpty() const;
     void addCoriander(Plant* p);
-    Plant* removeCoriander(Plant* p);
+    Plant* removeCoriander();
 
     bool isLavendersEmpty() const;
     void addLavender(Plant* p);
-    Plant* removeLavender(Plant* p);
+    Plant* removeLavender();
 
     bool isRosemaryEmpty() const;
     void addRosemary(Plant* p);
-    Plant* removeRosemary(Plant* p);
+    Plant* removeRosemary();
 
     bool isLemonBalmsEmpty() const;
     void addLemonBalm(Plant* p);
-    Plant* removeLemonBalm(Plant* p);
+    Plant* removeLemonBalm();
 
     // --------------------
     // Trees & Shrubs
     // --------------------
 
+    /**
+     * @brief checks to see if hibiscus is empty
+     * 
+     * @return true 
+     * @return false 
+     */
     bool isHibiscusEmpty() const;
+    /**
+     * @brief adds hibiscus to inventory
+     * 
+     * @param p 
+     */
     void addHibiscus(Plant* p);
-    Plant* removeHibiscus(Plant* p);
+    /**
+     * @brief removes hibiscus from inventory
+     * 
+     * @return Plant* 
+     */
+    Plant* removeHibiscus();
 
+    /**
+     * @brief checks to see if hydrangea is empty
+     * 
+     * @return true 
+     * @return false 
+     */
     bool isHydrangeaEmpty() const;
+    /**
+     * @brief adds hydrangea to inventory
+     * 
+     * @param p 
+     */
     void addHydrangea(Plant* p);
-    Plant* removeHydrangea(Plant* p);
+    /**
+     * @brief removes hydrangea from inventory
+     * 
+     * @return Plant* 
+     */
+    Plant* removeHydrangea();
 
+    /**
+     * @brief checks to see if boxwood is empty
+     * 
+     * @return true 
+     * @return false 
+     */
     bool isBoxwoodEmpty() const;
+    /**
+     * @brief adds boxwood to inventory
+     * 
+     * @param p 
+     */
     void addBoxwood(Plant* p);
-    Plant* removeBoxwood(Plant* p);
+    /**
+     * @brief removes boxwood from inventory
+     * 
+     * @return Plant* 
+     */
+    Plant* removeBoxwood();
 
+    /**
+     * @brief checks to see if oak is empty
+     * 
+     * @return true 
+     * @return false 
+     */
     bool isOakEmpty() const;
+    /**
+     * @brief adds oak to inventory
+     * 
+     * @param p 
+     */
     void addOak(Plant* p);
-    Plant* removeOak(Plant* p);
+    /**
+     * @brief removes oak from inventory
+     * 
+     * @return Plant* 
+     */
+    Plant* removeOak();
 
+    /**
+     * @brief checks to see if baobab is empty
+     * 
+     * @return true 
+     * @return false 
+     */
     bool isBaobabEmpty() const;
+    /**
+     * @brief adds baobab to inventory
+     * 
+     * @param p 
+     */
     void addBaobab(Plant* p);
-    Plant* removeBaobab(Plant* p);
+    /**
+     * @brief removes baobab from inventory
+     * 
+     * @return Plant* 
+     */
+    Plant* removeBaobab();
 
     // --------------------
     // Seeds
@@ -263,7 +338,7 @@ public:
 
     /**
      * @brief Remove a Plant from the seeds collection.
-     * @param p Pointer to the Plant to remove.
+     * @param type The type of seed to remove.
      * @return Pointer to the removed Plant if found, otherwise nullptr.
      */
     Plant* removeSeed(const std::string& type);

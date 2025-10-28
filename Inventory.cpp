@@ -82,11 +82,14 @@ void Inventory::addRose(Plant* p) {
     }
 };
 
-Plant* Inventory::removeRose(Plant* p) {
-    if (!p) { std::cout << "Cannot remove null Rose\n"; return nullptr; }
-    auto it = std::find(Roses.begin(), Roses.end(), p);
-    if (it != Roses.end()) { Plant* removed = *it; Roses.erase(it); return removed; }
-    return nullptr;
+Plant* Inventory::removeRose() {
+    if (Roses.empty()) {
+        std::cout << "No Roses to remove\n";
+        return nullptr;
+    }
+    Plant* removed = Roses.back();
+    Roses.pop_back();
+    return removed;
 }
 
 bool Inventory::isDaisiesEmpty() const { return Daisies.empty(); }
@@ -100,11 +103,15 @@ void Inventory::addDaisy(Plant* p) {
         std::cout << "Added plant is NOT a Daisy";
     }
 }
-Plant* Inventory::removeDaisy(Plant* p) {
-    if (!p) { std::cout << "Cannot remove null Daisy\n"; return nullptr; }
-    auto it = std::find(Daisies.begin(), Daisies.end(), p);
-    if (it != Daisies.end()) { Plant* removed = *it; Daisies.erase(it); return removed; }
-    return nullptr;
+Plant* Inventory::removeDaisy() {
+    if (Daisies.empty()) {
+        std::cout << "No Daisies to remove\n";
+        return nullptr;
+    }
+    Plant* removed = Daisies.back();
+    Daisies.pop_back();
+    return removed;
+
 }
 
 bool Inventory::isTulipsEmpty() const { return Tulips.empty(); }
@@ -118,11 +125,14 @@ void Inventory::addTulip(Plant* p) {
         std::cout << "Added plant is NOT a Tulip";
     }
 }
-Plant* Inventory::removeTulip(Plant* p) {
-    if (!p) { std::cout << "Cannot remove null Tulip\n"; return nullptr; }
-    auto it = std::find(Tulips.begin(), Tulips.end(), p);
-    if (it != Tulips.end()) { Plant* removed = *it; Tulips.erase(it); return removed; }
-    return nullptr;
+Plant* Inventory::removeTulip() {
+    if (Tulips.empty()) {
+        std::cout << "No Tulips to remove\n";
+        return nullptr;
+    }
+    Plant* removed = Tulips.back();
+    Tulips.pop_back();
+    return removed;
 }
 
 ////////////////////////
@@ -140,11 +150,14 @@ void Inventory::addSucculent(Plant* p) {
         std::cout << "Added plant is NOT a Succulent";
     }
 }
-Plant* Inventory::removeSucculent(Plant* p) {
-    if (!p) { std::cout << "Cannot remove null Succulent\n"; return nullptr; }
-    auto it = std::find(Succulents.begin(), Succulents.end(), p);
-    if (it != Succulents.end()) { Plant* removed = *it; Succulents.erase(it); return removed; }
-    return nullptr;
+Plant* Inventory::removeSucculent() {
+    if (Succulents.empty()) {
+        std::cout << "No Succulents to remove\n";
+        return nullptr;
+    }
+    Plant* removed = Succulents.back();
+    Succulents.pop_back();
+    return removed;
 }
 
 bool Inventory::isCactusesEmpty() const { return Cactuses.empty(); }
@@ -158,11 +171,14 @@ void Inventory::addCactus(Plant* p) {
         std::cout << "Plant is NOT a Cactus";
     }
 }
-Plant* Inventory::removeCactus(Plant* p) {
-    if (!p) { std::cout << "Cannot remove null Cactus\n"; return nullptr; }
-    auto it = std::find(Cactuses.begin(), Cactuses.end(), p);
-    if (it != Cactuses.end()) { Plant* removed = *it; Cactuses.erase(it); return removed; }
-    return nullptr;
+Plant* Inventory::removeCactus() {
+    if (Cactuses.empty()) {
+        std::cout << "No Cactuses to remove\n";
+        return nullptr;
+    }
+    Plant* removed = Cactuses.back();
+    Cactuses.pop_back();
+    return removed;
 }
 
 ////////////////////////
@@ -172,19 +188,22 @@ Plant* Inventory::removeCactus(Plant* p) {
 bool Inventory::isBasilsEmpty() const { return Basils.empty(); }
 void Inventory::addBasil(Plant* p) {
     if (!p) { std::cout << "Cannot add null Basil\n"; return; }
-   if(lower(p->getName()) == "basil"){
-    Basils.push_back(p);
-    std::cout << "Added Basil to Basils in Inventory"<< '\n';
-    }
+    if(lower(p->getName()) == "basil"){
+        Basils.push_back(p);
+        std::cout << "Added Basil to Basils in Inventory"<< '\n';
+        }
     else{
         std::cout << "Plant is NOT a Basil";
     }
 }
-Plant* Inventory::removeBasil(Plant* p) {
-    if (!p) { std::cout << "Cannot remove null Basil\n"; return nullptr; }
-    auto it = std::find(Basils.begin(), Basils.end(), p);
-    if (it != Basils.end()) { Plant* removed = *it; Basils.erase(it); return removed; }
-    return nullptr;
+Plant* Inventory::removeBasil() {
+    if (Basils.empty()) {
+        std::cout << "No Basils to remove\n";
+        return nullptr;
+    }
+    Plant* removed = Basils.back();
+    Basils.pop_back();
+    return removed;
 }
 
 bool Inventory::isMintsEmpty() const { return Mints.empty(); }
@@ -198,11 +217,14 @@ void Inventory::addMint(Plant* p) {
         std::cout << "Plant is NOT a Mint";
     }
 }
-Plant* Inventory::removeMint(Plant* p) {
-    if (!p) { std::cout << "Cannot remove null Mint\n"; return nullptr; }
-    auto it = std::find(Mints.begin(), Mints.end(), p);
-    if (it != Mints.end()) { Plant* removed = *it; Mints.erase(it); return removed; }
-    return nullptr;
+Plant* Inventory::removeMint() {
+    if (Mints.empty()) {
+        std::cout << "No Mints to remove\n";
+        return nullptr;
+    }
+    Plant* removed = Mints.back();
+    Mints.pop_back();
+    return removed;
 }
 
 bool Inventory::isParsleysEmpty() const { return Parsleys.empty(); }
@@ -216,11 +238,14 @@ void Inventory::addParsley(Plant* p) {
         std::cout << "Plant is NOT a Parsley";
     }
 }
-Plant* Inventory::removeParsley(Plant* p) {
-    if (!p) { std::cout << "Cannot remove null Parsley\n"; return nullptr; }
-    auto it = std::find(Parsleys.begin(), Parsleys.end(), p);
-    if (it != Parsleys.end()) { Plant* removed = *it; Parsleys.erase(it); return removed; }
-    return nullptr;
+Plant* Inventory::removeParsley() {
+    if (Parsleys.empty()) {
+        std::cout << "No Parsleys to remove\n";
+        return nullptr;
+    }
+    Plant* removed = Parsleys.back();
+    Parsleys.pop_back();
+    return removed;
 }
 
 bool Inventory::isCoriandersEmpty() const { return Corianders.empty(); }
@@ -234,11 +259,14 @@ void Inventory::addCoriander(Plant* p) {
         std::cout << "Plant is NOT a Coriander";
     }
 }
-Plant* Inventory::removeCoriander(Plant* p) {
-    if (!p) { std::cout << "Cannot remove null Coriander\n"; return nullptr; }
-    auto it = std::find(Corianders.begin(), Corianders.end(), p);
-    if (it != Corianders.end()) { Plant* removed = *it; Corianders.erase(it); return removed; }
-    return nullptr;
+Plant* Inventory::removeCoriander() {
+    if (Corianders.empty()) {
+        std::cout << "No Corianders to remove\n";
+        return nullptr;
+    }
+    Plant* removed = Corianders.back();
+    Corianders.pop_back();
+    return removed;
 }
 
 bool Inventory::isLavendersEmpty() const { return Lavenders.empty(); }
@@ -252,11 +280,14 @@ void Inventory::addLavender(Plant* p) {
         std::cout << "Plant is NOT a Lavender";
     }
 }
-Plant* Inventory::removeLavender(Plant* p) {
-    if (!p) { std::cout << "Cannot remove null Lavender\n"; return nullptr; }
-    auto it = std::find(Lavenders.begin(), Lavenders.end(), p);
-    if (it != Lavenders.end()) { Plant* removed = *it; Lavenders.erase(it); return removed; }
-    return nullptr;
+Plant* Inventory::removeLavender() {
+    if (Lavenders.empty()) {
+        std::cout << "No Lavenders to remove\n";
+        return nullptr;
+    }
+    Plant* removed = Lavenders.back();
+    Lavenders.pop_back();
+    return removed;
 }
 
 bool Inventory::isRosemaryEmpty() const { return Rosemary.empty(); }
@@ -270,11 +301,14 @@ void Inventory::addRosemary(Plant* p) {
         std::cout << "Plant is NOT a Rosemary";
     }
 }
-Plant* Inventory::removeRosemary(Plant* p) {
-    if (!p) { std::cout << "Cannot remove null Rosemary\n"; return nullptr; }
-    auto it = std::find(Rosemary.begin(), Rosemary.end(), p);
-    if (it != Rosemary.end()) { Plant* removed = *it; Rosemary.erase(it); return removed; }
-    return nullptr;
+Plant* Inventory::removeRosemary() {
+    if (Rosemary.empty()) {
+        std::cout << "No Rosemary to remove\n";
+        return nullptr;
+    }
+    Plant* removed = Rosemary.back();
+    Rosemary.pop_back();
+    return removed;
 }
 
 bool Inventory::isLemonBalmsEmpty() const { return LemonBalms.empty(); }
@@ -288,11 +322,14 @@ void Inventory::addLemonBalm(Plant* p) {
         std::cout << "Plant is NOT a LemonBalm";
     }
 }
-Plant* Inventory::removeLemonBalm(Plant* p) {
-    if (!p) { std::cout << "Cannot remove null LemonBalm\n"; return nullptr; }
-    auto it = std::find(LemonBalms.begin(), LemonBalms.end(), p);
-    if (it != LemonBalms.end()) { Plant* removed = *it; LemonBalms.erase(it); return removed; }
-    return nullptr;
+Plant* Inventory::removeLemonBalm() {
+    if (LemonBalms.empty()) {
+        std::cout << "No LemonBalms to remove\n";
+        return nullptr;
+    }
+    Plant* removed = LemonBalms.back();
+    LemonBalms.pop_back();
+    return removed;
 }
 
 ////////////////////////
@@ -310,11 +347,14 @@ void Inventory::addHibiscus(Plant* p) {
         std::cout << "Plant is NOT a Hibiscus";
     }
 }
-Plant* Inventory::removeHibiscus(Plant* p) {
-    if (!p) { std::cout << "Cannot remove null Hibiscus\n"; return nullptr; }
-    auto it = std::find(Hibiscus.begin(), Hibiscus.end(), p);
-    if (it != Hibiscus.end()) { Plant* removed = *it; Hibiscus.erase(it); return removed; }
-    return nullptr;
+Plant* Inventory::removeHibiscus() {
+    if (Hibiscus.empty()) {
+        std::cout << "No Hibiscus to remove\n";
+        return nullptr;
+    }
+    Plant* removed = Hibiscus.back();
+    Hibiscus.pop_back();
+    return removed;
 }
 
 bool Inventory::isHydrangeaEmpty() const { return Hydrangea.empty(); }
@@ -328,11 +368,14 @@ void Inventory::addHydrangea(Plant* p) {
         std::cout << "Plant is NOT a Hydrangea";
     }
 }
-Plant* Inventory::removeHydrangea(Plant* p) {
-    if (!p) { std::cout << "Cannot remove null Hydrangea\n"; return nullptr; }
-    auto it = std::find(Hydrangea.begin(), Hydrangea.end(), p);
-    if (it != Hydrangea.end()) { Plant* removed = *it; Hydrangea.erase(it); return removed; }
-    return nullptr;
+Plant* Inventory::removeHydrangea() {
+    if (Hydrangea.empty()) {
+        std::cout << "No Hydrangea to remove\n";
+        return nullptr;
+    }
+    Plant* removed = Hydrangea.back();
+    Hydrangea.pop_back();
+    return removed;
 }
 
 bool Inventory::isBoxwoodEmpty() const { return Boxwood.empty(); }
@@ -346,11 +389,14 @@ void Inventory::addBoxwood(Plant* p) {
         std::cout << "Plant is NOT a Boxwood";
     }
 }
-Plant* Inventory::removeBoxwood(Plant* p) {
-    if (!p) { std::cout << "Cannot remove null Boxwood\n"; return nullptr; }
-    auto it = std::find(Boxwood.begin(), Boxwood.end(), p);
-    if (it != Boxwood.end()) { Plant* removed = *it; Boxwood.erase(it); return removed; }
-    return nullptr;
+Plant* Inventory::removeBoxwood() {
+    if (Boxwood.empty()) {
+        std::cout << "No Boxwood to remove\n";
+        return nullptr;
+    }
+    Plant* removed = Boxwood.back();
+    Boxwood.pop_back();
+    return removed;
 }
 
 bool Inventory::isOakEmpty() const { return Oak.empty(); }
@@ -364,11 +410,14 @@ void Inventory::addOak(Plant* p) {
         std::cout << "Plant is NOT a Oak";
     }
 }
-Plant* Inventory::removeOak(Plant* p) {
-    if (!p) { std::cout << "Cannot remove null Oak\n"; return nullptr; }
-    auto it = std::find(Oak.begin(), Oak.end(), p);
-    if (it != Oak.end()) { Plant* removed = *it; Oak.erase(it); return removed; }
-    return nullptr;
+Plant* Inventory::removeOak() {
+    if (Oak.empty()) {
+        std::cout << "No Oak to remove\n";
+        return nullptr;
+    }
+    Plant* removed = Oak.back();
+    Oak.pop_back();
+    return removed;
 }
 
 bool Inventory::isBaobabEmpty() const { return Baobab.empty(); }
@@ -382,11 +431,14 @@ void Inventory::addBaobab(Plant* p) {
         std::cout << "Plant is NOT a Baobab";
     }
 }
-Plant* Inventory::removeBaobab(Plant* p) {
-    if (!p) { std::cout << "Cannot remove null Baobab\n"; return nullptr; }
-    auto it = std::find(Baobab.begin(), Baobab.end(), p);
-    if (it != Baobab.end()) { Plant* removed = *it; Baobab.erase(it); return removed; }
-    return nullptr;
+Plant* Inventory::removeBaobab() {
+    if (Baobab.empty()) {
+        std::cout << "No Baobab to remove\n";
+        return nullptr;
+    }
+    Plant* removed = Baobab.back();
+    Baobab.pop_back();
+    return removed;
 }
 
 ////////////////////////
