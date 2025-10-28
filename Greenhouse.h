@@ -68,6 +68,12 @@ public:
      */
     virtual bool isComposite() const { return false; }
 
+    /**
+     * @brief Pure virtual clone method
+     *
+     */
+    virtual Plant *clone() = 0;
+
     void attach(PlantObserver* observer);
     void detach(PlantObserver* observer);
     void notify();

@@ -2,12 +2,12 @@
 
 // Plant::Plant(const string& plantName = "Unknown", const string& plantType = "Generic", CareStrategy strat = NULL)  
 Plant::Plant(const string& plantName = "Unknown", const string& plantType = "Generic")  
-    : name(plantName), type(plantType), state(nullptr), zone(nullptr), ageDays(0), hydrationLevel(50) {}
+    : name(plantName), type(plantType), state(new Seedling()), zone(nullptr), ageDays(0), hydrationLevel(50) {}
 
 Plant::Plant(const Plant& plant){
     this->name = plant.getName();
     this->type = plant.getType();
-    this->state = nullptr;
+    this->state = new Seedling();
     this->zone = nullptr;
     this->ageDays = plant.getAgeDays();
     this->hydrationLevel = plant.getHydrationLevel();

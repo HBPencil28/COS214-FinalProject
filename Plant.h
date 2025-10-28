@@ -6,6 +6,7 @@
 #include "PlantState.h"
 #include "Zone.h"
 #include "Greenhouse.h"
+#include "Seedling.h"
 
 #include <string>
 #include <vector>
