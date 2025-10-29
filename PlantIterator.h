@@ -22,12 +22,30 @@ class Plant;
 class PlantIterator {
 private:
     int currentIndex;
+    std::string category;
     std::vector<Plant*>* plants; ///< pointer to container being iterated
 
 public:
     /** Construct iterator for given container (nullptr allowed). */
-    PlantIterator(std::vector<Plant*>* container = nullptr);
+    /**
+     * @brief Construct a new Plant Iterator object
+     * @param category
+     */
+    PlantIterator(const std::string& category);
 
+    /**
+     * @brief returns category of plants being iterated
+     * 
+     * @return std::string 
+     */
+    std::string getCategory() const;
+    /**
+     * @brief returns count of plants in the vector
+     * 
+     * @return int 
+     */
+    
+    int count() const;
     /**
      * @brief checks if vector has next (for loops)
      * 

@@ -475,6 +475,7 @@ Plant* Inventory::removeSeed(const std::string& type) {
     return nullptr;
 }
 
-PlantIterator* Inventory::createIterator(std::vector<Plant*>* x){
-    return new PlantIterator(x);
+PlantIterator* Inventory::createIterator(const std::string& category) {
+    // Pass the category string to PlantIterator constructor
+    return new PlantIterator(category);
 }

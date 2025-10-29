@@ -1,8 +1,65 @@
 #include "PlantIterator.h"
 #include "Plant.h"
 
-PlantIterator::PlantIterator(std::vector<Plant*>* container)
-    : currentIndex(-1), plants(container) { }
+PlantIterator::PlantIterator(const std::string& category){
+    this->category = category;
+    Inventory* inventory = Inventory::getInstance();
+    if(category == "Roses"){
+        plants = &(inventory->Roses);
+    }
+    else if(category == "Daisies"){
+        plants = &(inventory->Daisies);
+    }
+    else if(category == "Tulips"){
+        plants = &(inventory->Tulips);
+    }
+    else if(category == "Succulents"){
+        plants = &(inventory->Succulents);
+    }
+    else if(category == "Cactuses"){
+        plants = &(inventory->Cactuses);
+    }
+    else if(category == "Basils"){
+        plants = &(inventory->Basils);
+    }
+    else if(category == "Mints"){
+        plants = &(inventory->Mints);
+    }
+    else if(category == "Parsleys"){
+        plants = &(inventory->Parsleys);
+    }
+    else if(category == "Corianders"){
+        plants = &(inventory->Corianders);
+    }
+    else if(category == "Lavenders"){
+        plants = &(inventory->Lavenders);
+    }
+    else if(category == "Rosemary"){
+        plants = &(inventory->Rosemary);
+    }
+    else if(category == "LemonBalms"){
+        plants = &(inventory->LemonBalms);
+    }
+    else if(category == "Hibiscus"){
+        plants = &(inventory->Hibiscus);
+    }
+    else if(category == "Hydrangea"){
+        plants = &(inventory->Hydrangea);
+    }
+    else if(category == "Boxwood"){
+        plants = &(inventory->Boxwood);
+    }
+    else if(category == "Oak"){
+        plants = &(inventory->Oak);
+    }
+    else if(category == "Baobab"){
+        plants = &(inventory->Baobab);
+    }
+    else{
+        plants = nullptr;
+    }
+    currentIndex = -1; // start before first element
+}
 
 bool PlantIterator::hasNext() const {
     if (!plants) return false;
@@ -44,3 +101,13 @@ Plant* PlantIterator::first() {
     currentIndex = 0;
     return (*plants)[0];
 }
+
+int PlantIterator::count()const{
+    if (!plants) return 0;
+    return static_cast<int>(plants->size());
+}
+
+std::string PlantIterator::getCategory() const {
+    return category;
+}
+

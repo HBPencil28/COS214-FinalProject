@@ -358,7 +358,7 @@ public:
       * @param x 
       * @return PlantIterator* 
       */
-    PlantIterator* createIterator(std::vector<Plant*>* x);
+    PlantIterator* createIterator(const std::string& );
 
     /**
      * @brief turns string to all lowercase
@@ -366,7 +366,7 @@ public:
      * @param s 
      * @return std::string 
      */
-    std::string lower(const std::string &s);
+    std::string lower(const std::string&);
     friend class PlantIterator;
 };
 
