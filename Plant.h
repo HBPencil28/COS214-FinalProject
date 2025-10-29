@@ -1,14 +1,15 @@
 #ifndef PLANT_H
 #define PLANT_H
 
-// #include "CareStaff.h"
-// #include "CareCommand.h"
+#include "CareStaff.h"
+#include "CareCommand.h"
 #include "PlantState.h"
-// #include "Zone.h"
+#include "Zone.h"
+#include "Greenhouse.h"
+#include "Seedling.h"
 
 #include <string>
 #include <vector>
-#include <memory>
 #include <iostream>
 
 #include "PlantState.h"
@@ -21,22 +22,22 @@ class Growing;
 class Mature;
 class Withered;
 
-// Forward declaration for Greenhouse (if Composite pattern
-class Greenhouse;
+// // Forward declaration for Greenhouse (if Composite pattern
+// class Greenhouse;
 
-class Plant{
+class Plant: public Greenhouse{
     private:
         string name;
         string type; 
         PlantState* state;
-        // Zone* zone;
+        Zone* zone;
         int ageDays;
         int hydrationLevel;
         //vector<Plant*> decorations; // For Decorator pattern
-        std::unique_ptr<PlantStatus> status_;
 
     public: 
-        // Plant(const string& plantName, const string& plantType);
+        Plant(const string& plantName, const string& plantType);
+        Plant(const Plant& plant);
         virtual ~Plant();
 
         void initState(PlantState* initialState);
@@ -49,13 +50,13 @@ class Plant{
 
         void setState(PlantState* newState);
 
-        void water();
-        void fertilize();
+        void water(int amount);
+        void fertilize(int amount);
         void harvestAndStore();
         void discard();
         
         // ----- Prototype Pattern -----
-        virtual Plant* clone() = 0;
+        // Plant* clone() override;
 
         // ----- Decorator / Composite Pattern -----
         //virtual void add(Plant* extraDecoration);
@@ -63,19 +64,11 @@ class Plant{
         virtual void display() const;
 
         void dailyTick();
-        bool needsWatering();
-        bool needsFertilizing();
-        bool isMature();
+        bool needsWatering() const;
+        bool needsFertilizing() const;
+        bool isMature() const;
 
-        void sell();                                 // InStorage -> Sold
-        void markReturned(const std::string& why);   // Sold -> Returned -> InStorage
-        const char* statusCode() const;              // e.g., "InStorage"
-
-        // --- Used by states ---
-        void changeStatus(std::unique_ptr<PlantStatus> next);
-        void auditStatusChange(const char* from, const char* to, const std::string& why = "");
-        
-
+        void execute(){};
 };
 
 #endif

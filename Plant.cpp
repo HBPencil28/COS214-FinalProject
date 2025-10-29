@@ -1,31 +1,35 @@
 #include "Plant.h"
-#include "PlantStatus.h"
-#include "InStorage.h"
-#include <utility>
-#include <memory>
 
 // Plant::Plant(const string& plantName = "Unknown", const string& plantType = "Generic", CareStrategy strat = NULL)  
-//     : name(plantName), type(plantType), state(nullptr), zone(nullptr), ageDays(0), hydrationLevel(50) {}
+Plant::Plant(const string& plantName = "Unknown", const string& plantType = "Generic")  
+    : name(plantName), type(plantType), state(new Seedling()), zone(nullptr), ageDays(0), hydrationLevel(50) {}
 
-// Plant::~Plant() 
-// {
-//     delete state;
+Plant::Plant(const Plant& plant){
+    this->name = plant.getName();
+    this->type = plant.getType();
+    this->state = new Seedling();
+    this->zone = nullptr;
+    this->ageDays = plant.getAgeDays();
+    this->hydrationLevel = plant.getHydrationLevel();
+}
 
-//     for(size_t i = 0; i < decorations.size(); i++) 
-//     {
-//         delete decorations[i];
-//     }
-// }
+Plant::~Plant() 
+{
+    delete state;
+
+    // for(size_t i = 0; i < decorations.size(); i++) 
+    // {
+    //     delete decorations[i];
+    // }
+}
 
 void Plant::initState(PlantState* initialState) 
 {
-    if (state) { 
-        delete state; 
+    if(state)
+    {
+        delete state;
     }
     state = initialState;
-    if (state){
-        state->onEnter(this);  // enter hook
-    }      
 }
 
 string Plant::getName() const 
@@ -55,31 +59,33 @@ int Plant::getHydrationLevel() const
 
 void Plant::setState(PlantState* newState) 
 {
-    if (!newState || newState == state) return;
-    if (state) state->onExit(this);        // exit old
-    delete state;                          // we own it
-    state = newState;                      // take ownership
-    state->onEnter(this);               // enter new
+    if (state)  
+    {  
+        delete state; 
+    }  
+
+    state = newState; 
 }
 
-// void Plant::display() const 
-// {
-//     std::cout << "🌿 " << name << " (" << type << ") - State: " << getStateName();
-//         if (zone) std::cout << " [Zone: " << zone->getName() << "]";std::cout << std::endl;
-
-//     for (size_t i = 0; i < decorations.size(); i++) 
-//     {
-//         decorations[i]->display(indent + 2);
-//     }
-// }
-
-void Plant::water() 
+void Plant::display() const 
 {
-    hydrationLevel = std::min(100, hydrationLevel + 50);
+    std::cout << "🌿 " << name << " (" << type << ") - State: " << getStateName();
+        if (zone) std::cout << " [Zone: " << zone->getZoneName() << "]";std::cout << std::endl;
+
+    // for (size_t i = 0; i < decorations.size(); i++) 
+    // {
+    //     decorations[i]->display(indent + 2);
+    // }
+}
+
+void Plant::water(int amount) 
+{
+    // hydrationLevel = std::min(100, hydrationLevel + 50);
+    hydrationLevel += amount;
     state->water(this);
 }
 
-void Plant::fertilize() 
+void Plant::fertilize(int amount) 
 {
     state->fertilize(this);
 }
@@ -99,35 +105,29 @@ void Plant::dailyTick()
     ageDays++;
     hydrationLevel = std::max(0, hydrationLevel - 10); // plants lose hydration each day
     // strategy may decide watering needed (caller will check needsWater)
-
-    // delegate state-specific daily behaiviour 
-    if(state){
-        state->dailyTick(this);
-    }
 }
 
-// bool Plant::needsWatering() const 
-// {
-//     if(zone && zone->getStrategy())
-//     {
-//         return zone->getStrategy()->needsWatering(*this);
-//     }
-//     return hydrationLevel < 50; // Default threshold
-// }
+bool Plant::needsWatering() const{
+    if(zone && zone->getStrategy())
+    {
+        return zone->getStrategy()->needsWatering(*this);
+    }
+    return hydrationLevel < 50; // Default threshold
+}
 
-// bool Plant::needsFertilizing() const 
-// {
-//     if(zone && zone->getStrategy())
-//     {
-//         return zone->getStrategy()->needsFertilizing(*this);
-//     }
-//     return ageDays % 7 == 0; // Default: needs fertilizing every 7 days
-// }
+bool Plant::needsFertilizing() const 
+{
+    if(zone && zone->getStrategy())
+    {
+        return zone->getStrategy()->needsFertilizing(*this);
+    }
+    return ageDays % 7 == 0; // Default: needs fertilizing every 7 days
+}
 
-// bool Plant::isMature() const 
-// {
-//     return state->getStateName() == "Mature";
-// }
+bool Plant::isMature() const {
+    return state->getStateName() == "Mature";
+}
 
-
-/* These have been added for PlantStatus*/
+Plant *Plant::clone(){
+    return new Plant(*this);
+}
