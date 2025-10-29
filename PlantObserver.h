@@ -11,6 +11,7 @@ public:
     void setSubject(Greenhouse* subject){ this->zone = subject; }
     
     virtual void update(/*PlantState* state*/) = 0;
+    virtual void update(Plant* p) = 0;
 };
 
 

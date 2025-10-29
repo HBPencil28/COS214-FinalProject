@@ -1,5 +1,12 @@
 #include "NurseryMediator.h"
 
+NurseryMediator::~NurseryMediator() {
+    for(Staff* staff : staffMembers) {
+        detach(staff);
+    }
+    staffMembers.clear();
+}
+
 void NurseryMediator::attach(Staff* staff) {
     if(staff == nullptr) return;
 

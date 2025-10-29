@@ -1,5 +1,12 @@
 #include "Greenhouse.h"
 
+Greenhouse::~Greenhouse(){
+    for(PlantObserver* observer : observers){
+        detach(observer);
+    }
+    observers.clear();
+}
+
 void Greenhouse::attach(PlantObserver* observer) {
     observers.push_back(observer);
     observer->setSubject(this);

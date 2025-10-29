@@ -11,6 +11,7 @@ class NurseryMediator {
 private:
     std::vector<Staff*> staffMembers;
 public:
+    virtual ~NurseryMediator();
     void attach(Staff* staff);
     void detach(Staff* staff);
     void notify(Staff* sender);

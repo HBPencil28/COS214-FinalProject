@@ -16,9 +16,11 @@ private:
 
 public:
     void update() override;
+    void update(Plant* p) override;
     void changed() override;
     std::map<std::string, bool> get() override;
     void set(std::map<std::string, bool>) override;
+    Plant* removeFromInventory(Plant* plant, bool& toUpdate);
 };
 
 #endif

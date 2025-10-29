@@ -28,7 +28,7 @@ public:
     /**
      * @brief Virtual destructor to allow polymorphic deletion.
      */
-    virtual ~Greenhouse() = default;
+    virtual ~Greenhouse();
 
     /**
      * @brief Perform the component's operation.
@@ -68,9 +68,15 @@ public:
      */
     virtual bool isComposite() const { return false; }
 
+    /**
+     * @brief Pure virtual clone method
+     *
+     */
+    virtual Greenhouse* clone() = 0;
+
     void attach(PlantObserver* observer);
     void detach(PlantObserver* observer);
-    void notify();
+    virtual void notify();
 };
 
 #endif
