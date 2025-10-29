@@ -55,6 +55,9 @@ PlantIterator::PlantIterator(const std::string& category){
     else if(category == "Baobab"){
         plants = &(inventory->Baobab);
     }
+    else if(category == "Seeds"){
+        plants = &(inventory->seeds);
+    }
     else{
         plants = nullptr;
     }
