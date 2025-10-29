@@ -1,22 +1,17 @@
 #ifndef GROWING_H
 #define GROWING_H
+
 #include "PlantState.h"
 
 class Growing : public PlantState {
 public:
-    Growing() = default;
-    ~Growing() = default;
-
-     std::string getStateName() const override;
-
-    void onEnter(Plant* plant) override;
-    void onExit(Plant* plant) override;
-
-    void dailyTick(Plant* plant) override;        // age up then maybe go to mature
-    void water(Plant* plant) override;            // maintain hydration
-    void fertilize(Plant* plant) override;        // accelerate growth
-    void harvestAndStore(Plant* plant) override;  // not ready yet
-    void discard(Plant* plant) override; 
+    
+    void water(Plant* plant, int amount) override;        // stronger effect
+    void fertilize(Plant* plant, int amount) override;    // growth boost
+    void harvestAndStore(Plant* plant) override;          // not yet (no-op)
+    void discard(Plant* plant) override;                  // -> Withered
+    // void handleChange(Plant* c) override;                 // if thresholds met -> Mature
+    std::string getStateName() const override {return "Growing";}
 };
 
 #endif // GROWING_H

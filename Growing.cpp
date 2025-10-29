@@ -1,55 +1,55 @@
+#include <iostream>
 #include "Growing.h"
+#include "Plant.h"
 #include "Mature.h"
 #include "Withered.h"
-#include "Plant.h"
-#include <iostream>
 
-std::string Growing::getStateName() const { return "Growing"; }
-
-void Growing::onEnter(Plant* plant)
-{
-    std::cout << "[Growing] onEnter: " << plant->getName() << std::endl;
+namespace {
+    constexpr int GROWING_MIN_AGE_FOR_MATURE   = 20; // days
+    constexpr int GROWING_MIN_HYDRATION_MATURE = 65; // %
 }
 
-void Growing::onExit(Plant* plant)
+void Growing::water(Plant* plant, int amount)
 {
-    std::cout << "[Growing] onExit: " << plant->getName() << std::endl;
-}
+    if (!plant) return;
 
-void Growing::dailyTick(Plant* plant)
-{
-    // Mature once age crosses 21 days and hydration is healthy
-    if (plant->getAgeDays() >= 21 && plant->getHydrationLevel() >= 40)
-    {
+    const int age = plant->getAgeDays();
+    const int h2o = plant->getHydrationLevel();
+
+    if (age >= GROWING_MIN_AGE_FOR_MATURE && h2o >= GROWING_MIN_HYDRATION_MATURE) {
+        std::cout << plant->getName() << ": this is well hydrated. Move to mature state"  << std::endl; 
         plant->setState(new Mature());
-        return;
-    }
-
-    // Severe neglect wither
-    if (plant->getHydrationLevel() <= 5)
-    {
-        plant->setState(new Withered());
-        return;
+    } else {
+        std::cout << "🌿 " << plant->getName() << ": watered; still Growing (age="
+                  << age << ", hydration=" << h2o << ").\n";
     }
 }
 
-void Growing::water(Plant* plant)
+void Growing::fertilize(Plant* plant, int amount)
 {
-    std::cout << "[Growing] watered: " << plant->getName()
-              << " (level=" << plant->getHydrationLevel() << ")\n";
+    if (!plant) return;
+
+    // Fertilizer supports the move to Mature if near thresholds.
+    const int age = plant->getAgeDays();
+    const int h2o = plant->getHydrationLevel();
+
+    if (age >= GROWING_MIN_AGE_FOR_MATURE && h2o >= GROWING_MIN_HYDRATION_MATURE) {
+        std::cout << plant->getName() << ": This plant been fertilized and ready to move to mature state " << std::endl;
+        plant->setState(new Mature());
+    } else {
+        std::cout << plant->getName() << ": fertilized, but still growing " << std::endl;
+    }
 }
 
-void Growing::fertilize(Plant* /*plant*/)
+void Growing::harvestAndStore(Plant* plant)
 {
-    std::cout << "[Growing] fertilized (accelerates growth)\n";
-}
-
-void Growing::harvestAndStore(Plant* /*plant*/)
-{
-    std::cout << "[Growing] harvest ignored (not mature)\n";
+    if (!plant) return;
+    std::cout << plant->getName() << ": not ready for harvest (Growing). No change.\n";
 }
 
 void Growing::discard(Plant* plant)
 {
+    if (!plant) return;
+    std::cout <<  plant->getName() << ": plant has been discarded and goes to withered state " << std::endl;
     plant->setState(new Withered());
 }

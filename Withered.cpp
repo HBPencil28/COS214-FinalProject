@@ -1,38 +1,27 @@
+#include <iostream>
 #include "Withered.h"
 #include "Plant.h"
-#include <iostream>
 
-std::string Withered::getStateName() const { return "Withered"; }
-
-void Withered::onEnter(Plant* plant)
+void Withered::water(Plant* plant, int amount)
 {
-    std::cout << "[Withered] onEnter: " << plant->getName() << " (dead/removed)\n";
+    if (!plant) return;
+    std::cout << plant->getName() << ": watering as no effect on a withered plant " << std::endl;
 }
 
-void Withered::onExit(Plant* plant)
+void Withered::fertilize(Plant* plant, int amount)
 {
-    std::cout << "[Withered] onExit: " << plant->getName() << std::endl;
+    if (!plant) return;
+    std::cout <<  plant->getName() << ": fertilizing has no on a withered plant " << std::endl;
 }
 
-void Withered::dailyTick(Plant* /*plant*/) {}
-
-void Withered::water(Plant* /*plant*/)
+void Withered::harvestAndStore(Plant* plant)
 {
-    std::cout << "[Withered] water has no effect (by default)" << std::endl;
-    // If you want revival, you could transition to new Seedling/Growing here.
+    if (!plant) return;
+    std::cout <<  plant->getName() << ": cannot harvest a withered plant " << std::endl;
 }
 
-void Withered::fertilize(Plant* /*plant*/)
+void Withered::discard(Plant* plant)
 {
-    std::cout << "[Withered] fertilizer has no effect" << std::endl;
-}
-
-void Withered::harvestAndStore(Plant* /*plant*/)
-{
-    std::cout << "[Withered] harvest ignored " << std::endl;
-}
-
-void Withered::discard(Plant* /*plant*/)
-{
-    std::cout << "[Withered] already discarded" << std::endl;
+    if (!plant) return;
+    std::cout <<  plant->getName() << ": in withered state and has been discarded " << std::endl;
 }

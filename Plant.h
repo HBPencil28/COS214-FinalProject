@@ -1,10 +1,10 @@
 #ifndef PLANT_H
 #define PLANT_H
 
-#include "CareStaff.h"
-#include "CareCommand.h"
+// #include "CareStaff.h"
+// #include "CareCommand.h"
 #include "PlantState.h"
-#include "Zone.h"
+// #include "Zone.h"
 #include "Greenhouse.h"
 #include "Seedling.h"
 
@@ -22,15 +22,14 @@ class Growing;
 class Mature;
 class Withered;
 
-// // Forward declaration for Greenhouse (if Composite pattern
-// class Greenhouse;
 
-class Plant: public Greenhouse{
+
+class Plant : public Greenhouse{
     private:
         string name;
         string type; 
         PlantState* state;
-        Zone* zone;
+        // Zone* zone;
         int ageDays;
         int hydrationLevel;
         //vector<Plant*> decorations; // For Decorator pattern

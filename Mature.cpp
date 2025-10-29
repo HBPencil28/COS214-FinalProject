@@ -1,49 +1,46 @@
-#include "Mature.h"
-#include "Withered.h"
-#include "Plant.h"
 #include <iostream>
+#include "Mature.h"
+#include "Plant.h"
+#include "Withered.h"
 
-std::string Mature::getStateName() const { return "Mature"; }
-
-void Mature::onEnter(Plant* plant)
-{
-    std::cout << "[Mature] onEnter: " << plant->getName() << " (ready for harvest)\n";
+namespace {
+    // Optional: thresholds for decline if poorly maintained; used in fertilize/water decisions.
+    constexpr int MATURE_MIN_HYDRATION_OK = 40; // %
 }
 
-void Mature::onExit(Plant* plant)
+void Mature::water(Plant* plant, int amount)
 {
-    std::cout << "[Mature] onExit: " << plant->getName() << "\n";
+    if (!plant) return;
+
+    // Mature plants mostly maintain; no automatic transition on watering alone.
+    std::cout << plant->getName() << ": watered; remains Mature (hydration=" << plant->getHydrationLevel() << ").\n";
 }
 
-void Mature::dailyTick(Plant* plant)
+void Mature::fertilize(Plant* plant, int amount)
 {
-    // If neglected for too long at maturity, wither.
-    if (plant->getHydrationLevel() <= 5)
-    {
-        plant->setState(new Withered());
-        return;
+    if (!plant) return;
+
+    // Keep it simple: if hydration is very low, warn, but remain Mature.
+    if (plant->getHydrationLevel() < MATURE_MIN_HYDRATION_OK) {
+        std::cout << "Warning "<< plant->getName() << ": fertilized but hydration is low; consider watering.\n";
+    } else {
+        std::cout << plant->getName() << ": has been fertilized stays in mature state." << std::endl;
     }
-}
-
-void Mature::water(Plant* plant)
-{
-    std::cout << "[Mature] watered: " << plant->getName()
-              << " (level=" << plant->getHydrationLevel() << ")\n";
-}
-
-void Mature::fertilize(Plant* /*plant*/)
-{
-    std::cout << "[Mature] fertilized (minor effect)\n";
 }
 
 void Mature::harvestAndStore(Plant* plant)
 {
-    // This is where you’d hand off to PlantStatus (logistics) in your app layer.
-    std::cout << "[Mature] harvest & store triggered for " << plant->getName() << "\n";
-    // (state may remain Mature; or you might create a post-harvest state if needed)
+    if (!plant) return;
+
+    // Harvesting a Mature plant: simulate logistics, then mark as Withered (post-harvest).
+    std::cout << plant->getName() << ": harvested and sent to storage";
+
+    // question on this one. move from harvest 
 }
 
 void Mature::discard(Plant* plant)
 {
+    if (!plant) return;
+    std::cout << plant->getName() << ": plant has been discarded and goes to withered state " << std::endl;
     plant->setState(new Withered());
 }

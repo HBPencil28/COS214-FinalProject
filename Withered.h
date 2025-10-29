@@ -4,21 +4,13 @@
 #include "PlantState.h"
 
 class Withered : public PlantState {
-    public:
-        Withered() = default;
-        ~Withered() override = default;
-        std::string getStateName() const ;
-
-        void onEnter(Plant* plant)override;
-        void onExit(Plant* plant)override;
-
-        void dailyTick(Plant* plant)override;        // remains withered
-        void water(Plant* plant)override;            // no effect
-        void fertilize(Plant* plant)override;        // no effect
-        void harvestAndStore(Plant* plant)override;  // no-op
-        void discard(Plant* plant)override;          // already withered
-
+public:
+    void water(Plant* plant, int amount) override;        // usually no effect (policy)
+    void fertilize(Plant* plant, int amount) override;    // no effect
+    void harvestAndStore(Plant* plant) override;          // no-op
+    void discard(Plant* plant) override;
+    // void handleChange(Plant* c) override;                 // typically remains Withered
+    std::string getStateName() const override {return "Withered";}
 };
-
 
 #endif // WITHERED_H
