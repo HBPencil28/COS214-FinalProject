@@ -106,7 +106,16 @@ public:
      * @brief Remove a Plant from the Roses collection.
      * @return Pointer to the removed Plant if found, otherwise nullptr.
      */
+
     Plant* removeRose();
+
+    /**
+     * @brief remove Wilted Rose from inventory
+     * @param p Pointer to the Plant to remove.
+     * @return Pointer to the removed Plant if found, otherwise nullptr.
+     */
+    Plant* removeRose(Plant* p);
+
 
     /**
      * @brief Check whether the Daisies collection is empty.
@@ -126,6 +135,13 @@ public:
      */
     Plant* removeDaisy();
 
+        /**
+     * @brief remove Wilted Daisy from inventory
+     * @param p Pointer to the Plant to remove.
+     * @return Pointer to the removed Plant if found, otherwise nullptr.
+     */
+    Plant* removeDaisy(Plant* p);
+
     /**
      * @brief Check whether the Tulips collection is empty.
      * @return true if Tulips is empty, false otherwise.
@@ -144,6 +160,12 @@ public:
      */
     Plant* removeTulip();
 
+    /**
+     * @brief remove Wilted Tulip from inventory
+     * @param p Pointer to the Plant to remove.
+     * @return Pointer to the removed Plant if found, otherwise nullptr.
+     */
+    Plant* removeTulip(Plant* p);
     // --------------------
     // Succulents & Cactuses
     // --------------------
@@ -167,6 +189,13 @@ public:
     Plant* removeSucculent();
 
     /**
+     * @brief remove Wilted Succulent from inventory
+     * @param p Pointer to the Plant to remove.
+     * @return Pointer to the removed Plant if found, otherwise nullptr.
+     */
+    Plant* removeSucculent(Plant* p);
+
+    /**
      * @brief Check whether the Cactuses collection is empty.
      * @return true if Cactuses is empty, false otherwise.
      */
@@ -184,37 +213,198 @@ public:
      */
     Plant* removeCactus();
 
+    /**
+     * @brief remove Wilted Cactus from inventory
+     * @param p Pointer to the Plant to remove.
+     * @return Pointer to the removed Plant if found, otherwise nullptr.
+     */
+    Plant* removeCactus(Plant* p);
     // --------------------
     // Herbs & Aromatics
     // --------------------
 
+    /**
+     * @brief checks to see if basils is empty
+     * 
+     * @return true 
+     * @return false 
+     */
     bool isBasilsEmpty() const;
+    /**
+     * @brief adds basil to inventory
+     * 
+     * @param p 
+     */
     void addBasil(Plant* p);
+    /**
+     * @brief removes basil from inventory
+     * 
+     * @return Plant* 
+     */
     Plant* removeBasil();
+    /**
+     * @brief remove Wilted Basil from inventory
+     * @param p Pointer to the Plant to remove.
+     * @return Pointer to the removed Plant if found, otherwise nullptr.
+     */
+    Plant* removeBasil(Plant* p);
 
+    /**
+     * @brief checks to see if mints is empty
+     * 
+     * @return true 
+     * @return false 
+     */
     bool isMintsEmpty() const;
+    /**
+     * @brief adds mint to inventory
+     * 
+     * @param p 
+     */
     void addMint(Plant* p);
+    /**
+     * @brief removes mint from inventory
+     * 
+     * @return Plant* 
+     */
     Plant* removeMint();
+    /**
+     * @brief remove Wilted Mint from inventory
+     * @param p Pointer to the Plant to remove.
+     * @return Pointer to the removed Plant if found, otherwise nullptr.
+     */
+    Plant* removeMint(Plant* p);
 
+    /**
+     * @brief checks to see if parsleys is empty
+     * 
+     * @return true 
+     * @return false 
+     */
     bool isParsleysEmpty() const;
+    /**
+     * @brief adds parsley to inventory
+     * 
+     * @param p 
+     */
     void addParsley(Plant* p);
+
+    /**
+     * @brief removes parsley from inventory
+     * 
+     * @return Plant* 
+     */
     Plant* removeParsley();
+    /**
+     * @brief remove Wilted Succulent from inventory
+     * @param p Pointer to the Plant to remove.
+     * @return Pointer to the removed Plant if found, otherwise nullptr.
+     */
+    Plant* removeParsley(Plant* p);
 
+    /**
+     * @brief checks to see if corianders is empty
+     * 
+     * @return true 
+     * @return false 
+     */
     bool isCoriandersEmpty() const;
+    /**
+     * @brief adds coriander to inventory
+     * 
+     * @param p 
+     */
     void addCoriander(Plant* p);
+    /**
+     * @brief removes coriander from inventory
+     * 
+     * @return Plant* 
+     */
     Plant* removeCoriander();
+    /**
+     * @brief remove Wilted Coriander from inventory
+     * @param p Pointer to the Plant to remove.
+     * @return Pointer to the removed Plant if found, otherwise nullptr.
+     */
+    Plant* removeCoriander(Plant* p);
 
+    /**
+     * @brief checks to see if lavenders is empty
+     * 
+     * @return true 
+     * @return false 
+     */
     bool isLavendersEmpty() const;
+    /**
+     * @brief adds lavender to inventory
+     * 
+     * @param p 
+     */
     void addLavender(Plant* p);
+    /**
+     * @brief removes lavender from inventory
+     * 
+     * @return Plant* 
+     */
     Plant* removeLavender();
+    /**
+     * @brief remove Wilted Lavender from inventory
+     * @param p Pointer to the Plant to remove.
+     * @return Pointer to the removed Plant if found, otherwise nullptr.
+     */
+    Plant* removeLavender(Plant* p);
 
+    /**
+     * @brief checks to see if rosemary is empty
+     * 
+     * @return true 
+     * @return false 
+     */
     bool isRosemaryEmpty() const;
+    /**
+     * @brief adds rosemary to inventory
+     * 
+     * @param p 
+     */
     void addRosemary(Plant* p);
+    /**
+     * @brief removes rosemary from inventory
+     * 
+     * @return Plant* 
+     */
     Plant* removeRosemary();
+    /**
+     * @brief remove Wilted Rosemary from inventory
+     * @param p Pointer to the Plant to remove.
+     * @return Pointer to the removed Plant if found, otherwise nullptr.
+     */
+    Plant* removeRosemary(Plant* p);
 
+    /**
+     * @brief checks to see if lemon balms is empty
+     * 
+     * @return true 
+     * @return false 
+     */
     bool isLemonBalmsEmpty() const;
+    /**
+     * @brief adds lemon balm to inventory
+     * 
+     * @param p 
+     */
     void addLemonBalm(Plant* p);
+    /**
+     * @brief removes lemon balm from inventory
+     * 
+     * @return Plant* 
+     */
     Plant* removeLemonBalm();
+    /**
+     * @brief remove Wilted LemonBalm from inventory
+     * @param p Pointer to the Plant to remove.
+     * @return Pointer to the removed Plant if found, otherwise nullptr.
+     */
+    Plant* removeLemonBalm(Plant* p);
 
     // --------------------
     // Trees & Shrubs
@@ -239,6 +429,12 @@ public:
      * @return Plant* 
      */
     Plant* removeHibiscus();
+    /**
+     * @brief remove Wilted Hibiscus from inventory
+     * @param p Pointer to the Plant to remove.
+     * @return Pointer to the removed Plant if found, otherwise nullptr.
+     */
+    Plant* removeHibiscus(Plant* p);
 
     /**
      * @brief checks to see if hydrangea is empty
@@ -259,6 +455,12 @@ public:
      * @return Plant* 
      */
     Plant* removeHydrangea();
+    /**
+     * @brief remove Wilted Hydrangea from inventory
+     * @param p Pointer to the Plant to remove.
+     * @return Pointer to the removed Plant if found, otherwise nullptr.
+     */
+    Plant* removeHydrangea(Plant* p);
 
     /**
      * @brief checks to see if boxwood is empty
@@ -279,6 +481,12 @@ public:
      * @return Plant* 
      */
     Plant* removeBoxwood();
+    /**
+     * @brief remove Wilted Boxwood from inventory
+     * @param p Pointer to the Plant to remove.
+     * @return Pointer to the removed Plant if found, otherwise nullptr.
+     */
+    Plant* removeBoxwood(Plant* p);
 
     /**
      * @brief checks to see if oak is empty
@@ -299,6 +507,12 @@ public:
      * @return Plant* 
      */
     Plant* removeOak();
+    /**
+     * @brief remove Wilted Oak from inventory
+     * @param p Pointer to the Plant to remove.
+     * @return Pointer to the removed Plant if found, otherwise nullptr.
+     */
+    Plant* removeOak(Plant* p);
 
     /**
      * @brief checks to see if baobab is empty
@@ -319,6 +533,12 @@ public:
      * @return Plant* 
      */
     Plant* removeBaobab();
+    /**
+     * @brief remove Wilted Baobab from inventory
+     * @param p Pointer to the Plant to remove.
+     * @return Pointer to the removed Plant if found, otherwise nullptr.
+     */
+    Plant* removeBaobab(Plant* p);
 
     // --------------------
     // Seeds

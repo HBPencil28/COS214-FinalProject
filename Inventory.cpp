@@ -479,3 +479,142 @@ PlantIterator* Inventory::createIterator(const std::string& category) {
     // Pass the category string to PlantIterator constructor
     return new PlantIterator(category);
 }
+
+ Plant* Inventory::removeRose(Plant* p){
+        auto it = std::find(Roses.begin(), Roses.end(), p);
+        if (it != Roses.end()) {
+            Roses.erase(it);
+            return p;
+        }
+        return nullptr; // Return nullptr if the plant was not found
+    }
+
+Plant* Inventory::removeDaisy(Plant* p){
+        auto it = std::find(Daisies.begin(), Daisies.end(), p);
+        if (it != Daisies.end()) {
+            Daisies.erase(it);
+            return p;
+        }
+        return nullptr; // Return nullptr if the plant was not found
+    }
+Plant* Inventory::removeTulip(Plant* p){
+        auto it = std::find(Tulips.begin(), Tulips.end(), p);
+        if (it != Tulips.end()) {
+            Tulips.erase(it);
+            return p;
+        }
+        return nullptr; // Return nullptr if the plant was not found
+    }
+Plant* Inventory::removeSucculent(Plant* p){
+        auto it = std::find(Succulents.begin(), Succulents.end(), p);
+        if (it != Succulents.end()) {
+            Succulents.erase(it);
+            return p;
+        }
+        return nullptr; // Return nullptr if the plant was not found
+    }
+Plant* Inventory::removeCactus(Plant* p){
+        auto it = std::find(Cactuses.begin(), Cactuses.end(), p);
+        if (it != Cactuses.end()) {
+            Cactuses.erase(it);
+            return p;
+        }
+        return nullptr; // Return nullptr if the plant was not found
+    }
+Plant* Inventory::removeBasil(Plant* p){
+        auto it = std::find(Basils.begin(), Basils.end(), p);
+        if (it != Basils.end()) {   
+            Basils.erase(it);
+            return p;
+        }
+        return nullptr; // Return nullptr if the plant was not found
+    }
+Plant* Inventory::removeMint(Plant* p){
+        auto it = std::find(Mints.begin(), Mints.end(), p);
+        if (it != Mints.end()) {
+            Mints.erase(it);
+            return p;
+        }
+        return nullptr; // Return nullptr if the plant was not found
+    }
+Plant* Inventory::removeParsley(Plant* p){
+        auto it = std::find(Parsleys.begin(), Parsleys.end(), p);
+        if (it != Parsleys.end()) {
+            Parsleys.erase(it);
+            return p;
+        }
+        return nullptr; // Return nullptr if the plant was not found
+    }
+Plant* Inventory::removeCoriander(Plant* p){
+        auto it = std::find(Corianders.begin(), Corianders.end(), p);
+        if (it != Corianders.end()) {
+            Corianders.erase(it);
+            return p;  
+        }
+        return nullptr; // Return nullptr if the plant was not found
+    }
+Plant* Inventory::removeLavender(Plant* p){
+        auto it = std::find(Lavenders.begin(), Lavenders.end(), p);
+        if (it != Lavenders.end()) {
+            Lavenders.erase(it);
+            return p;
+        }
+        return nullptr; // Return nullptr if the plant was not found
+    }
+Plant* Inventory::removeRosemary(Plant* p){ 
+        auto it = std::find(Rosemary.begin(), Rosemary.end(), p);
+        if (it != Rosemary.end()) {
+            Rosemary.erase(it);
+            return p;
+        }
+        return nullptr; // Return nullptr if the plant was not found
+    }
+Plant* Inventory::removeLemonBalm(Plant* p){
+        auto it = std::find(LemonBalms.begin(), LemonBalms.end(), p);
+        if (it != LemonBalms.end()) {
+            LemonBalms.erase(it);
+            return p;
+        }
+        return nullptr; // Return nullptr if the plant was not found
+    }
+Plant* Inventory::removeHibiscus(Plant* p){ 
+        auto it = std::find(Hibiscus.begin(), Hibiscus.end(), p);
+        if (it != Hibiscus.end()) {
+            Hibiscus.erase(it);
+            return p;
+        }
+        return nullptr; // Return nullptr if the plant was not found
+    }
+Plant* Inventory::removeHydrangea(Plant* p){
+        auto it = std::find(Hydrangea.begin(), Hydrangea.end(), p);
+        if (it != Hydrangea.end()) {
+            Hydrangea.erase(it);
+            return p;
+        }
+        return nullptr; // Return nullptr if the plant was not found
+    }
+Plant* Inventory::removeBoxwood(Plant* p){
+        auto it = std::find(Boxwood.begin(), Boxwood.end(), p);
+        if (it != Boxwood.end()) {
+            Boxwood.erase(it);
+            return p;
+        }
+        return nullptr; // Return nullptr if the plant was not found
+    }
+Plant* Inventory::removeOak(Plant* p){
+        auto it = std::find(Oak.begin(), Oak.end(), p);
+        if (it != Oak.end()) {
+            Oak.erase(it);
+            return p;
+        }
+        return nullptr; // Return nullptr if the plant was not found
+    }
+Plant* Inventory::removeBaobab(Plant* p){
+        auto it = std::find(Baobab.begin(), Baobab.end(), p);
+        if (it != Baobab.end()) {
+            Baobab.erase(it);
+            return p;
+        }
+        return nullptr; // Return nullptr if the plant was not found
+    }   
+    
