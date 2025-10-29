@@ -55,7 +55,7 @@ PlantIterator::PlantIterator(const std::string& category){
     else if(category == "Baobab"){
         plants = &(inventory->Baobab);
     }
-    else if(category == "Seeds"){
+    else if(category == "Seeds"|| category == "seed" || category == "seedling" || category == "Seedlings"|| category == "Seed"){
         plants = &(inventory->seeds);
     }
     else{
