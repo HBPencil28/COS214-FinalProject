@@ -1,6 +1,6 @@
 #include "String.h"
 
-String::String(){
+String::String() : PlantDecorator(){
     std::cout << "Creating a bow" << std::endl;
     this->type = "Basic";
 }

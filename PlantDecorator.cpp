@@ -1,6 +1,8 @@
 #include "PlantDecorator.h"
+#include "Plant.h"
+#include "PlantComponent.h"
 
-PlantDecorator::PlantDecorator(){}
+PlantDecorator::PlantDecorator() : BasePlant("Decorator"), decoration(nullptr){}
 
 PlantDecorator::~PlantDecorator(){
     if (decoration){
@@ -21,5 +23,12 @@ void PlantDecorator::add(BasePlant *plantDecoration){
         decoration = plantDecoration;
     }else{
         this->decoration->add(plantDecoration);
+    }
+}
+
+void PlantDecorator::addPart(PlantComponent *plant){
+    /* Add implementation here if needed */
+    if(plant){
+        std::cout << "Studded" << std::endl;
     }
 }

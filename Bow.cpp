@@ -1,6 +1,6 @@
 #include "Bow.h"
 
-Bow::Bow(){
+Bow::Bow() : PlantDecorator(){
     std::cout << "Creating a bow" << std::endl;
     this->style = "Basic";
 }

@@ -43,7 +43,11 @@ public:
      * Default: not supported for leaves (throws). Composite subclasses should override.
      * @param child Pointer to the child to add.
      */
-    virtual void add(Greenhouse* child) { throw std::logic_error("add not supported"); }
+    virtual void add(Greenhouse* child) {
+        if (child){
+            std::cout << child->isComposite() << std::endl;
+        }
+        throw std::logic_error("add not supported"); }
 
     /**
      * @brief Remove a child component.
@@ -51,7 +55,13 @@ public:
      * Default: not supported for leaves (throws). Composite subclasses should override.
      * @param child Pointer to the child to remove.
      */
-    virtual void remove(Greenhouse* child) { throw std::logic_error("remove not supported"); }
+    virtual void remove(Greenhouse* child) {
+        if (child){
+            std::cout << child->isComposite() << std::endl;
+        }
+        
+        throw std::logic_error("remove not supported");
+    }
 
     /**
      * @brief Get a child component by index.
@@ -60,7 +70,9 @@ public:
      * @param index Zero-based index of the child.
      * @return Pointer to the child component.
      */
-    virtual Greenhouse* getChild(std::size_t index) { throw std::logic_error("getChild not supported"); }
+    virtual Greenhouse* getChild(std::size_t index) {
+        std::cout << index << std::endl;
+        throw std::logic_error("getChild not supported"); }
 
     /**
      * @brief Whether this component can contain children.
@@ -72,7 +84,7 @@ public:
      * @brief Pure virtual clone method
      *
      */
-    virtual Plant *clone() = 0;
+    virtual Greenhouse* clone() = 0;
 
     void attach(PlantObserver* observer);
     void detach(PlantObserver* observer);

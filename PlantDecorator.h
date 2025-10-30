@@ -3,20 +3,18 @@
 
 #include <string>
 #include <iostream>
-
-#include "Plant.h"
 #include "BasePlant.h"
+
+class PlantComponent;
 
 class PlantDecorator : public BasePlant{
     public:
         PlantDecorator();
-        
-    protected:
         ~PlantDecorator();
-        BasePlant* getDecoration();
+        BasePlant *getDecoration();
         // Decorator
         void add(BasePlant *plantDecoration) override;
-        void addPart(PlantComponent *plant)override{}
+        void addPart(PlantComponent *plant) override;
 
     private:
         BasePlant* decoration;
