@@ -6,7 +6,8 @@ void CustomisePlant::execute() {
     CustomerStaff* customerStaff = dynamic_cast<CustomerStaff*>(assistant);
     if (customerStaff) {
         // it is going to be nullptr for now, other there should be a Plant* passed here
-        customerStaff->customise(nullptr, customisationDetails);
+        BasePlant* p = customerStaff->customise(toBeCustomized, customisationDetails);
+        customer->addPurchases(p);
     } else {
         std::cerr << "Error: Staff member is not a CustomerStaff." << std::endl;
     }

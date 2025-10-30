@@ -10,9 +10,11 @@ class BuyPlant : public CustomerCommand {
 
 private:
     Order plantDetails;
+    Customer* customer;
 
 public:
-    BuyPlant(Order& plant, Staff* staff) : CustomerCommand(staff), plantDetails(plant) {};
+    BuyPlant(Order& plant, Staff* staff, Customer* rec) : 
+    CustomerCommand(staff), plantDetails(plant), customer(rec) {};
     void execute() override;    
 };
 
