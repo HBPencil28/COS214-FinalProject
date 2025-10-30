@@ -27,18 +27,6 @@ private:
     std::string zoneCategory;
 
 public:
-    /**
-     * @brief strategy to be used for all plants
-     * 
-     */
-    CareStrategy* strategy;
-
-    /**
-     * @brief idk what this is ngl
-     * 
-     */
-    std::vector<Plant*> plants;
-
     /** @brief Paramaterised constructor */
     Zone(std::string Z_Name, std::string C_Name);
     
