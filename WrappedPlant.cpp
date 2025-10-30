@@ -1,8 +1,7 @@
 #include "WrappedPlant.h"
 
-WrappedPlant::WrappedPlant(){
+WrappedPlant::WrappedPlant() : BasePlant("Wrapped"){
     std::cout << "Creating a wrappedPlant plant" << std::endl;
-    this->type = "Wrapped";
 }
 
 WrappedPlant::~WrappedPlant(){

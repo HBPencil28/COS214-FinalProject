@@ -1,8 +1,7 @@
 #include "PottedPlant.h"
 
-PottedPlant::PottedPlant(Plant *plant){
+PottedPlant::PottedPlant(Plant *plant) : BasePlant("Potted"){
     std::cout << "Creating a potted plant" << std::endl;
-    this->type = "Potted";
     this->plant = plant;
 }
 

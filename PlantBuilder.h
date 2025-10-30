@@ -5,7 +5,6 @@
 #include <iostream>
 
 #include "Plant.h"
-#include "PlantBuilder.h"
 #include "PlantDecorator.h"
 #include "PlantComponent.h"
 #include "PlantPot.h"
@@ -15,6 +14,7 @@
 class PlantBuilder{
     public:
         PlantBuilder(BasePlant *product);
+        virtual ~PlantBuilder(){}
         virtual void addPot() = 0;
         virtual void addSoil() = 0;
         virtual void addWrap() = 0;

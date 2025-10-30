@@ -8,9 +8,6 @@ class PlantPot: public PlantComponent{
     public:
         PlantPot();
         ~PlantPot();
-        void changeType(std::string type);
-    private:
-        std::string type;
 };
 
 #endif

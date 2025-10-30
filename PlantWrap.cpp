@@ -5,7 +5,3 @@ PlantWrap::PlantWrap() : PlantComponent("Wrap"){
 }
 
 PlantWrap::~PlantWrap(){}
-
-void PlantWrap::changeType(std::string type){
-    this->type = type;
-}

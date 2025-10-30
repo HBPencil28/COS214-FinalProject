@@ -12,6 +12,7 @@
 class BuildPlantDirector{
     public:
         BuildPlantDirector();
+        virtual ~BuildPlantDirector(){}
         void construct(bool b);
         void setBuilder(PlantBuilder* builder);
         PlantBuilder* getBuilder();

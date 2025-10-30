@@ -1,6 +1,6 @@
 #include "WrapPlantBuilder.h"
 
-WrapPlantBuilder::WrapPlantBuilder(BasePlant *product) : PlantBuilder(product){}
+WrapPlantBuilder::WrapPlantBuilder() : PlantBuilder(new WrappedPlant()) {}
 
 void WrapPlantBuilder::addWrap(){
     PlantComponent* wrap = new PlantWrap();

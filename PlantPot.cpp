@@ -5,7 +5,3 @@ PlantPot::PlantPot() : PlantComponent("Pot"){
 }
 
 PlantPot::~PlantPot(){}
-
-void PlantPot::changeType(std::string type){
-    this->type = type;
-}

@@ -56,7 +56,7 @@ class Plant: public Greenhouse{
         void discard();
         
         // ----- Prototype Pattern -----
-        Plant* clone() override;
+        Greenhouse* clone() override;
 
         // ----- Decorator / Composite Pattern -----
         //virtual void add(Plant* extraDecoration);

@@ -9,12 +9,10 @@ class PottedPlant : public BasePlant{
     public:
         PottedPlant(Plant *plant);
         ~PottedPlant();
-        void add(BasePlant *){}
+        void add(BasePlant *bp){}
         void addPart(PlantComponent *plant);
 
     private:
-        std::string type;
-        std::vector<PlantComponent *> parts;
         Plant *plant;
 };
 

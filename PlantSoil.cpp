@@ -5,8 +5,3 @@ PlantSoil::PlantSoil() : PlantComponent("Soil"){
 }
 
 PlantSoil::~PlantSoil() {}
-
-void PlantSoil::changeType(std::string type)
-{
-    this->type = type;
-}

@@ -2,10 +2,11 @@
 #define WRAPPLANTBUILDER_H
 
 #include "PlantBuilder.h"
+#include "WrappedPlant.h"
 
 class WrapPlantBuilder : public PlantBuilder{
     public:
-        WrapPlantBuilder(BasePlant *product);
+        WrapPlantBuilder();
         void addPot(){}
         void addSoil(){}
         void addWrap() override;

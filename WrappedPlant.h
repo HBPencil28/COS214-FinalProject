@@ -9,13 +9,11 @@ class WrappedPlant : public BasePlant{
     public:
         WrappedPlant();
         ~WrappedPlant();
-        void add(BasePlant *) {}
+        void add(BasePlant *bp) {}
         void addPart(PlantComponent *plant);
         void addPlant(Plant* plant);
 
     private:
-        std::string type;
-        std::vector<PlantComponent *> parts;
         std::vector<Plant*> plants;
 };
 
