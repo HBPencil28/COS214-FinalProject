@@ -2,44 +2,37 @@
 #define CARESTAFF_H
 
 #include "Staff.h"
-#include "CareCommand.h"
+#include "PlantObserver.h"
 
 #include <iostream>
 #include <string>
 #include <vector>
 
-using namespace std;
+class Greenhouse;
+class Zone;
+class Plant;
 
-class CareStaff : public Staff {
-    private:
-        Greenhouse* zone;
+class CareStaff : public Staff, public PlantObserver{
+        
     public:
-        CareStaff(const string &name) : Staff(name, "Care"), zone(nullptr) {}
-        ~CareStaff() {}
+        CareStaff(const string &name);
+        ~CareStaff();
 
-        virtual void performDuty() const
-        {
-            
-        }
+        virtual void performDuty() const;
 
-        void water(int amount){
-            for (Greenhouse *plant : static_cast<Zone*>(this->zone)->getChildren()){
-                static_cast<Plant *>(plant)->water(amount);
-            }
-        }
+        void water(int amount);
 
-        void fertilise(int amount){
-            for (Greenhouse *plant : static_cast<Zone*>(this->zone)->getChildren()){
-                static_cast<Plant *>(plant)->water(amount);
-            }
-        }
+        void fertilise(int amount);
 
-        void setZone(Greenhouse* zone){
-            if (zone){
-                this->zone = zone;
-            }
-            
-        }
+
+        void changed()override;
+
+        // CareStaff will say the plant they restocked, DeliveryStaff && CustomerStaff will say the plant they finished
+        std::map<std::string, bool> get()override;
+        // receive notification from the mediator
+        void set(std::map<std::string, bool>)override;
+
+        void update(/*PlantState* state*/) override;
 };
 
 #endif

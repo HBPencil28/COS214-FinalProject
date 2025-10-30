@@ -1,9 +1,6 @@
 #ifndef CARECOMMAND_H
 #define CARECOMMAND_H
 
-#include "CareStaff.h"
-#include "Greenhouse.h"
-#include "Plant.h"
 
 #include <string>
 #include <vector>
@@ -12,6 +9,7 @@
 using namespace std;
 
 class CareStaff;
+class Zone;
 
 class CareCommand{
 protected:
