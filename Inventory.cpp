@@ -1,6 +1,7 @@
 #include "Inventory.h"
 #include "PlantIterator.h"
 #include "Plant.h"
+#include <stdexcept>
 
 /**
  * @file Inventory.cpp
@@ -71,7 +72,9 @@ std::string Inventory::lower(const std::string &s) { // lowercase comparison
 bool Inventory::isRosesEmpty() const { return Roses.empty(); }
 
 void Inventory::addRose(Plant* p) {
-    if (!p) { std::cout << "Cannot add null Rose\n"; return; }
+    if (!p) { std::cout << "Cannot add null Rose\n";
+            throw std::runtime_error("tried to add null"); 
+             return; }
 
     if(lower(p->getName()) == "rose"){
     Roses.push_back(p);
@@ -85,6 +88,7 @@ void Inventory::addRose(Plant* p) {
 Plant* Inventory::removeRose() {
     if (Roses.empty()) {
         std::cout << "No Roses to remove\n";
+        throw std::runtime_error("tried to remove null"); 
         return nullptr;
     }
     Plant* removed = Roses.back();
@@ -94,7 +98,9 @@ Plant* Inventory::removeRose() {
 
 bool Inventory::isDaisiesEmpty() const { return Daisies.empty(); }
 void Inventory::addDaisy(Plant* p) {
-    if (!p) { std::cout << "Cannot add null Daisy\n"; return; }
+    if (!p) { std::cout << "Cannot add null Daisy\n";
+            throw std::runtime_error("tried to add null"); 
+             return; }
     if(lower(p->getName()) == "daisy"){
     Daisies.push_back(p);
     std::cout << "Added Daisy to Dasies in Inventory"<< '\n';
@@ -106,6 +112,7 @@ void Inventory::addDaisy(Plant* p) {
 Plant* Inventory::removeDaisy() {
     if (Daisies.empty()) {
         std::cout << "No Daisies to remove\n";
+        throw std::runtime_error("tried to remove null"); 
         return nullptr;
     }
     Plant* removed = Daisies.back();
@@ -141,7 +148,9 @@ Plant* Inventory::removeTulip() {
 
 bool Inventory::isSucculentsEmpty() const { return Succulents.empty(); }
 void Inventory::addSucculent(Plant* p) {
-    if (!p) { std::cout << "Cannot add null Succulent\n"; return; }
+    if (!p) { std::cout << "Cannot add null Succulent\n"; 
+            throw std::runtime_error("tried to add null"); 
+            return; }
     if(lower(p->getName()) == "succulent"){
     Succulents.push_back(p);
     std::cout << "Added Succulent to Succulents in Inventory"<< '\n';
@@ -153,6 +162,7 @@ void Inventory::addSucculent(Plant* p) {
 Plant* Inventory::removeSucculent() {
     if (Succulents.empty()) {
         std::cout << "No Succulents to remove\n";
+        throw std::runtime_error("tried to remover null"); 
         return nullptr;
     }
     Plant* removed = Succulents.back();
@@ -164,6 +174,7 @@ bool Inventory::isCactusesEmpty() const { return Cactuses.empty(); }
 void Inventory::addCactus(Plant* p) {
     if (!p) { std::cout << "Cannot add null Cactus\n"; return; }
     if(lower(p->getName()) == "cactus"){
+    throw std::runtime_error("tried to add null"); 
     Cactuses.push_back(p);
     std::cout << "Added Cactus to Cactuses in Inventory"<< '\n';
     }
@@ -174,6 +185,7 @@ void Inventory::addCactus(Plant* p) {
 Plant* Inventory::removeCactus() {
     if (Cactuses.empty()) {
         std::cout << "No Cactuses to remove\n";
+        throw std::runtime_error("tried to remove null"); 
         return nullptr;
     }
     Plant* removed = Cactuses.back();
@@ -187,7 +199,9 @@ Plant* Inventory::removeCactus() {
 
 bool Inventory::isBasilsEmpty() const { return Basils.empty(); }
 void Inventory::addBasil(Plant* p) {
-    if (!p) { std::cout << "Cannot add null Basil\n"; return; }
+    if (!p) { std::cout << "Cannot add null Basil\n";
+            throw std::runtime_error("tried to add null"); 
+            return; }
     if(lower(p->getName()) == "basil"){
         Basils.push_back(p);
         std::cout << "Added Basil to Basils in Inventory"<< '\n';
@@ -199,6 +213,8 @@ void Inventory::addBasil(Plant* p) {
 Plant* Inventory::removeBasil() {
     if (Basils.empty()) {
         std::cout << "No Basils to remove\n";
+        throw std::runtime_error("tried to remove null"); 
+
         return nullptr;
     }
     Plant* removed = Basils.back();
@@ -208,7 +224,9 @@ Plant* Inventory::removeBasil() {
 
 bool Inventory::isMintsEmpty() const { return Mints.empty(); }
 void Inventory::addMint(Plant* p) {
-    if (!p) { std::cout << "Cannot add null Mint\n"; return; }
+    if (!p) { std::cout << "Cannot add null Mint\n";
+        throw std::runtime_error("tried to add null"); 
+        return; }
     if(lower(p->getName()) == "mint"){
     Mints.push_back(p);
     std::cout << "Added Mint to Mints in Inventory"<< '\n';
@@ -220,6 +238,7 @@ void Inventory::addMint(Plant* p) {
 Plant* Inventory::removeMint() {
     if (Mints.empty()) {
         std::cout << "No Mints to remove\n";
+        throw std::runtime_error("tried to remove null"); 
         return nullptr;
     }
     Plant* removed = Mints.back();
@@ -229,7 +248,9 @@ Plant* Inventory::removeMint() {
 
 bool Inventory::isParsleysEmpty() const { return Parsleys.empty(); }
 void Inventory::addParsley(Plant* p) {
-    if (!p) { std::cout << "Cannot add null Parsley\n"; return; }
+    if (!p) { std::cout << "Cannot add null Parsley\n";
+        throw std::runtime_error("tried to add null"); 
+        return; }
     if(lower(p->getName()) == "parsley"){
     Parsleys.push_back(p);
     std::cout << "Added Parsley to Parsleys in Inventory"<< '\n';
@@ -241,6 +262,7 @@ void Inventory::addParsley(Plant* p) {
 Plant* Inventory::removeParsley() {
     if (Parsleys.empty()) {
         std::cout << "No Parsleys to remove\n";
+        throw std::runtime_error("tried to remove null"); 
         return nullptr;
     }
     Plant* removed = Parsleys.back();
@@ -250,7 +272,9 @@ Plant* Inventory::removeParsley() {
 
 bool Inventory::isCoriandersEmpty() const { return Corianders.empty(); }
 void Inventory::addCoriander(Plant* p) {
-    if (!p) { std::cout << "Cannot add null Coriander\n"; return; }
+    if (!p) { std::cout << "Cannot add null Coriander\n";
+        throw std::runtime_error("tried to add null");         
+        return; }
     if(lower(p->getName()) == "coriander"){
     Corianders.push_back(p);
     std::cout << "Added Coriander to Corianders in Inventory"<< '\n';
@@ -262,6 +286,8 @@ void Inventory::addCoriander(Plant* p) {
 Plant* Inventory::removeCoriander() {
     if (Corianders.empty()) {
         std::cout << "No Corianders to remove\n";
+        throw std::runtime_error("tried to remove null"); 
+
         return nullptr;
     }
     Plant* removed = Corianders.back();
@@ -271,7 +297,9 @@ Plant* Inventory::removeCoriander() {
 
 bool Inventory::isLavendersEmpty() const { return Lavenders.empty(); }
 void Inventory::addLavender(Plant* p) {
-    if (!p) { std::cout << "Cannot add null Lavender\n"; return; }
+    if (!p) { std::cout << "Cannot add null Lavender\n";
+            throw std::runtime_error("tried to add null"); 
+            return; }
     if(lower(p->getName()) == "lavender"){
     Lavenders.push_back(p);
     std::cout << "Added Lavender to Lavenders in Inventory"<< '\n';
@@ -283,6 +311,8 @@ void Inventory::addLavender(Plant* p) {
 Plant* Inventory::removeLavender() {
     if (Lavenders.empty()) {
         std::cout << "No Lavenders to remove\n";
+        throw std::runtime_error("tried to remove null"); 
+
         return nullptr;
     }
     Plant* removed = Lavenders.back();
@@ -292,7 +322,9 @@ Plant* Inventory::removeLavender() {
 
 bool Inventory::isRosemaryEmpty() const { return Rosemary.empty(); }
 void Inventory::addRosemary(Plant* p) {
-    if (!p) { std::cout << "Cannot add null Rosemary\n"; return; }
+    if (!p) { std::cout << "Cannot add null Rosemary\n";
+            throw std::runtime_error("tried to add null"); 
+            return; }
     if(lower(p->getName()) == "rosemary"){
     Rosemary.push_back(p);
     std::cout << "Added Rosemary to Rosemary in Inventory"<< '\n';
@@ -304,6 +336,8 @@ void Inventory::addRosemary(Plant* p) {
 Plant* Inventory::removeRosemary() {
     if (Rosemary.empty()) {
         std::cout << "No Rosemary to remove\n";
+        throw std::runtime_error("tried to remove null"); 
+
         return nullptr;
     }
     Plant* removed = Rosemary.back();
@@ -313,7 +347,9 @@ Plant* Inventory::removeRosemary() {
 
 bool Inventory::isLemonBalmsEmpty() const { return LemonBalms.empty(); }
 void Inventory::addLemonBalm(Plant* p) {
-    if (!p) { std::cout << "Cannot add null LemonBalm\n"; return; }
+    if (!p) { std::cout << "Cannot add null LemonBalm\n";
+            throw std::runtime_error("tried to add null"); 
+            return; }
     if(lower(p->getName()) == "lemonbalm"){
     LemonBalms.push_back(p);
     std::cout << "Added LemonBalm to LemonBalms in Inventory"<< '\n';
@@ -325,6 +361,7 @@ void Inventory::addLemonBalm(Plant* p) {
 Plant* Inventory::removeLemonBalm() {
     if (LemonBalms.empty()) {
         std::cout << "No LemonBalms to remove\n";
+        throw std::runtime_error("tried to remove null"); 
         return nullptr;
     }
     Plant* removed = LemonBalms.back();
@@ -338,7 +375,10 @@ Plant* Inventory::removeLemonBalm() {
 
 bool Inventory::isHibiscusEmpty() const { return Hibiscus.empty(); }
 void Inventory::addHibiscus(Plant* p) {
-    if (!p) { std::cout << "Cannot add null Hibiscus\n"; return; }
+    if (!p) { std::cout << "Cannot add null Hibiscus\n";
+        throw std::runtime_error("tried to add null"); 
+        return; 
+    }
     if(lower(p->getName()) == "hibiscus"){
     Hibiscus.push_back(p);
     std::cout << "Added Hibiscus to Hibiscus in Inventory"<< '\n';
@@ -350,6 +390,7 @@ void Inventory::addHibiscus(Plant* p) {
 Plant* Inventory::removeHibiscus() {
     if (Hibiscus.empty()) {
         std::cout << "No Hibiscus to remove\n";
+        throw std::runtime_error("tried to remove null"); 
         return nullptr;
     }
     Plant* removed = Hibiscus.back();
@@ -359,7 +400,9 @@ Plant* Inventory::removeHibiscus() {
 
 bool Inventory::isHydrangeaEmpty() const { return Hydrangea.empty(); }
 void Inventory::addHydrangea(Plant* p) {
-    if (!p) { std::cout << "Cannot add null Hydrangea\n"; return; }
+    if (!p) { std::cout << "Cannot add null Hydrangea\n";
+        throw std::runtime_error("tried to add null");  
+        return; }
     if(lower(p->getName()) == "hydrangea"){
     Hydrangea.push_back(p);
     std::cout << "Added Hydrangea to Hydrangea in Inventory"<< '\n';
@@ -371,6 +414,7 @@ void Inventory::addHydrangea(Plant* p) {
 Plant* Inventory::removeHydrangea() {
     if (Hydrangea.empty()) {
         std::cout << "No Hydrangea to remove\n";
+        throw std::runtime_error("tried to remove null"); 
         return nullptr;
     }
     Plant* removed = Hydrangea.back();
@@ -380,7 +424,9 @@ Plant* Inventory::removeHydrangea() {
 
 bool Inventory::isBoxwoodEmpty() const { return Boxwood.empty(); }
 void Inventory::addBoxwood(Plant* p) {
-    if (!p) { std::cout << "Cannot add null Boxwood\n"; return; }
+    if (!p) { std::cout << "Cannot add null Boxwood\n";
+            throw std::runtime_error("tried to add null"); 
+            return; }
     if(lower(p->getName()) == "boxwood"){
     Boxwood.push_back(p);
     std::cout << "Added Boxwood to Boxwood in Inventory"<< '\n';
@@ -392,6 +438,7 @@ void Inventory::addBoxwood(Plant* p) {
 Plant* Inventory::removeBoxwood() {
     if (Boxwood.empty()) {
         std::cout << "No Boxwood to remove\n";
+        throw std::runtime_error("tried to remove null"); 
         return nullptr;
     }
     Plant* removed = Boxwood.back();
@@ -401,7 +448,9 @@ Plant* Inventory::removeBoxwood() {
 
 bool Inventory::isOakEmpty() const { return Oak.empty(); }
 void Inventory::addOak(Plant* p) {
-    if (!p) { std::cout << "Cannot add null Oak\n"; return; }
+    if (!p) { std::cout << "Cannot add null Oak\n";
+                throw std::runtime_error("tried to add null"); 
+                return; }
     if(lower(p->getName()) == "oak"){
     Oak.push_back(p);
     std::cout << "Added Oak to Oak in Inventory"<< '\n';
@@ -413,6 +462,7 @@ void Inventory::addOak(Plant* p) {
 Plant* Inventory::removeOak() {
     if (Oak.empty()) {
         std::cout << "No Oak to remove\n";
+        throw std::runtime_error("tried to remove null"); 
         return nullptr;
     }
     Plant* removed = Oak.back();
@@ -422,7 +472,9 @@ Plant* Inventory::removeOak() {
 
 bool Inventory::isBaobabEmpty() const { return Baobab.empty(); }
 void Inventory::addBaobab(Plant* p) {
-    if (!p) { std::cout << "Cannot add null Baobab\n"; return; }
+    if (!p) { std::cout << "Cannot add null Baobab\n";
+                throw std::runtime_error("tried to add null"); 
+                return; }
     if(lower(p->getName()) == "baobab"){
     Baobab.push_back(p);
     std::cout << "Added Baobab to Baobab in Inventory"<< '\n';
@@ -434,6 +486,7 @@ void Inventory::addBaobab(Plant* p) {
 Plant* Inventory::removeBaobab() {
     if (Baobab.empty()) {
         std::cout << "No Baobab to remove\n";
+        throw std::runtime_error("tried to remove null"); 
         return nullptr;
     }
     Plant* removed = Baobab.back();
@@ -447,7 +500,10 @@ Plant* Inventory::removeBaobab() {
 
 bool Inventory::isSeedsEmpty() const { return seeds.empty(); }
 void Inventory::addSeed(Plant* p) {
-    if (!p) { std::cout << "Cannot add null Seed\n"; return; }
+    if (!p) { 
+        std::cout << "Cannot add null Seed\n"; 
+        throw std::runtime_error("tried to add null"); 
+        return; }
     if(lower(p->getStateName()) == "seedling"){
     seeds.push_back(p);
     std::cout << "Added Seed to Seeds in Inventory"<< '\n';
@@ -457,8 +513,9 @@ void Inventory::addSeed(Plant* p) {
     }
 }
 Plant* Inventory::removeSeed(const std::string& type) {
-    if (type.empty()) { 
+    if (type.empty() || type.length() == 0) { 
         std::cout << "Cannot remove seed with empty type\n"; 
+        throw std::runtime_error("tried to remove null"); 
         return nullptr; 
     }
     
@@ -472,6 +529,8 @@ Plant* Inventory::removeSeed(const std::string& type) {
     }
     
     std::cout << "No seed found of type: " << type << '\n';
+    throw std::runtime_error("tried to remove nonexistent seed"); 
+
     return nullptr;
 }
 
