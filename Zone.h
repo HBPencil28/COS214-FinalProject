@@ -12,12 +12,12 @@
  * 
  */
 #include "Greenhouse.h"
-#include "HighCare.h"
-#include "CareStaff.h"
-#include "CareStrategy.h"
 #include <algorithm>
 #include <vector>
-#include "Plant.h"
+#include <string>
+
+class CareStrategy;
+class CareStaff;
 
 /**
  * @class Zone
@@ -104,7 +104,7 @@ public:
      * @brief Studded clone method
      * @return nullptr
      */
-    Plant *clone(){ return nullptr;}
+    Greenhouse* clone() override{ return nullptr;}
 
     /**
      * @brief Get the Zone strategy object

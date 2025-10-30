@@ -1,4 +1,8 @@
 #include "Zone.h"
+#include "Plant.h"
+#include "LowCare.h"
+#include "MediumCare.h"
+#include "HighCare.h"
 
 void Zone::add(Greenhouse* child) {
     if (!child) {
