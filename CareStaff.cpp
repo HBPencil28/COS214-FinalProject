@@ -1,11 +1,20 @@
 #include "CareStaff.h"
 #include "Zone.h"
 #include "Plant.h"
+#include "NurseryMediator.h"
+#include "Inventory.h"
+
+std::string toLowerCase(std::string str) {
+    std::transform(str.begin(), str.end(), str.begin(), 
+                   [](unsigned char c){ return std::tolower(c); });
+    return str;
+}
 
 CareStaff::CareStaff(const string &name){
     std::cout << name << std::endl;
     this->setSubject(nullptr);
 }
+
 CareStaff::~CareStaff() {}
 
 void CareStaff::performDuty() const {}
@@ -320,10 +329,19 @@ void CareStaff::set(std::map<std::string, bool> message) {
     stockAvailability = message;
 }
 
+void CareStaff::update(Plant* p){
+    bool toUpdate = false;
+    Plant* toRemove = removeFromInventory(p, toUpdate);
+    delete toRemove;
+    
+    if(toUpdate)
+        changed();
+}
+
 void CareStaff::update() {
     // Implementation for updating based on plant state changes
     bool toUpdate = false;
-    for(std::vector<Greenhouse*>::iterator it = static_cast<Zone*>(zone)->getChildren().begin(); it != static_cast<Zone*>(zone)->getChildren().end(); ++it) {
+    for(std::vector<Greenhouse*>::const_iterator it = static_cast<Zone*>(zone)->getChildren().begin(); it != static_cast<Zone*>(zone)->getChildren().end(); ++it) {
         Plant* plant = static_cast<Plant*>(*it);
         std::string plantName = toLowerCase(plant->getName());
 
@@ -340,8 +358,3 @@ void CareStaff::update() {
     }
 }
 
-std::string toLowerCase(std::string str) {
-    std::transform(str.begin(), str.end(), str.begin(), 
-                   [](unsigned char c){ return std::tolower(c); });
-    return str;
-}
