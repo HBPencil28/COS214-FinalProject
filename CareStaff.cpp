@@ -1,151 +1,54 @@
 #include "CareStaff.h"
+#include "Zone.h"
+#include "Plant.h"
 
-void CareStaff::update() {
-    // Implementation for updating based on plant state changes
-    bool toUpdate = false;
-    for(std::vector<Greenhouse*>::iterator it = static_cast<Zone*>(zone)->getChildren().begin(); it != static_cast<Zone*>(zone)->getChildren().end(); ++it) {
-        Plant* plant = static_cast<Plant*>(*it);
-        std::string plantName = toLowerCase(plant->getName());
+CareStaff::CareStaff(const string &name){
+    std::cout << name << std::endl;
+    this->setSubject(nullptr);
+}
+CareStaff::~CareStaff() {}
 
-        // flowers
-        if(plant->isMature()) {
-            insertToInventory(plant, toUpdate);
+void CareStaff::performDuty() const {}
+
+void CareStaff::water(int amount){
+    if (!zone) return;
+    Zone *z = dynamic_cast<Zone *>(this->zone);
+    if (z){
+        for (Greenhouse *plant : z->getChildren()){
+            Plant *p = dynamic_cast<Plant *>(plant);
+            if (p)
+            {
+                p->water(amount);
+            }
         }
-        
-        // After processing, remove the plant from the zone
-        zone->remove(*it); 
-    }
-    if(toUpdate){
-        changed();
     }
 }
 
-void CareStaff::update(Plant* p) {
-    // Implementation for updating based on a specific plant state change
-    bool toUpdate = false;
-    Plant* toDiscard = removeFromInventory(p, toUpdate);
-    delete toDiscard;
-    if(toUpdate){
-        changed();
+void CareStaff::fertilise(int amount){
+    if (!zone)
+        return;
+    Zone *z = dynamic_cast<Zone *>(this->zone);
+    if (z)
+    {
+        for (Greenhouse *plant : z->getChildren())
+        {
+            Plant *p = dynamic_cast<Plant *>(plant);
+            if (p)
+            {
+                p->fertilize(amount);
+            }
+        }
     }
 }
 
-Plant* CareStaff::removeFromInventory(Plant* plant, bool& toUpdate) {
-    std::string plantName = toLowerCase(plant->getName());
-    Plant* removedPlant = nullptr;
+void CareStaff::changed() {
+    mediator->notify(this);
+}
 
-    // flowers
-    if (plantName.compare("rose") == 0) {
-        removedPlant = inv->removeRose(plant);
-        if (inv->isRosesEmpty()) {
-            stockAvailability["rose"] = false;
-            toUpdate = true;
-        }
-    } else if (plantName.compare("daisy") == 0) {
-        removedPlant = inv->removeDaisy(plant);
-        if (inv->isDaisiesEmpty()) {
-            stockAvailability["daisy"] = false;
-            toUpdate = true;
-        }
-    } else if (plantName.compare("tulip") == 0) {
-        removedPlant = inv->removeTulip(plant);
-        if (inv->isTulipsEmpty()) {
-            stockAvailability["tulip"] = false;
-            toUpdate = true;
-        }
-    }
-    // succulents & cactuses
-    else if (plantName.compare("cactus") == 0) {
-        removedPlant = inv->removeCactus(plant);
-        if (inv->isCactusesEmpty()) {
-            stockAvailability["cactus"] = false;
-            toUpdate = true;
-        }
-    } else if (plantName.compare("succulent") == 0) {
-        removedPlant = inv->removeSucculent(plant);
-        if (inv->isSucculentsEmpty()) {
-            stockAvailability["succulent"] = false;
-            toUpdate = true;
-        }
-    }
-    // herbs & aromatics
-    else if (plantName.compare("basil") == 0) {
-        removedPlant = inv->removeBasil(plant);
-        if (inv->isBasilsEmpty()) {
-            stockAvailability["basil"] = false;
-            toUpdate = true;
-        }
-    } else if (plantName.compare("mint") == 0) {
-        removedPlant = inv->removeMint(plant);
-        if (inv->isMintsEmpty()) {
-            stockAvailability["mint"] = false;
-            toUpdate = true;
-        }
-    } else if (plantName.compare("parsley") == 0) {
-        removedPlant = inv->removeParsley(plant);
-        if (inv->isParsleysEmpty()) {
-            stockAvailability["parsley"] = false;
-            toUpdate = true;
-        }
-    } else if (plantName.compare("coriander") == 0) {
-        removedPlant = inv->removeCoriander(plant);
-        if (inv->isCoriandersEmpty()) {
-            stockAvailability["coriander"] = false;
-            toUpdate = true;
-        }
-    } else if (plantName.compare("lavender") == 0) {
-        removedPlant = inv->removeLavender(plant);
-        if (inv->isLavendersEmpty()) {
-            stockAvailability["lavender"] = false;
-            toUpdate = true;
-        }
-    } else if (plantName.compare("rosemary") == 0) {
-        removedPlant = inv->removeRosemary(plant);
-        if (inv->isRosemaryEmpty()) {
-            stockAvailability["rosemary"] = false;
-            toUpdate = true;
-        }
-    } else if (plantName.compare("lemonbalm") == 0) {
-        removedPlant = inv->removeLemonBalm(plant);
-        if (inv->isLemonBalmsEmpty()) {
-            stockAvailability["lemonbalm"] = false;
-            toUpdate = true;
-        }
-    }
-    // trees & shrubs
-    else if (plantName.compare("hibiscus") == 0) {
-        removedPlant = inv->removeHibiscus(plant);
-        if (inv->isHibiscusEmpty()) {
-            stockAvailability["hibiscus"] = false;
-            toUpdate = true;
-        }
-    } else if (plantName.compare("hydrangea") == 0) {
-        removedPlant = inv->removeHydrangea(plant);
-        if (inv->isHydrangeaEmpty()) {
-            stockAvailability["hydrangea"] = false;
-            toUpdate = true;
-        }
-    } else if (plantName.compare("boxwood") == 0) {
-        removedPlant = inv->removeBoxwood(plant);
-        if (inv->isBoxwoodEmpty()) {
-            stockAvailability["boxwood"] = false;
-            toUpdate = true;
-        }
-    } else if (plantName.compare("oak") == 0) {
-        removedPlant = inv->removeOak(plant);
-        if (inv->isOakEmpty()) {
-            stockAvailability["oak"] = false;
-            toUpdate = true;
-        }
-    } else if (plantName.compare("baobab") == 0) {
-        removedPlant = inv->removeBaobab(plant);
-        if (inv->isBaobabEmpty()) {
-            stockAvailability["baobab"] = false;
-            toUpdate = true;
-        }
-    }
-
-    return removedPlant;
+// CareStaff will say the plant they restocked, DeliveryStaff && CustomerStaff will say the plant they finished
+std::map<std::string, bool> CareStaff::get() {
+    // Return information about the plant they  would be: s (from the harvest command)]
+    return stockAvailability;
 }
 
 void CareStaff::insertToInventory(Plant* plant, bool& toUpdate) {
@@ -293,18 +196,148 @@ void CareStaff::insertToInventory(Plant* plant, bool& toUpdate) {
     }
 }
 
-void CareStaff::changed() {
-    mediator->notify(this);
+Plant* CareStaff::removeFromInventory(Plant* plant, bool& toUpdate) {
+    std::string plantName = toLowerCase(plant->getName());
+    Plant* removedPlant = nullptr;
+
+    // flowers
+    if (plantName.compare("rose") == 0) {
+        removedPlant = inv->removeRose(plant);
+        if (inv->isRosesEmpty()) {
+            stockAvailability["rose"] = false;
+            toUpdate = true;
+        }
+    } else if (plantName.compare("daisy") == 0) {
+        removedPlant = inv->removeDaisy(plant);
+        if (inv->isDaisiesEmpty()) {
+            stockAvailability["daisy"] = false;
+            toUpdate = true;
+        }
+    } else if (plantName.compare("tulip") == 0) {
+        removedPlant = inv->removeTulip(plant);
+        if (inv->isTulipsEmpty()) {
+            stockAvailability["tulip"] = false;
+            toUpdate = true;
+        }
+    }
+    // succulents & cactuses
+    else if (plantName.compare("cactus") == 0) {
+        removedPlant = inv->removeCactus(plant);
+        if (inv->isCactusesEmpty()) {
+            stockAvailability["cactus"] = false;
+            toUpdate = true;
+        }
+    } else if (plantName.compare("succulent") == 0) {
+        removedPlant = inv->removeSucculent(plant);
+        if (inv->isSucculentsEmpty()) {
+            stockAvailability["succulent"] = false;
+            toUpdate = true;
+        }
+    }
+    // herbs & aromatics
+    else if (plantName.compare("basil") == 0) {
+        removedPlant = inv->removeBasil(plant);
+        if (inv->isBasilsEmpty()) {
+            stockAvailability["basil"] = false;
+            toUpdate = true;
+        }
+    } else if (plantName.compare("mint") == 0) {
+        removedPlant = inv->removeMint(plant);
+        if (inv->isMintsEmpty()) {
+            stockAvailability["mint"] = false;
+            toUpdate = true;
+        }
+    } else if (plantName.compare("parsley") == 0) {
+        removedPlant = inv->removeParsley(plant);
+        if (inv->isParsleysEmpty()) {
+            stockAvailability["parsley"] = false;
+            toUpdate = true;
+        }
+    } else if (plantName.compare("coriander") == 0) {
+        removedPlant = inv->removeCoriander(plant);
+        if (inv->isCoriandersEmpty()) {
+            stockAvailability["coriander"] = false;
+            toUpdate = true;
+        }
+    } else if (plantName.compare("lavender") == 0) {
+        removedPlant = inv->removeLavender(plant);
+        if (inv->isLavendersEmpty()) {
+            stockAvailability["lavender"] = false;
+            toUpdate = true;
+        }
+    } else if (plantName.compare("rosemary") == 0) {
+        removedPlant = inv->removeRosemary(plant);
+        if (inv->isRosemaryEmpty()) {
+            stockAvailability["rosemary"] = false;
+            toUpdate = true;
+        }
+    } else if (plantName.compare("lemonbalm") == 0) {
+        removedPlant = inv->removeLemonBalm(plant);
+        if (inv->isLemonBalmsEmpty()) {
+            stockAvailability["lemonbalm"] = false;
+            toUpdate = true;
+        }
+    }
+    // trees & shrubs
+    else if (plantName.compare("hibiscus") == 0) {
+        removedPlant = inv->removeHibiscus(plant);
+        if (inv->isHibiscusEmpty()) {
+            stockAvailability["hibiscus"] = false;
+            toUpdate = true;
+        }
+    } else if (plantName.compare("hydrangea") == 0) {
+        removedPlant = inv->removeHydrangea(plant);
+        if (inv->isHydrangeaEmpty()) {
+            stockAvailability["hydrangea"] = false;
+            toUpdate = true;
+        }
+    } else if (plantName.compare("boxwood") == 0) {
+        removedPlant = inv->removeBoxwood(plant);
+        if (inv->isBoxwoodEmpty()) {
+            stockAvailability["boxwood"] = false;
+            toUpdate = true;
+        }
+    } else if (plantName.compare("oak") == 0) {
+        removedPlant = inv->removeOak(plant);
+        if (inv->isOakEmpty()) {
+            stockAvailability["oak"] = false;
+            toUpdate = true;
+        }
+    } else if (plantName.compare("baobab") == 0) {
+        removedPlant = inv->removeBaobab(plant);
+        if (inv->isBaobabEmpty()) {
+            stockAvailability["baobab"] = false;
+            toUpdate = true;
+        }
+    }
+
+    return removedPlant;
 }
 
-std::map<std::string, bool> CareStaff::get() {
-    // Return information about the plant they  would be: s (from the harvest command)]
-    return stockAvailability;
-}
-
+// receive notification from the mediator
 void CareStaff::set(std::map<std::string, bool> message) {
     // Receive notification from the mediator
     stockAvailability = message;
+}
+
+void CareStaff::update() {
+    // Implementation for updating based on plant state changes
+    bool toUpdate = false;
+    for(std::vector<Greenhouse*>::iterator it = static_cast<Zone*>(zone)->getChildren().begin(); it != static_cast<Zone*>(zone)->getChildren().end(); ++it) {
+        Plant* plant = static_cast<Plant*>(*it);
+        std::string plantName = toLowerCase(plant->getName());
+
+        // flowers
+        if(plant->isMature()) {
+            insertToInventory(plant, toUpdate);
+        }
+        
+        // After processing, remove the plant from the zone
+        zone->remove(*it); 
+    }
+    if(toUpdate){
+        changed();
+    }
 }
 
 std::string toLowerCase(std::string str) {

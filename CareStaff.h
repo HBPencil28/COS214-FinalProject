@@ -8,19 +8,32 @@
 #include <string>
 #include <vector>
 
-using namespace std;
+class Greenhouse;
+class Zone;
+class Plant;
 
-class CareStaff : public Staff, public PlantObserver {
-private:
-    void insertToInventory(Plant* plant, bool& toUpdate);
-    Plant* removeFromInventory(Plant* plant, bool& toUpdate);
-public:
-    void update() override;
-    void update(Plant* p) override;
-    void changed() override;
-    std::map<std::string, bool> get() override;
-    void set(std::map<std::string, bool>) override;
-    
+class CareStaff : public Staff, public PlantObserver{
+
+    private:
+        void insertToInventory(Plant* plant, bool& toUpdate);
+        Plant* removeFromInventory(Plant* plant, bool& toUpdate);
+        
+    public:
+        CareStaff(const string &name);
+        ~CareStaff();
+
+        virtual void performDuty() const;
+
+        void water(int amount);
+
+        void fertilise(int amount);
+
+
+        void update() override;
+        void update(Plant* p) override;
+        void changed() override;
+        std::map<std::string, bool> get() override;
+        void set(std::map<std::string, bool>) override;
 };
 
 #endif
