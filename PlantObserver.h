@@ -2,13 +2,14 @@
 #define PLANTOBSERVER_H
 
 #include "Greenhouse.h"
+class Plant;
 
 class PlantObserver{
 protected:
     Greenhouse* zone;
 
 public:
-    void setSubject(Greenhouse* subject){ this->zone = subject; }
+    void setSubject(Greenhouse* subject);
     
     virtual void update(/*PlantState* state*/) = 0;
     virtual void update(Plant* p) = 0;
