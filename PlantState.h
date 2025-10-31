@@ -1,26 +1,24 @@
 #ifndef PLANTSTATE_H
 #define PLANTSTATE_H
-#include "PlantStatus.h"
+// #include "PlantStatus.h"
+#include <string>
 
-class PlantState {
-public:
-    virtual ~PlantState() = default;
+class Plant; // forward declare avoid cirlular includes
 
-    // --- Minimal interface ---
-    virtual std::string name() const = 0;   // e.g., "Seedling", "Growing"
-    virtual void onEnter() = 0;             // hook when state becomes active
-    virtual void update() = 0;              // handle event
-    virtual void onExit() = 0;              // hook when state is replaced
+class PlantState{
+    public:
+        virtual ~PlantState() = default;
 
-    // Context wiring (keep commented until Plant is available).
-    // virtual void setContext(Plant* p) { ctx = p; }
+        virtual void water(Plant* plant, int amount) = 0;
+        virtual void fertilize(Plant* plant, int amount) = 0;
+        /* the following function will get removed
+        virtual void harvestAndStore(Plant* plant) = 0;
+        virtual void discard(Plant* plant) = 0; 
+        */
 
-protected:
-    PlantState() = default;
+        //virtual void handleChange(Plant* c) =0; // saw this in the notes
+        virtual std::string getStateName() const = 0;
 
-    // Aggregation back-pointer into the Plant context (commented for now).
-    // Plant* ctx = NULL;
 };
-
 
 #endif // PLANTSTATE_H
