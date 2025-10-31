@@ -5,17 +5,17 @@
 
 using namespace std;
 
-FertilisePlant::FertilisePlant(CareStaff *c, int f) : CareCommand(c), fertilizer(f) {}
+FertilisePlant::FertilisePlant(CareStaff *c, int f) : CareCommand(c), fertiliser(f) {}
 
 void FertilisePlant::execute(Zone *z){
     // cout << "[Command] " << staff.getName() << " fertilises " << plant->getName()
     //      << " in " << plant->getStateName() << " with " << fertiliserAmount << "g." << endl;
     staff->setSubject(z);
-    staff->fertilise(this->fertilizer);
+    staff->fertilise(this->fertiliser);
 
     // cout << "[Command] " << this->staff->getName() << " fertilises zone:" << z->getZoneName()
-    cout << "[Command] " << " fertilises zone:" << z->getZoneName()
-         << " amount: " << this->fertilizer << endl;
+    // cout << "[Command] " << " fertilises zone:" << z->getZoneName()
+    //      << " amount: " << this->fertiliser << endl;
 
     // plant->ifertilise(fertiliserAmount);
     // plant->checkGrowth();

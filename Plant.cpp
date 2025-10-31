@@ -2,7 +2,7 @@
 
 // Plant::Plant(const string& plantName = "Unknown", const string& plantType = "Generic", CareStrategy strat = NULL)  
 Plant::Plant(const string& plantName = "Unknown", const string& plantType = "Generic")  
-    : name(plantName), type(plantType), state(new Seedling()), zone(nullptr), ageDays(0), hydrationLevel(50) {}
+    : name(plantName), type(plantType), state(new Seedling()), zone(nullptr), ageDays(0), hydrationLevel(0) {}
 
 Plant::Plant(const Plant& plant){
     this->name = plant.getName();
@@ -89,7 +89,8 @@ void Plant::water(int amount)
 
 void Plant::fertilize(int amount) 
 {
-    std::cout << amount << std::endl;
+    (void)amount;
+    // std::cout << amount << std::endl;
     state->fertilize(this);
 }
 

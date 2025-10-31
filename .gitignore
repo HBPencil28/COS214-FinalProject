@@ -2,3 +2,5 @@
 .lock
 /tmp
 /.vpprefdata
+temp.txt
+error.txt

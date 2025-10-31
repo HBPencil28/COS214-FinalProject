@@ -9,12 +9,12 @@
 class CareStrategy{
     public:
         CareStrategy(int water, int fertiliser, Zone *zone, CareStaff *c);
-        virtual ~CareStrategy(){};
+        virtual ~CareStrategy();
         // virtual void care() = 0;
         virtual void care() = 0;
     protected:
         const int water;
-        const int fertilizer;
+        const int fertiliser;
         Zone *zone;
         CareCommand* waterCommand;
         CareCommand* fertiliseCommand;

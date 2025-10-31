@@ -1,7 +1,7 @@
 #include "Ribbon.h"
 
 Ribbon::Ribbon() : PlantDecorator(){
-    std::cout << "Creating a ribbon" << std::endl;
+    // std::cout << "Creating a ribbon" << std::endl;
     this->colour = "Bland";
 }
 

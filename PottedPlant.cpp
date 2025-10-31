@@ -1,7 +1,7 @@
 #include "PottedPlant.h"
 
 PottedPlant::PottedPlant(Plant *plant) : BasePlant("Potted"){
-    std::cout << "Creating a potted plant" << std::endl;
+    // std::cout << "Creating a potted plant" << std::endl;
     this->plant = plant;
 }
 
@@ -18,7 +18,7 @@ PottedPlant::~PottedPlant(){
 void PottedPlant::addPart(PlantComponent *plant){
     if (plant == nullptr)
     {
-        std::cout << "Adding a nullptr plant" << std::endl;
+        // std::cout << "Adding a nullptr plant" << std::endl;
         return;
     }
     this->parts.push_back(plant);

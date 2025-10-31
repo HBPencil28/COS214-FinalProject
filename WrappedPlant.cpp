@@ -1,7 +1,7 @@
 #include "WrappedPlant.h"
 
 WrappedPlant::WrappedPlant() : BasePlant("Wrapped"){
-    std::cout << "Creating a wrappedPlant plant" << std::endl;
+    // std::cout << "Creating a wrappedPlant plant" << std::endl;
 }
 
 WrappedPlant::~WrappedPlant(){
@@ -16,7 +16,7 @@ WrappedPlant::~WrappedPlant(){
 
 void WrappedPlant::addPlant(Plant* plant){
     if (plant == nullptr){
-        std::cout << "Adding a nullptr plant" << std::endl;
+        // std::cout << "Adding a nullptr plant" << std::endl;
         return;
     }
     this->plants.push_back(plant);
@@ -24,7 +24,7 @@ void WrappedPlant::addPlant(Plant* plant){
 
 void WrappedPlant::addPart(PlantComponent *plant){
     if (plant == nullptr){
-        std::cout << "Adding a nullptr plant" << std::endl;
+        // std::cout << "Adding a nullptr plant" << std::endl;
         return;
     }
     this->parts.push_back(plant);

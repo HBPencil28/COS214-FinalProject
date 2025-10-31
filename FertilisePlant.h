@@ -11,11 +11,11 @@ using namespace std;
 
 class FertilisePlant : public CareCommand {
 private:
-    int fertilizer;
+    int fertiliser;
 
 public:
     FertilisePlant(CareStaff *c, int f);
-    virtual void execute(Zone* z) override;
+    void execute(Zone* z) override;
 };
 
 #endif

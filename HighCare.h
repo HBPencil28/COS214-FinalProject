@@ -10,8 +10,6 @@ class HighCare : public CareStrategy{
         ~HighCare();
         // void care() override;
         void care() override;
-
-    private:
 };
 
 #endif

@@ -15,7 +15,7 @@ class WaterPlant : public CareCommand {
 
 public:
     WaterPlant(CareStaff* c, int w);
-    virtual void execute(Zone* z) override;
+    void execute(Zone* z) override;
 };
 
 #endif

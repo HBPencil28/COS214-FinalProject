@@ -10,7 +10,6 @@ class MediumCare : public CareStrategy{
         ~MediumCare();
         // void care() override;
         void care() override;
-    private:
 };
 
 #endif

@@ -6,7 +6,7 @@ MediumCare::~MediumCare(){}
 
 // void MediumCare::care(){
 void MediumCare::care(){
-    std::cout << "Begining the Medium care process" << std::endl;
+    // std::cout << "Begining the Medium care process" << std::endl;
     // Medium care operations
     fertiliseCommand->execute(this->zone);
     waterCommand->execute(this->zone);

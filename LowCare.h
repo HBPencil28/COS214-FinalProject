@@ -11,8 +11,6 @@ class LowCare : public CareStrategy{
         ~LowCare();
         // void care() override;
         void care() override;
-
-    private:
 };
 
 #endif

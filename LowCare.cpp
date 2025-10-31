@@ -6,7 +6,7 @@ LowCare::~LowCare(){}
 
 // void LowCare::care(){
 void LowCare::care(){
-    std::cout << "Begining the Low care process" << std::endl;
+    // std::cout << "Begining the Low care process" << std::endl;
     // Low care operations
     fertiliseCommand->execute(this->zone);
     waterCommand->execute(this->zone);

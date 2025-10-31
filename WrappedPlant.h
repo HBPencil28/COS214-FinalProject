@@ -9,7 +9,7 @@ class WrappedPlant : public BasePlant{
     public:
         WrappedPlant();
         ~WrappedPlant();
-        void add(BasePlant *bp) {}
+        void add(BasePlant *bp) {(void)bp; throw std::logic_error("add not supported");}
         void addPart(PlantComponent *plant);
         void addPlant(Plant* plant);
 

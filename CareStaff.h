@@ -13,10 +13,13 @@ class Zone;
 class Plant;
 
 class CareStaff : public Staff, public PlantObserver{
+
+    private:
+        void insertToInventory(Plant* plant, bool& toUpdate);
+        Plant* removeFromInventory(Plant* plant, bool& toUpdate);
         
     public:
-        CareStaff(const string &name);
-        ~CareStaff();
+        virtual ~CareStaff();
 
         virtual void performDuty() const;
 
@@ -25,14 +28,11 @@ class CareStaff : public Staff, public PlantObserver{
         void fertilise(int amount);
 
 
-        void changed()override;
-
-        // CareStaff will say the plant they restocked, DeliveryStaff && CustomerStaff will say the plant they finished
-        std::map<std::string, bool> get()override;
-        // receive notification from the mediator
-        void set(std::map<std::string, bool>)override;
-
-        void update(/*PlantState* state*/) override;
+        void update() override;
+        void update(Plant* p) override;
+        void changed() override;
+        std::map<std::string, bool> get() override;
+        void set(std::map<std::string, bool> message) override;
 };
 
 #endif

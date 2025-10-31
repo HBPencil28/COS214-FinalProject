@@ -51,7 +51,7 @@ void Zone::execute() {
     this->strategy->care();
 }
 
-Zone::Zone(std::string Z_Name, std::string C_Name, CareStaff *s) : zoneName(Z_Name), zoneCategory(C_Name), staff(s) {
+Zone::Zone(std::string Z_Name, std::string C_Name, CareStaff *s) : zoneName(Z_Name), zoneCategory(C_Name), strategy(nullptr),staff(s) {
     this->strategy = new HighCare(this, this->staff);
 }
 
@@ -71,6 +71,7 @@ CareStrategy *Zone::getStrategy(){ return this->strategy;}
 
 void Zone::setStrategy(CareStrategy *strategy){
     if (!strategy){
+        return;
     }
     else{
         if (this->strategy)
@@ -90,4 +91,8 @@ void Zone::setStaff(CareStaff *staff){
 
 Zone::~Zone(){
     delete this->strategy;
+    for (std::vector<Greenhouse*>::iterator it = children.begin(); it != children.end(); ++it){
+        if (*it)
+            delete *it;
+    }
 }

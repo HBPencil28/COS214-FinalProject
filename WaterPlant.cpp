@@ -14,8 +14,8 @@ void WaterPlant::execute(Zone *z){
     staff->water(this->water);
 
     // cout << "[Command] " << this->staff->getName() << " waters zone:" << z->getZoneName()
-    cout << "[Command] " << " waters zone:" << z->getZoneName()
-         << " amount: " << this->water << endl;
+    // cout << "[Command] " << " waters zone:" << z->getZoneName()
+    //      << " amount: " << this->water << endl;
 
     // Increase the water level of the plant
     // plant->water(waterAmount);
