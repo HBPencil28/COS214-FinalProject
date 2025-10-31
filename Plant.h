@@ -4,15 +4,13 @@
 #include "CareStaff.h"
 #include "CareCommand.h"
 #include "PlantState.h"
+#include "PlantStatus.h"
 #include "Zone.h"
 #include "Greenhouse.h"
-#include "Seedling.h"
 
 #include <string>
 #include <vector>
 #include <iostream>
-
-#include "PlantState.h"
 
 using namespace std;
 
@@ -28,12 +26,15 @@ class Withered;
 class Plant: public Greenhouse{
     private:
         string name;
-        string type; 
-        PlantState* state;
-        Zone* zone;
+        string type;
+        PlantState *state;
+        Zone *zone;
         int ageDays;
         int hydrationLevel;
-        //vector<Plant*> decorations; // For Decorator pattern
+        // vector<Plant*> decorations; // For Decorator pattern
+        PlantStatus *status;
+        string lastReturnReason;
+        // sf::Clock timer;
 
     public: 
         Plant(const string& plantName, const string& plantType);
@@ -52,9 +53,8 @@ class Plant: public Greenhouse{
 
         void water(int amount);
         void fertilize(int amount);
-        void harvestAndStore();
-        void discard();
-        
+        void setZone(Zone *zone);
+
         // ----- Prototype Pattern -----
         Greenhouse* clone() override;
 
@@ -67,8 +67,17 @@ class Plant: public Greenhouse{
         bool needsWatering() const;
         bool needsFertilizing() const;
         bool isMature() const;
+        void notify() override;
 
-        void execute(){};
+        void execute() {};
+
+        // adding PlantStatus functionality
+        void setStatus(PlantStatus *newStatus);
+        std::string getStatus() const;
+        void returnPlant(const std::string &reason);
+        void sell();
+        void setLastReturnReason(const std::string &r);
+        const std::string &getLastReturnReason() const;
 };
 
 #endif

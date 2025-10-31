@@ -1,4 +1,5 @@
 #include "Plant.h"
+#include "Seedling.h"
 
 // Plant::Plant(const string& plantName = "Unknown", const string& plantType = "Generic", CareStrategy strat = NULL)  
 Plant::Plant(const string& plantName = "Unknown", const string& plantType = "Generic")  
@@ -13,57 +14,67 @@ Plant::Plant(const Plant& plant){
     this->hydrationLevel = 0;
 }
 
-Plant::~Plant() 
+Plant::~Plant()
 {
     delete state;
 
-    // for(size_t i = 0; i < decorations.size(); i++) 
+    // for(size_t i = 0; i < decorations.size(); i++)
     // {
     //     delete decorations[i];
     // }
 }
 
-void Plant::initState(PlantState* initialState) 
+void Plant::setZone(Zone *zone)
 {
-    if(state)
+    this->zone = zone;
+}
+
+void Plant::initState(PlantState *initialState)
+{
+    if (state)
     {
         delete state;
     }
     state = initialState;
 }
 
-string Plant::getName() const {
+string Plant::getName() const
+{
     return name;
 }
 
-string Plant::getStateName() const 
+string Plant::getStateName() const
 {
     return state->getStateName();
 }
 
-string Plant::getType() const 
+string Plant::getType() const
 {
     return type;
 }
 
-int Plant::getAgeDays() const 
+int Plant::getAgeDays() const
 {
     return ageDays;
 }
 
-int Plant::getHydrationLevel() const 
+int Plant::getHydrationLevel() const
 {
     return hydrationLevel;
 }
 
-void Plant::setState(PlantState* newState) 
+void Plant::setState(PlantState *newState)
 {
-    if (state)  
-    {  
-        delete state; 
-    }  
+    if (state)
+    {
+        delete state;
+    }
+    state = newState;
 
-    state = newState; 
+    if (isMature())
+        zone->notify();
+    else if (state->getStateName() == "Withered")
+        notify();
 }
 
 void Plant::display() const 
@@ -84,24 +95,12 @@ void Plant::water(int amount)
 {
     // hydrationLevel = std::min(100, hydrationLevel + 50);
     hydrationLevel += amount;
-    state->water(this);
+    state->water(this, amount);
 }
 
 void Plant::fertilize(int amount) 
 {
-    (void)amount;
-    // std::cout << amount << std::endl;
-    state->fertilize(this);
-}
-
-void Plant::harvestAndStore() 
-{
-    state->harvestAndStore(this);
-}
-
-void Plant::discard() 
-{
-    state->discard(this);
+    state->fertilize(this, amount);
 }
 
 void Plant::dailyTick() 
@@ -112,21 +111,10 @@ void Plant::dailyTick()
 }
 
 bool Plant::needsWatering() const{
-    if(zone && zone->getStrategy())
-    {
-        // return zone->getStrategy()->needsWatering(*this);
-        return true;
-    }
     return hydrationLevel < 50; // Default threshold
 }
 
-bool Plant::needsFertilizing() const 
-{
-    if(zone && zone->getStrategy())
-    {
-        // return zone->getStrategy()->needsFertilizing(*this);
-        return true;
-    }
+bool Plant::needsFertilizing() const {
     return ageDays % 7 == 0; // Default: needs fertilizing every 7 days
 }
 
@@ -136,4 +124,54 @@ bool Plant::isMature() const {
 
 Greenhouse* Plant::clone(){
     return new Plant(*this);
+}
+
+void Plant::notify()
+{
+    for (auto observer : observers)
+    {
+        observer->update(this);
+    }
+}
+
+// functionality added for status
+void Plant::setStatus(PlantStatus *newStatus)
+{
+    if (status)
+    {
+        status->exit(*this);
+        delete status; // should help keep track of memeory and not leak after changinging state each time
+    }
+    status = newStatus;
+    if (status)
+    {
+        status->enter(*this);
+    }
+}
+
+void Plant::sell()
+{
+    if (status)
+        status->onSell(*this);
+}
+
+void Plant::returnPlant(const std::string &reason)
+{
+    if (status)
+        status->onReturn(*this, reason);
+}
+
+string Plant::getStatus() const
+{
+    return status ? status->code() : "UNKNOWN";
+}
+
+void Plant::setLastReturnReason(const std::string &r)
+{
+    lastReturnReason = r;
+}
+
+const std::string &Plant::getLastReturnReason() const
+{
+    return lastReturnReason;
 }

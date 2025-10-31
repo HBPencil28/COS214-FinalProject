@@ -25,7 +25,6 @@
 // #include "CustomerFactory.h"
 #include "CustomerStaff.h"
 #include "CustomisePlant.h"
-#include "DiscardPlant.h"
 #include "FertilisePlant.h"
 #include "Greenhouse.h"
 #include "Growing.h"
