@@ -4,6 +4,7 @@
 #include "CareStaff.h"
 #include "CareCommand.h"
 #include "PlantState.h"
+#include "PlantStatus.h"
 #include "Zone.h"
 #include "Greenhouse.h"
 #include "Seedling.h"
@@ -12,7 +13,6 @@
 #include <vector>
 #include <iostream>
 
-#include "PlantState.h"
 
 using namespace std;
 
@@ -34,6 +34,8 @@ class Plant: public Greenhouse{
         int ageDays;
         int hydrationLevel;
         //vector<Plant*> decorations; // For Decorator pattern
+        PlantStatus* status;
+        string lastReturnReason;
 
     public: 
         Plant(const string& plantName, const string& plantType);
@@ -52,8 +54,7 @@ class Plant: public Greenhouse{
 
         void water(int amount);
         void fertilize(int amount);
-        void harvestAndStore();
-        void discard();
+        void setZone(Zone* zone);
         
         // ----- Prototype Pattern -----
         Greenhouse* clone() override;
@@ -70,6 +71,14 @@ class Plant: public Greenhouse{
         void notify() override;
 
         void execute(){};
+
+        //adding PlantStatus functionality
+        void setStatus(PlantStatus* newStatus);
+        std::string getStatus() const;
+        void returnPlant(const std::string& reason);
+        void sell();
+        void setLastReturnReason(const std::string& r);
+        const std::string& getLastReturnReason() const ;
 };
 
 #endif
