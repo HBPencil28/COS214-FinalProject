@@ -1,6 +1,7 @@
 #ifndef PLANTSTATE_H
 #define PLANTSTATE_H
-#include "PlantStatus.h"
+// #include "PlantStatus.h"
+#include <string>
 
 class Plant; // forward declare avoid cirlular includes
 

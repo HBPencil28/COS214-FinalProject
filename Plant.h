@@ -12,7 +12,7 @@
 #include <vector>
 #include <iostream>
 
-#include "PlantState.h"
+#include "PlantStatus.h"
 
 using namespace std;
 
@@ -33,6 +33,8 @@ class Plant : public Greenhouse{
         int ageDays;
         int hydrationLevel;
         //vector<Plant*> decorations; // For Decorator pattern
+        PlantStatus* status;
+        string lastReturnReason;
 
     public: 
         Plant(const string& plantName, const string& plantType);
@@ -60,7 +62,7 @@ class Plant : public Greenhouse{
         // ----- Decorator / Composite Pattern -----
         //virtual void add(Plant* extraDecoration);
 
-        virtual void display() const;
+        // virtual void display() const;
 
         void dailyTick();
         bool needsWatering() const;
@@ -68,6 +70,15 @@ class Plant : public Greenhouse{
         bool isMature() const;
 
         void execute(){};
+
+        //adding PlantStatus functionality
+        void setStatus(PlantStatus* newStatus);
+        std::string getStatus() const;
+        void returnPlant(const std::string& reason);
+        void sell();
+        void setLastReturnReason(const std::string& r);
+        const std::string& getLastReturnReason() const ;
+        
 };
 
 #endif

@@ -2,15 +2,17 @@
 
 // Plant::Plant(const string& plantName = "Unknown", const string& plantType = "Generic", CareStrategy strat = NULL)  
 Plant::Plant(const string& plantName = "Unknown", const string& plantType = "Generic")  
-    : name(plantName), type(plantType), state(new Seedling()), zone(nullptr), ageDays(0), hydrationLevel(50) {}
+    : name(plantName), type(plantType), state(new Seedling()), ageDays(0), hydrationLevel(50) {}
 
 Plant::Plant(const Plant& plant){
     this->name = plant.getName();
     this->type = plant.getType();
     this->state = new Seedling();
-    this->zone = nullptr;
+    // this->zone = nullptr;
     this->ageDays = plant.getAgeDays();
     this->hydrationLevel = plant.getHydrationLevel();
+    /* note that the status must start in storage and might have to declare return 
+        reason to just an empty string "" */
 }
 
 Plant::~Plant() 
@@ -67,27 +69,27 @@ void Plant::setState(PlantState* newState)
     state = newState; 
 }
 
-void Plant::display() const 
-{
-    std::cout << "🌿 " << name << " (" << type << ") - State: " << getStateName();
-        if (zone) std::cout << " [Zone: " << zone->getZoneName() << "]";std::cout << std::endl;
+// void Plant::display() const 
+// {
+//     std::cout << "🌿 " << name << " (" << type << ") - State: " << getStateName();
+//         if (zone) std::cout << " [Zone: " << zone->getZoneName() << "]";std::cout << std::endl;
 
-    // for (size_t i = 0; i < decorations.size(); i++) 
-    // {
-    //     decorations[i]->display(indent + 2);
-    // }
-}
+//     // for (size_t i = 0; i < decorations.size(); i++) 
+//     // {
+//     //     decorations[i]->display(indent + 2);
+//     // }
+// }
 
 void Plant::water(int amount) 
 {
     // hydrationLevel = std::min(100, hydrationLevel + 50);
     hydrationLevel += amount;
-    state->water(this);
+    state->water(this, amount);
 }
 
 void Plant::fertilize(int amount) 
 {
-    state->fertilize(this);
+    state->fertilize(this, amount);
 }
 
 void Plant::harvestAndStore() 
@@ -107,27 +109,61 @@ void Plant::dailyTick()
     // strategy may decide watering needed (caller will check needsWater)
 }
 
-bool Plant::needsWatering() const{
-    if(zone && zone->getStrategy())
-    {
-        return zone->getStrategy()->needsWatering(*this);
-    }
-    return hydrationLevel < 50; // Default threshold
-}
+// bool Plant::needsWatering() const{
+//     if(zone && zone->getStrategy())
+//     {
+//         return zone->getStrategy()->needsWatering(*this);
+//     }
+//     return hydrationLevel < 50; // Default threshold
+// }
 
-bool Plant::needsFertilizing() const 
-{
-    if(zone && zone->getStrategy())
-    {
-        return zone->getStrategy()->needsFertilizing(*this);
-    }
-    return ageDays % 7 == 0; // Default: needs fertilizing every 7 days
-}
+// bool Plant::needsFertilizing() const 
+// {
+//     if(zone && zone->getStrategy())
+//     {
+//         return zone->getStrategy()->needsFertilizing(*this);
+//     }
+//     return ageDays % 7 == 0; // Default: needs fertilizing every 7 days
+// }
 
 bool Plant::isMature() const {
     return state->getStateName() == "Mature";
 }
 
-Plant *Plant::clone(){
-    return new Plant(*this);
+// Plant *Plant::clone(){
+//     return new Plant(*this);
+// }
+
+// functionality added for status 
+    void Plant::setStatus(PlantStatus* newStatus) {
+    if (status) {
+        status->exit(*this);
+        delete status;          // should help keep track of memeory and not leak after changinging state each time
+    }
+    status = newStatus;
+    if (status) {
+        status->enter(*this);
+    }
 }
+
+
+    void Plant::sell() {
+        if (status) status->onSell(*this);
+    }
+
+    void Plant::returnPlant(const std::string& reason) {
+        if (status) status->onReturn(*this, reason);
+    }
+
+    string Plant::getStatus() const {
+        return status ? status->code() : "UNKNOWN";
+    }
+
+    void Plant::setLastReturnReason(const std::string& r) { 
+        lastReturnReason = r; 
+    }
+
+    const std::string& Plant::getLastReturnReason() const { 
+        return lastReturnReason; 
+    }
+   
