@@ -10,11 +10,6 @@ std::string toLowerCase(std::string str) {
     return str;
 }
 
-CareStaff::CareStaff(const string &name){
-    std::cout << name << std::endl;
-    this->setSubject(nullptr);
-}
-
 CareStaff::~CareStaff() {}
 
 void CareStaff::performDuty() const {}
@@ -333,7 +328,7 @@ void CareStaff::update(Plant* p){
     bool toUpdate = false;
     Plant* toRemove = removeFromInventory(p, toUpdate);
     delete toRemove;
-    
+
     if(toUpdate)
         changed();
 }

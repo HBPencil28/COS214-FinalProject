@@ -4,8 +4,9 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <algorithm>
 
-#include "Staff.h"
+class Staff;
 
 class NurseryMediator {
 private:

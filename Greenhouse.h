@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <stdexcept>
 
-#include "PlantObserver.h"
+
 #include <vector>
 
 /**
@@ -20,6 +20,8 @@
  * Derived classes represent Leaves or Composites. Provides a common operation
  * (execute) implementations for leaf components.
  */
+class PlantObserver;
+
 class Greenhouse{
 protected:
     std::vector<PlantObserver*> observers; /**< Observers monitoring this zone */
@@ -78,5 +80,6 @@ public:
     void detach(PlantObserver* observer);
     virtual void notify();
 };
+
 
 #endif

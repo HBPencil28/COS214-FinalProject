@@ -13,7 +13,7 @@ private:
     
 public:
     void start(std::function<void()> func, int interval_ms) {
-        worker = std::thread([=]() {
+        worker = std::thread([this, func, interval_ms]() {
             while (active) {
                 /*if (active)*/ func();
                 std::this_thread::sleep_for(

@@ -6,10 +6,10 @@
 #include <map>
 #include <iostream>
 
-#include "NurseryMediator.h"
+
 #include "Inventory.h"
 
-
+class NurseryMediator;
 using namespace std;
 
 class Staff{

@@ -1,4 +1,5 @@
 #include "Greenhouse.h"
+#include "PlantObserver.h"
 
 Greenhouse::~Greenhouse(){
     for(PlantObserver* observer : observers){

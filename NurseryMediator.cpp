@@ -1,4 +1,5 @@
 #include "NurseryMediator.h"
+#include "Staff.h"
 
 NurseryMediator::~NurseryMediator() {
     for(Staff* staff : staffMembers) {

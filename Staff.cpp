@@ -1,4 +1,5 @@
 #include "Staff.h"
+#include "NurseryMediator.h"
 
 Staff::Staff(){
     mediator = nullptr;

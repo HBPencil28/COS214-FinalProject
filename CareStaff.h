@@ -19,7 +19,6 @@ class CareStaff : public Staff, public PlantObserver{
         Plant* removeFromInventory(Plant* plant, bool& toUpdate);
         
     public:
-        CareStaff(const string &name);
         ~CareStaff();
 
         virtual void performDuty() const;
