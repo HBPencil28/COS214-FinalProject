@@ -8,10 +8,7 @@ public:
     
     void water(Plant* plant, int amount) override;        // stronger effect
     void fertilize(Plant* plant, int amount) override;    // growth boost
-    void harvestAndStore(Plant* plant) override;          // not yet (no-op)
-    void discard(Plant* plant) override;                  // -> Withered
-    // void handleChange(Plant* c) override;                 // if thresholds met -> Mature
-    std::string getStateName() const override {return "Growing";}
+    std::string getStateName() const override;
 };
 
 #endif // GROWING_H

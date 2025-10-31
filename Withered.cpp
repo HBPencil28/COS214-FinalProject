@@ -14,14 +14,6 @@ void Withered::fertilize(Plant* plant, int amount)
     std::cout <<  plant->getName() << ": fertilizing has no on a withered plant " << std::endl;
 }
 
-void Withered::harvestAndStore(Plant* plant)
-{
-    if (!plant) return;
-    std::cout <<  plant->getName() << ": cannot harvest a withered plant " << std::endl;
-}
-
-void Withered::discard(Plant* plant)
-{
-    if (!plant) return;
-    std::cout <<  plant->getName() << ": in withered state and has been discarded " << std::endl;
+std::string Withered::getStateName() const {
+    return "Withered";
 }

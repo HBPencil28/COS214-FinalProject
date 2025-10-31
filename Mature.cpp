@@ -28,19 +28,6 @@ void Mature::fertilize(Plant* plant, int amount)
     }
 }
 
-void Mature::harvestAndStore(Plant* plant)
-{
-    if (!plant) return;
-
-    // Harvesting a Mature plant: simulate logistics, then mark as Withered (post-harvest).
-    std::cout << plant->getName() << ": harvested and sent to storage";
-
-    // question on this one. move from harvest 
-}
-
-void Mature::discard(Plant* plant)
-{
-    if (!plant) return;
-    std::cout << plant->getName() << ": plant has been discarded and goes to withered state " << std::endl;
-    plant->setState(new Withered());
+std::string Mature::getStateName() const{
+    return "Mature";
 }

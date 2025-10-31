@@ -20,7 +20,7 @@ void Growing::water(Plant* plant, int amount)
         std::cout << plant->getName() << ": this is well hydrated. Move to mature state"  << std::endl; 
         plant->setState(new Mature());
     } else {
-        std::cout << "🌿 " << plant->getName() << ": watered; still Growing (age="
+        std::cout << plant->getName() << ": watered; still Growing (age="
                   << age << ", hydration=" << h2o << ").\n";
     }
 }
@@ -41,15 +41,6 @@ void Growing::fertilize(Plant* plant, int amount)
     }
 }
 
-void Growing::harvestAndStore(Plant* plant)
-{
-    if (!plant) return;
-    std::cout << plant->getName() << ": not ready for harvest (Growing). No change.\n";
-}
-
-void Growing::discard(Plant* plant)
-{
-    if (!plant) return;
-    std::cout <<  plant->getName() << ": plant has been discarded and goes to withered state " << std::endl;
-    plant->setState(new Withered());
+std::string Growing::getStateName() const {
+    return "Growing";
 }
