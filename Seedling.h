@@ -8,10 +8,7 @@ class Seedling : public PlantState {
 public:
     
     void water(Plant* plant, int amount) override;        // modest absorption
-    void fertilize(Plant* plant, int amount) override;    // guarded boost
-    void harvestAndStore(Plant* plant) override;          // not applicable (no-op)
-    void discard(Plant* plant) override;  
-    // void handleChange(Plant* c) override;   
+    void fertilize(Plant* plant, int amount) override;    // guarded boost  
     std::string getStateName() const override {return "Seedling";}
 };
 

@@ -45,15 +45,3 @@ void Seedling::fertilize(Plant* plant, int amount)
     }
 }
 
-void Seedling::harvestAndStore(Plant* plant)
-{
-    if (!plant) return;
-    std::cout << plant->getName() << ": Note that you cannot harvest a Seedling." << std::endl;;
-}
-
-void Seedling::discard(Plant* plant)
-{
-    if (!plant) return;
-    std::cout << plant->getName() << ": this plant has been discarded and goes to witherd state " << std::endl;
-    plant->setState(new Withered());
-}
