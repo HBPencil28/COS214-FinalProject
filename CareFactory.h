@@ -11,10 +11,7 @@ using namespace std;
 
 class CareFactory :public StaffFactory{
     public:
-        virtual Staff* createStaff(const string& name) const {
-            cout << "Creating Care Staff: " << name << endl;
-            return new CareStaff(name);
-        }
+        virtual Staff* createStaff(const string& name) const;
 };
 
 #endif

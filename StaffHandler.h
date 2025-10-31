@@ -11,14 +11,12 @@ class StaffHandler{
     protected:
         StaffHandler* nextHandler;
     public:
-        StaffHandler() : nextHandler(nullptr) {}
+        StaffHandler();
         
-        void setNextHandler(StaffHandler* handler) {
-            nextHandler = handler;
-        }
+        void setNextHandler(StaffHandler* handler);
 
         virtual void handleRequest(const string& request) = 0;
-        virtual ~StaffHandler() {}
+        virtual ~StaffHandler();
 };
 
 #endif

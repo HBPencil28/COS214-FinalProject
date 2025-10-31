@@ -2,20 +2,20 @@
 #define WATERPLANT_H
 
 #include "CareCommand.h"
+#include "CareStaff.h"
+#include "Zone.h"
+
 #include <iostream>
+
 using namespace std;
 
 class WaterPlant : public CareCommand {
+    private:
+        int water;
+
 public:
-    WaterPlant(Plant* p) : CareCommand(p) {}
-
-    virtual void execute(CareStaff& staff, double waterAmount, double fertiliserAmount) {
-        cout << "[Command] " << staff.getName() << " waters " << plant->getName()
-             << " in " << plant->getStateName() << " with " << waterAmount << "L." << endl;
-
-        // Increase the water level of the plant
-        plant->water(waterAmount);
-    }
+    WaterPlant(CareStaff* c, int w);
+    virtual void execute(Zone* z) override;
 };
 
 #endif

@@ -16,18 +16,11 @@ class Staff{
         string type;
 
     public:
-        Staff(const string& staffName, const string& staffType) : name(staffName), type(staffType) {}
-        virtual ~Staff() {}
+        Staff(const string& staffName, const string& staffType);
+        virtual ~Staff();
 
-        string getName() const 
-        {
-            return name;
-        }
-
-        string getType() const 
-        {
-            return type;
-        }
+        string getName() const;
+        string getType() const;
         
         virtual void performDuty() const = 0;
 };

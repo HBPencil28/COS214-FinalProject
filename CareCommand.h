@@ -16,10 +16,10 @@ class CareCommand{
     protected:
         Plant* plant;
     public:
-        CareCommand(Plant* p) : plant(p) {}
+        CareCommand(Plant* p);
 
         virtual void execute(CareStaff& staff, double waterAmount, double fertiliseAmount) = 0;
-        virtual ~CareCommand(){}
+        virtual ~CareCommand();
 };
 
 #endif

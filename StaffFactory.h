@@ -9,7 +9,7 @@ using namespace std;
 
 class StaffFactory{
     public:
-        virtual ~StaffFactory() {}
+        virtual ~StaffFactory();
         virtual Staff* createStaff(const string& name) const = 0;
 };
 

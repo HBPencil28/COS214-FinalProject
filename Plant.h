@@ -5,6 +5,8 @@
 #include "CareCommand.h"
 #include "PlantState.h"
 #include "Zone.h"
+#include "Greenhouse.h"
+#include "Seedling.h"
 
 #include <string>
 #include <vector>
@@ -15,15 +17,15 @@
 using namespace std;
 
 // Forward declarations of concrete states
-class Seedling;
-class Growing;
-class Mature;
-class Withered;
+// class Seedling;
+// class Growing;
+// class Mature;
+// class Withered;
 
-// Forward declaration for Greenhouse (if Composite pattern
-class Greenhouse;
+// // Forward declaration for Greenhouse (if Composite pattern
+// class Greenhouse;
 
-class Plant{
+class Plant: public Greenhouse{
     private:
         string name;
         string type; 
@@ -35,6 +37,7 @@ class Plant{
 
     public: 
         Plant(const string& plantName, const string& plantType);
+        Plant(const Plant& plant);
         virtual ~Plant();
 
         void initState(PlantState* initialState);
@@ -47,13 +50,13 @@ class Plant{
 
         void setState(PlantState* newState);
 
-        void water();
-        void fertilize();
+        void water(int amount);
+        void fertilize(int amount);
         void harvestAndStore();
         void discard();
         
         // ----- Prototype Pattern -----
-        virtual Plant* clone() = 0;
+        Greenhouse* clone() override;
 
         // ----- Decorator / Composite Pattern -----
         //virtual void add(Plant* extraDecoration);
@@ -61,9 +64,12 @@ class Plant{
         virtual void display() const;
 
         void dailyTick();
-        bool needsWatering();
-        bool needsFertilizing();
-        bool isMature();
+        bool needsWatering() const;
+        bool needsFertilizing() const;
+        bool isMature() const;
+        void notify() override;
+
+        void execute(){};
 };
 
 #endif

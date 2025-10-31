@@ -2,23 +2,38 @@
 #define CARESTAFF_H
 
 #include "Staff.h"
-#include "CareCommand.h"
+#include "PlantObserver.h"
 
 #include <iostream>
 #include <string>
 #include <vector>
 
-using namespace std;
+class Greenhouse;
+class Zone;
+class Plant;
 
-class CareStaff : public Staff {
+class CareStaff : public Staff, public PlantObserver{
+
+    private:
+        void insertToInventory(Plant* plant, bool& toUpdate);
+        Plant* removeFromInventory(Plant* plant, bool& toUpdate);
+        
     public:
-        CareStaff(const string &name) : Staff(name, "Care") {}
-        ~CareStaff() {}
+        CareStaff(const string &name);
+        ~CareStaff();
 
-        virtual void performDuty() const
-        {
-            
-        }
+        virtual void performDuty() const;
+
+        void water(int amount);
+
+        void fertilise(int amount);
+
+
+        void update() override;
+        void update(Plant* p) override;
+        void changed() override;
+        std::map<std::string, bool> get() override;
+        void set(std::map<std::string, bool>) override;
 };
 
 #endif
