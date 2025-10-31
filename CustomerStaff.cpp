@@ -1,5 +1,14 @@
 #include "CustomerStaff.h"
+#include "NurseryMediator.h"
+#include "Inventory.h"
 
+std::string toLowerCase(std::string str)
+{
+    std::transform(str.begin(), str.end(), str.begin(),
+                   [](unsigned char c)
+                   { return std::tolower(c); });
+    return str;
+}
 
 void CustomerStaff::changed() {
     // CustomerStaff would add a mature plant to the inventory
@@ -154,12 +163,6 @@ BasePlant* CustomerStaff::customise(BasePlant* plant, std::string accessory) {
 
     decor->add(plant);
     return decor;
-}
-
-std::string toLowerCase(std::string str) {
-    std::transform(str.begin(), str.end(), str.begin(), 
-                   [](unsigned char c){ return std::tolower(c); });
-    return str;
 }
 
 Plant* CustomerStaff::getFromInventory(std::string plantName, bool& depleted) {
