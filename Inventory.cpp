@@ -23,7 +23,7 @@ Inventory::~Inventory() {
     // Deletes owned Plant pointers in every collection 
     //using lambda function
     //define anonymous function in var called cleanup
-
+    
     auto cleanup = [](std::vector<Plant*>& v){ // cleanup all memory
         //takes in vector of plant* [](vector<Plant*>&)
         for (Plant* p : v) {
@@ -55,6 +55,8 @@ Inventory::~Inventory() {
     cleanup(Baobab);
 
     cleanup(seeds);
+
+    if(instance) delete instance;
 }
 
 
