@@ -67,6 +67,10 @@ void Zone::setZoneCategory(std::string category){
         this->zoneCategory = category;
 }
 
+std::string Zone::getZoneCategory(){
+    return this->zoneCategory;
+}
+
 CareStrategy *Zone::getStrategy(){ return this->strategy;}
 
 void Zone::setStrategy(CareStrategy *strategy){

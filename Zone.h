@@ -101,6 +101,13 @@ public:
     void setZoneCategory(std::string category);
 
     /**
+     * @brief Get the Zone Category object
+     *
+     * @return std::string
+     */
+    std::string getZoneCategory();
+
+    /**
      * @brief Studded clone method
      * @return nullptr
      */

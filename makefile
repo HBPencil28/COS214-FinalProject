@@ -122,10 +122,10 @@
 #         valgrind_demo valgrind_test valgrind_test_main doxy clean clean_test_main \
 #         coverage_demo coverage_test coverage_test_main
 
-# Compiler and flags
+# Compiler
 CXX = g++
-CXXFLAGS = -std=c++11 -Wall -Wextra -g
-LDFLAGS =
+CXXFLAGS = -std=c++11 -Wall -Werror=sign-compare -Werror=delete-non-virtual-dtor -Wextra -g -fprofile-arcs -ftest-coverage
+LDFLAGS = -fprofile-arcs -ftest-coverage
 
 # Directories
 SRC_DIR = .
@@ -133,125 +133,124 @@ TEST_DIR = .
 BUILD_DIR = build
 OBJ_DIR = $(BUILD_DIR)/obj
 
-# Test executable name
-TEST_EXEC = UnitTest
-
-# Source files (only the ones you actually have)
-SOURCES = \
-	BasePlant.cpp \
-	BuildPlantDirector.cpp \
-	Plant.cpp \
-	PlantBuilder.cpp \
-	PlantComponent.cpp \
-	PotPlantBuilder.cpp \
-	PottedPlant.cpp \
-	WrappedPlant.cpp \
-	WrapPlantBuilder.cpp
-
-# Add these files only if they exist in your directory
-# Uncomment the ones you have:
-SOURCES += PlantPot.cpp
-SOURCES += PlantSoil.cpp
-SOURCES += PlantWrap.cpp
-SOURCES += PlantDecorator.cpp
-# SOURCES += Greenhouse.cpp
-# SOURCES += PlantState.cpp
-SOURCES += Growing.cpp
-SOURCES += Seedling.cpp
-SOURCES += Mature.cpp
-SOURCES += Withered.cpp
-SOURCES += Zone.cpp
-SOURCES += CareStrategy.cpp
-SOURCES += LowCare.cpp
-SOURCES += MediumCare.cpp
-SOURCES += HighCare.cpp
-SOURCES += WaterPlant.cpp
-SOURCES += FertilisePlant.cpp
-SOURCES += CareStaff.cpp
-SOURCES += Staff.cpp
-SOURCES += Inventory.cpp
-SOURCES += PlantIterator.cpp
-SOURCES += Bow.cpp
-SOURCES += Ribbon.cpp
-SOURCES += String.cpp
-SOURCES += CareStrategy.cpp
-SOURCES += LowCare.cpp
-SOURCES += MediumCare.cpp
-SOURCES += HighCare.cpp
-SOURCES += WaterPlant.cpp
-SOURCES += FertilisePlant.cpp
-SOURCES += CareStaff.cpp
-SOURCES += Zone.cpp
-SOURCES += PlantObserver.cpp
-SOURCES += NurseryMediator.cpp
-SOURCES += Greenhouse.cpp
-
-# Test file
-TEST_SOURCE = UnitTest.cpp
+# Source files
+COMMON_SRC = $(filter-out DemoMain.cpp UnitTest.cpp TestingMain.cpp, $(wildcard *.cpp))
+DEMO_SRC = DemoMain.cpp $(COMMON_SRC)
+TEST_SRC = UnitTest.cpp $(COMMON_SRC)
+TEST_MAIN_SRC = TestingMain.cpp $(COMMON_SRC)
 
 # Object files
-OBJECTS = $(SOURCES:%.cpp=$(OBJ_DIR)/%.o)
-TEST_OBJECT = $(OBJ_DIR)/UnitTest.o
+DEMO_OBJECTS = $(DEMO_SRC:%.cpp=$(OBJ_DIR)/%.o)
+DEMO_OBJ = $(DEMO_OBJECTS)
+TEST_OBJECTS = $(TEST_SRC:%.cpp=$(OBJ_DIR)/%.o)
+TEST_OBJ = $(TEST_OBJECTS)
+TEST_MAIN_OBJECTS = $(TEST_MAIN_SRC:%.cpp=$(OBJ_DIR)/%.o)
+TEST_MAIN_OBJ = $(TEST_MAIN_OBJECTS)
 
-# Default target
-all: $(BUILD_DIR)/$(TEST_EXEC)
+# Output executables
+DEMO_TARGET = DemoMain
+TEST_TARGET = UnitTest
+TEST_MAIN_TARGET = TestingMain
+
+# Default target: compile all three
+all: $(BUILD_DIR)/$(DEMO_TARGET) $(BUILD_DIR)/$(TEST_TARGET) $(BUILD_DIR)/$(TEST_MAIN_TARGET)
 
 # Create build directories
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
-# Compile source files to object files
+$(BUILD_DIR):
+	@mkdir -p $(BUILD_DIR)
+
+# Compile and Linking demo
+$(BUILD_DIR)/$(DEMO_TARGET): $(DEMO_OBJ) | $(BUILD_DIR)
+	$(CXX) $(CXXFLAGS) -o $@ $(DEMO_OBJ) $(LDFLAGS)
+
+# Compile and Linking unit test
+$(BUILD_DIR)/$(TEST_TARGET): $(TEST_OBJ) | $(BUILD_DIR)
+	$(CXX) $(CXXFLAGS) -o $@ $(TEST_OBJ) $(LDFLAGS)
+
+# Compile and Linking testing main
+$(BUILD_DIR)/$(TEST_MAIN_TARGET): $(TEST_MAIN_OBJ) | $(BUILD_DIR)
+	$(CXX) $(CXXFLAGS) -o $@ $(TEST_MAIN_OBJ) $(LDFLAGS)
+
+# Compiling rule
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJ_DIR)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Compile test file
-$(TEST_OBJECT): $(TEST_DIR)/$(TEST_SOURCE) | $(OBJ_DIR)
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+# Run programs
+run_demo: $(BUILD_DIR)/$(DEMO_TARGET)
+	./$(BUILD_DIR)/$(DEMO_TARGET)
 
-# Link everything together
-$(BUILD_DIR)/$(TEST_EXEC): $(OBJECTS) $(TEST_OBJECT)
-	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
+run_test: $(BUILD_DIR)/$(TEST_TARGET)
+	./$(BUILD_DIR)/$(TEST_TARGET)
 
-# Run tests
-test: $(BUILD_DIR)/$(TEST_EXEC)
-	@echo "Running tests..."
-	@./$(BUILD_DIR)/$(TEST_EXEC)
+run_test_main: $(BUILD_DIR)/$(TEST_MAIN_TARGET)
+	./$(BUILD_DIR)/$(TEST_MAIN_TARGET)
 
-# Run tests with verbose output
-test-verbose: $(BUILD_DIR)/$(TEST_EXEC)
-	@echo "Running tests (verbose)..."
-	@./$(BUILD_DIR)/$(TEST_EXEC) -s
-
-# Run specific test case
-test-case: $(BUILD_DIR)/$(TEST_EXEC)
-	@echo "Running specific test case..."
-	@./$(BUILD_DIR)/$(TEST_EXEC) -tc="$(CASE)"
-
-# Clean build artifacts
-clean:
-	rm -rf $(BUILD_DIR)
-
-# Rebuild everything
-rebuild: clean all
-
-# Run with Valgrind
-valgrind_unit: $(BUILD_DIR)/$(TEST_EXEC)
-	valgrind --leak-check=full --show-leak-kinds=all ./$(BUILD_DIR)/$(TEST_EXEC)
+# Run all executables
+run_all: run_demo run_test run_test_main
 
 # Run gdb (specify which target)
-gdb_unit: $(BUILD_DIR)/$(TEST_EXEC)
-	gdb ./$(BUILD_DIR)/$(TEST_EXEC)
+gdb_demo: $(BUILD_DIR)/$(DEMO_TARGET)
+	gdb ./$(BUILD_DIR)/$(DEMO_TARGET)
 
+gdb_test: $(BUILD_DIR)/$(TEST_TARGET)
+	gdb ./$(BUILD_DIR)/$(TEST_TARGET)
 
-# Show help
-help:
-	@echo "Available targets:"
-	@echo "  all           - Build test executable (default)"
-	@echo "  test          - Build and run tests"
-	@echo "  test-verbose  - Build and run tests with verbose output"
-	@echo "  test-case     - Run specific test case (usage: make test-case CASE='test name')"
-	@echo "  clean         - Remove build artifacts"
-	@echo "  rebuild       - Clean and rebuild"
-	@echo "  help          - Show this help message"
+gdb_test_main: $(BUILD_DIR)/$(TEST_MAIN_TARGET)
+	gdb ./$(BUILD_DIR)/$(TEST_MAIN_TARGET)
 
-.PHONY: all test test-verbose test-case clean rebuild help
+# Run with Valgrind
+valgrind_demo: $(BUILD_DIR)/$(DEMO_TARGET)
+	valgrind --leak-check=full --show-leak-kinds=all ./$(BUILD_DIR)/$(DEMO_TARGET)
+
+valgrind_test: $(BUILD_DIR)/$(TEST_TARGET)
+	valgrind --leak-check=full --show-leak-kinds=all ./$(BUILD_DIR)/$(TEST_TARGET)
+
+valgrind_test_main: $(BUILD_DIR)/$(TEST_MAIN_TARGET)
+	valgrind --leak-check=full --show-leak-kinds=all ./$(BUILD_DIR)/$(TEST_MAIN_TARGET)
+
+# Generate documentation with Doxygen
+doxy:
+	doxygen Doxyfile
+
+# Clean build files
+clean:
+	rm -rf $(BUILD_DIR) *.gcda *.gcno *.gcov
+
+# Generate coverage reports
+coverage_demo: $(BUILD_DIR)/$(DEMO_TARGET)
+	@echo "Running demo to generate coverage data..."
+	./$(BUILD_DIR)/$(DEMO_TARGET)
+	@echo "Generating coverage report..."
+	gcov -o $(OBJ_DIR) *.cpp
+	@echo "Coverage report generated (.gcov files)."
+
+coverage_test: $(BUILD_DIR)/$(TEST_TARGET)
+	@echo "Running unit tests to generate coverage data..."
+	./$(BUILD_DIR)/$(TEST_TARGET)
+	@echo "Generating coverage report..."
+	gcov -o $(OBJ_DIR) *.cpp
+	@echo "Coverage report generated (.gcov files)."
+
+coverage_test_main: $(BUILD_DIR)/$(TEST_MAIN_TARGET)
+	@echo "Running testing main to generate coverage data..."
+	./$(BUILD_DIR)/$(TEST_MAIN_TARGET)
+	@echo "Generating coverage report..."
+	gcov -o $(OBJ_DIR) *.cpp
+	@echo "Coverage report generated (.gcov files)."
+
+# Generate combined coverage from all executables
+coverage_all: $(BUILD_DIR)/$(DEMO_TARGET) $(BUILD_DIR)/$(TEST_TARGET) $(BUILD_DIR)/$(TEST_MAIN_TARGET)
+	@echo "Running all executables to generate combined coverage data..."
+	./$(BUILD_DIR)/$(DEMO_TARGET)
+	./$(BUILD_DIR)/$(TEST_TARGET)
+	./$(BUILD_DIR)/$(TEST_MAIN_TARGET)
+	@echo "Generating coverage report..."
+	gcov -o $(OBJ_DIR) *.cpp
+	@echo "Combined coverage report generated (.gcov files)."
+
+.PHONY: all run_demo run_test run_test_main run_all gdb_demo gdb_test gdb_test_main \
+        valgrind_demo valgrind_test valgrind_test_main doxy clean \
+        coverage_demo coverage_test coverage_test_main coverage_all
