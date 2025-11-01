@@ -83,7 +83,7 @@ void Plant::setState(PlantState* newState)
 void Plant::water(int amount) 
 {
     // hydrationLevel = std::min(100, hydrationLevel + 50);
-    hydrationLevel += amount;
+    hydrationLevel += amount; // must be removed
     state->water(this, amount);
 }
 
@@ -92,6 +92,7 @@ void Plant::fertilize(int amount)
     state->fertilize(this, amount);
 }
 
+/* gets removed because harvest and discard is not handled by the PlantState anymore
 void Plant::harvestAndStore() 
 {
     state->harvestAndStore(this);
@@ -100,7 +101,8 @@ void Plant::harvestAndStore()
 void Plant::discard() 
 {
     state->discard(this);
-}
+} 
+    */
 
 void Plant::dailyTick() 
 {

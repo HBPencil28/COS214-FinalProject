@@ -44,4 +44,3 @@ void Seedling::fertilize(Plant* plant, int amount)
         std::cout <<  plant->getName() << ": Lightly fertilized, conditions not met so it remains a Seedling " << std::endl;
     }
 }
-
