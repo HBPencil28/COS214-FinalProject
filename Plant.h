@@ -12,6 +12,8 @@
 #include <vector>
 #include <iostream>
 
+#include "PlantStatus.h"
+
 using namespace std;
 
 // Forward declarations of concrete states
