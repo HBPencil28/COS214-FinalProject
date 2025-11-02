@@ -70,6 +70,11 @@ public:
     virtual bool isComposite() const { return false; }
 
     /**
+     * @brief Get the Type object
+     * 
+     * @return std::string 
+     */
+    virtual std::string getType() const {return std::string();};
      * @brief Pure virtual clone method
      *
      */

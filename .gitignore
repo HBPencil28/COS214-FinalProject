@@ -1,3 +1,6 @@
+.vscode
+test.cpp
+tests
 *.vpp.*
 .lock
 /tmp
