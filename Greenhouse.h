@@ -5,6 +5,10 @@
 #include <algorithm>
 #include <stdexcept>
 
+#include <vector>
+
+class PlantObserver;
+
 /**
  * @file Greenhouse.h
  * @brief Component interface for the Composite pattern representing greenhouse elements.
@@ -18,11 +22,14 @@
  * (execute) implementations for leaf components.
  */
 class Greenhouse{
+protected:
+    std::vector<PlantObserver*> observers; /**< Observers monitoring this zone */
+
 public:
     /**
      * @brief Virtual destructor to allow polymorphic deletion.
      */
-    virtual ~Greenhouse() = default;
+    virtual ~Greenhouse();
 
     /**
      * @brief Perform the component's operation.
@@ -37,7 +44,7 @@ public:
      * Default: not supported for leaves (throws). Composite subclasses should override.
      * @param child Pointer to the child to add.
      */
-    virtual void add(Greenhouse* child) { throw std::logic_error("add not supported"); }
+    virtual void add(Greenhouse* child) {(void)child; throw std::logic_error("add not supported"); }
 
     /**
      * @brief Remove a child component.
@@ -45,7 +52,7 @@ public:
      * Default: not supported for leaves (throws). Composite subclasses should override.
      * @param child Pointer to the child to remove.
      */
-    virtual void remove(Greenhouse* child) { throw std::logic_error("remove not supported"); }
+    virtual void remove(Greenhouse* child) {(void)child; throw std::logic_error("remove not supported"); }
 
     /**
      * @brief Get a child component by index.
@@ -54,7 +61,7 @@ public:
      * @param index Zero-based index of the child.
      * @return Pointer to the child component.
      */
-    virtual Greenhouse* getChild(std::size_t index) { throw std::logic_error("getChild not supported"); }
+    virtual Greenhouse* getChild(std::size_t index) {(void)index; throw std::logic_error("getChild not supported"); }
 
     /**
      * @brief Whether this component can contain children.
@@ -63,11 +70,14 @@ public:
     virtual bool isComposite() const { return false; }
 
     /**
-     * @brief Get the Type object
-     * 
-     * @return std::string 
+     * @brief Pure virtual clone method
+     *
      */
-    virtual std::string getType() const {return std::string();};
+    virtual Greenhouse* clone() = 0;
+
+    void attach(PlantObserver* observer);
+    void detach(PlantObserver* observer);
+    virtual void notify();
 };
 
 #endif

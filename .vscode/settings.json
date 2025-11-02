@@ -1,5 +1,9 @@
 {
+    "C_Cpp.default.compilerPath": "C:/msys64/mingw64/bin/g++.exe",
     "files.associations": {
+        "*.embeddedhtml": "html",
+        "*.ejs": "html",
+        "*.rmd": "markdown",
         "*.dbclient-js": "javascript",
         "cctype": "cpp",
         "clocale": "cpp",
@@ -48,18 +52,9 @@
         "streambuf": "cpp",
         "cinttypes": "cpp",
         "typeinfo": "cpp",
-        "csignal": "cpp",
-        "chrono": "cpp",
-        "condition_variable": "cpp",
-        "set": "cpp",
-        "unordered_set": "cpp",
-        "ratio": "cpp",
-        "fstream": "cpp",
-        "iomanip": "cpp",
-        "mutex": "cpp",
-        "semaphore": "cpp",
-        "sstream": "cpp",
-        "stop_token": "cpp",
-        "thread": "cpp"
+        "*.h": "cpp",
+        "optional": "cpp",
+        "format": "cpp",
+        "sstream": "cpp"
     }
 }
