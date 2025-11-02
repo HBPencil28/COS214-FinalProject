@@ -2,6 +2,7 @@
 #define CUSTOMERFACTORY_H
 
 #include "StaffFactory.h"
+#include "CustomerStaff.h"
 
 #include <string>
 #include <vector>

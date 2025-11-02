@@ -75,6 +75,7 @@ public:
      * @return std::string 
      */
     virtual std::string getType() const {return std::string();};
+    /**
      * @brief Pure virtual clone method
      *
      */

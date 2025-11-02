@@ -7,7 +7,6 @@
 #include "Plant.h"
 #include "Greenhouse.h"
 #include "Inventory.h"
-#include "PlantIterator.h"
 #include "Zone.h"
 #include "CareStrategy.h"
 #include "LowCare.h"
@@ -22,14 +21,14 @@
 #include "CareStaff.h"
 #include "CareStrategy.h"
 #include "CustomerCommand.h"
-// #include "CustomerFactory.h"
+#include "CustomerFactory.h"
 #include "CustomerStaff.h"
 #include "CustomisePlant.h"
 #include "FertilisePlant.h"
 #include "Greenhouse.h"
 #include "Growing.h"
-// #include "InStorage.h"
-// #include "Manager.h"
+#include "InStorage.h"
+#include "Manager.h"
 #include "Mature.h"
 // #include "NormalStaff.h"
 #include "NurseryMediator.h"
@@ -47,12 +46,12 @@
 #include "PlantWrap.h"
 #include "PotPlantBuilder.h"
 #include "PottedPlant.h"
-// #include "RequestHelp.h"
-// #include "Returned.h"
+#include "RequestHelp.h"
+#include "Returned.h"
 #include "Ribbon.h"
 #include "Seedling.h"
 #include "SeniorManager.h"
-// #include "Sold.h"
+#include "Sold.h"
 #include "Staff.h"
 #include "StaffFactory.h"
 #include "String.h"
@@ -2847,5 +2846,186 @@ TEST_CASE("Prototype Pattern - Edge Cases and Comprehensive Testing")
 
         delete original;
         delete cloned;
+    }
+}
+
+TEST_CASE("Plant tests")
+{
+    Plant *plant = new Plant("Rose", "Flower");
+
+    CHECK(plant->getType() == "Flower");
+    CHECK_FALSE(plant->isComposite());
+
+    // Test that leaf operations throw
+    CHECK_THROWS_AS(plant->add(nullptr), std::logic_error);
+    CHECK_THROWS_AS(plant->remove(nullptr), std::logic_error);
+    CHECK_THROWS_AS(plant->getChild(0), std::logic_error);
+
+    delete plant;
+}
+
+TEST_CASE("Zone tests")
+{
+    CareStaff c;
+    Greenhouse *zone = new Zone("Flower Zone", "Flower", &c);
+    Plant *rose = new Plant("rose","Flower");
+    Plant *cactus = new Plant("cactus","Cactus");
+
+    CHECK(zone->isComposite());
+
+    // Test adding valid child
+    CHECK_NOTHROW(zone->add(rose));
+    CHECK(zone->getChild(0) == rose);
+
+    // Test adding invalid child type
+    CHECK_THROWS_AS(zone->add(cactus), std::invalid_argument);
+
+    // Test remove
+    CHECK_NOTHROW(zone->remove(rose));
+    CHECK_THROWS_AS(zone->getChild(0), std::out_of_range);
+
+    delete zone;
+    delete rose;
+    delete cactus;
+}
+
+TEST_CASE("Nested zones")
+{
+    CareStaff c;
+    Greenhouse *greenhouse = new Zone("Main", "",&c);
+    Greenhouse *flowerZone = new Zone("Flowers", "Flower", &c);
+    Greenhouse *desertZone = new Zone("Desert", "Cactus", &c);
+
+    Plant *rose = new Plant("rose","Flower");
+    Plant *cactus = new Plant("cactus","Cactus");
+
+    CHECK_NOTHROW(flowerZone->add(rose));
+    CHECK_NOTHROW(desertZone->add(cactus));
+    CHECK_NOTHROW(greenhouse->add(flowerZone));
+    CHECK_NOTHROW(greenhouse->add(desertZone));
+
+    delete greenhouse;
+}
+
+// Test Plant class functionality
+TEST_SUITE("Plant Tests")
+{
+    TEST_CASE("Plant Creation and Basic Functions")
+    {
+        Plant *p = new Plant("Rose", "Flower");
+
+        // Positive testing
+        CHECK(p->getType() == "Flower");
+        CHECK(p->getName() == "Rose");
+        CHECK(p->getStateName() == "Seedling");
+
+        delete p;
+    }
+}
+
+// Test Inventory Singleton
+TEST_SUITE("Inventory Tests")
+{
+    TEST_CASE("Singleton Instance")
+    {
+        Inventory *inv1 = Inventory::getInstance();
+        Inventory *inv2 = Inventory::getInstance();
+
+        // Positive testing - same instance
+        CHECK(inv1 == inv2);
+    }
+
+    TEST_CASE("Seed Operations")
+    {
+        Inventory *inv = Inventory::getInstance();
+
+        // Test empty operations
+        CHECK(inv->isSeedsEmpty());
+
+        // Add seed
+        Plant *seed = new Plant("Rose", "Flower");
+        inv->addSeed(seed);
+
+        // Positive testing
+        CHECK_FALSE(inv->isSeedsEmpty());
+
+        // Remove seed
+        Plant *removed = inv->removeSeed("Rose");
+        CHECK(removed == seed);
+        CHECK(inv->isSeedsEmpty());
+
+        delete removed;
+    }
+
+    TEST_CASE("Edge Cases")
+    {
+        Inventory *inv = Inventory::getInstance();
+
+        // Test null pointer handling
+        CHECK_THROWS_AS(inv->addSeed(nullptr), std::runtime_error);
+
+        // Test empty string removal
+        CHECK_THROWS_AS(inv->removeSeed(""), std::runtime_error);
+
+        // Test non-existent plant removal
+        CHECK_THROWS_AS(inv->removeSeed("NonExistent"), std::runtime_error);
+    }
+}
+
+// Test Iterator functionality
+TEST_SUITE("Iterator Tests")
+{
+    TEST_CASE("Iterator Operations")
+    {
+        Inventory *inv = Inventory::getInstance();
+
+        // Add test plants - make sure plants match the expected type for Roses
+        Plant *p1 = new Plant("Rose","Flower"); // Changed type to "Roses"
+        Plant *p2 = new Plant("Rose", "Flower"); // Changed type to "Roses"
+
+        // Add plants and verify they were added
+        inv->addRose(p1);
+        CHECK_FALSE(inv->isRosesEmpty());
+        inv->addRose(p2);
+        CHECK_FALSE(inv->isRosesEmpty());
+
+        // Create iterator and test
+        PlantIterator *it = inv->createIterator("Roses");
+        CHECK(it != nullptr);
+
+        // Test iterator operations
+        CHECK(it->hasNext());
+        CHECK(it->count() == 2);
+
+        Plant *first = it->first();
+        CHECK(first != nullptr);
+        CHECK(first->getName() == "Rose");
+        CHECK(it->hasNext());
+
+        Plant *next = it->next();
+        CHECK(next != nullptr);
+        CHECK(next->getName() == "Rose");
+        CHECK_FALSE(it->hasNext());
+
+        // Cleanup
+        while (!inv->isRosesEmpty())
+        {
+            Plant *p = inv->removeRose();
+            delete p;
+        }
+        delete it;
+    }
+
+    TEST_CASE("Empty Iterator")
+    {
+        Inventory *inv = Inventory::getInstance();
+        PlantIterator *it = inv->createIterator("NonExistentCategory");
+
+        // Negative testing
+        CHECK_FALSE(it->hasNext());
+        CHECK(it->count() == 0);
+        CHECK(it->next() == nullptr);
+
+        delete it;
     }
 }

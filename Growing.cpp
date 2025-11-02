@@ -11,6 +11,7 @@ namespace {
 
 void Growing::water(Plant* plant, int amount)
 {
+    (void)amount;
     if (!plant) return;
 
     const int age = plant->getAgeDays();
@@ -27,6 +28,7 @@ void Growing::water(Plant* plant, int amount)
 
 void Growing::fertilize(Plant* plant, int amount)
 {
+    (void)amount;
     if (!plant) return;
 
     // Fertilizer supports the move to Mature if near thresholds.

@@ -16,7 +16,7 @@ public:
 
     // events the system can trigger on a plant
     virtual void onSell(Plant&) {}
-    virtual void onReturn(Plant&, const std::string& reason) {}
+    virtual void onReturn(Plant&, const std::string&) {}
 };
 
 #endif // PLANTSTATUS_H

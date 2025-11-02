@@ -10,6 +10,7 @@ namespace {
 
 void Mature::water(Plant* plant, int amount)
 {
+    (void)amount;
     if (!plant) return;
 
     // Mature plants mostly maintain; no automatic transition on watering alone.
@@ -18,6 +19,7 @@ void Mature::water(Plant* plant, int amount)
 
 void Mature::fertilize(Plant* plant, int amount)
 {
+    (void)amount;
     if (!plant) return;
 
     // Keep it simple: if hydration is very low, warn, but remain Mature.

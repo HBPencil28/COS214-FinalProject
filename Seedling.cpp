@@ -13,6 +13,7 @@ namespace {
 
 void Seedling::water(Plant* plant, int amount)
 {
+    (void)amount;
     // Hydration was already incremented by Plant::water(amount).
     // transitions are based off of conditions
     if (!plant) return;
@@ -31,6 +32,7 @@ void Seedling::water(Plant* plant, int amount)
 
 void Seedling::fertilize(Plant* plant, int amount)
 {
+    (void)amount;
     if (!plant) return;
 
     // because seedlings are delicate we will fertilize and use it as a checkpoint
