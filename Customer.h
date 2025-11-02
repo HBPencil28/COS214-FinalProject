@@ -9,10 +9,7 @@
 #include "BasePlant.h"
 #include "Staff.h"
 #include "CustomerStaff.h"
-#include "CustomerCommand.h"
-#include "BuyPlant.h"
-#include "RequestHelp.h"
-#include "CustomisePlant.h"
+
 
 
 class Customer{

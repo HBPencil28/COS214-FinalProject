@@ -1,4 +1,8 @@
 #include "Customer.h"
+#include "CustomerCommand.h"
+#include "BuyPlant.h"
+#include "RequestHelp.h"
+#include "CustomisePlant.h"
 
 Customer::~Customer(){
     for(BasePlant* b : purchases){

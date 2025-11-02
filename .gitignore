@@ -4,4 +4,4 @@ Inventory.h
 main.cpp
 settings.json
 doctest.h
-makefile
+Makefile

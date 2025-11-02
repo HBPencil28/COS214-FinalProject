@@ -14,9 +14,9 @@ void Zone::add(Greenhouse* child) {
         throw std::invalid_argument("Cannot add child with type '" + static_cast<Plant*>(child)->getType()
                                   + "' to zone with category '" + zoneCategory + "'");
     }
-    child = dynamic_cast<Plant*>(child);
+    
     if(child){
-        child->setZone(this);
+        dynamic_cast<Plant*>(child)->setZone(this);
         children.push_back(child);
     }
     
