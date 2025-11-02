@@ -3,6 +3,16 @@ CXX = g++
 CXXFLAGS = -std=c++11 -Wall -Werror=sign-compare -Werror=delete-non-virtual-dtor -Wextra -g -fprofile-arcs -ftest-coverage
 LDFLAGS = -fprofile-arcs -ftest-coverage
 
+# Try to detect SFML via pkg-config
+SFML_CFLAGS := $(shell pkg-config --cflags sfml-all 2>/dev/null)
+SFML_LIBS := $(shell pkg-config --libs sfml-all 2>/dev/null)
+
+# Fallback if pkg-config fails
+ifeq ($(SFML_LIBS),)
+SFML_LIBS = -lsfml-graphics -lsfml-window -lsfml-system
+endif
+
+
 # Directories
 SRC_DIR = .
 TEST_DIR = .
@@ -40,15 +50,15 @@ $(BUILD_DIR):
 
 # Compile and Linking demo
 $(BUILD_DIR)/$(DEMO_TARGET): $(DEMO_OBJ) | $(BUILD_DIR)
-	$(CXX) $(CXXFLAGS) -o $@ $(DEMO_OBJ) $(LDFLAGS)
+	$(CXX) $(CXXFLAGS) $(SFML_CFLAGS) -o $@ $(DEMO_OBJ) $(LDFLAGS) $(SFML_LIBS)
 
 # Compile and Linking unit test
 $(BUILD_DIR)/$(TEST_TARGET): $(TEST_OBJ) | $(BUILD_DIR)
-	$(CXX) $(CXXFLAGS) -o $@ $(TEST_OBJ) $(LDFLAGS)
+	$(CXX) $(CXXFLAGS) $(SFML_CFLAGS) -o $@ $(TEST_OBJ) $(LDFLAGS) $(SFML_LIBS)
 
 # Compile and Linking testing main
 $(BUILD_DIR)/$(TEST_MAIN_TARGET): $(TEST_MAIN_OBJ) | $(BUILD_DIR)
-	$(CXX) $(CXXFLAGS) -o $@ $(TEST_MAIN_OBJ) $(LDFLAGS)
+	$(CXX) $(CXXFLAGS) $(SFML_CFLAGS) -o $@ $(TEST_MAIN_OBJ) $(LDFLAGS) $(SFML_LIBS)
 
 # Compiling rule
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJ_DIR)

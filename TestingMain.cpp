@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <SFML/System
 
 #include "Plant.h"
 #include "Greenhouse.h"
@@ -84,7 +85,21 @@ int main() {
 
     // Planting the Seeds
     for(Zone* zone:zones){
+        // Attach observer
+        zone->attach(&careStaff);
+
+        // Plant seeds
         zone->add(new Plant(zone->getZoneName(), zone->getZoneCategory()));
+        zone->add(new Plant(*static_cast<Plant*>(zone->getChild(0))));
+        zone->add(new Plant(*static_cast<Plant*>(zone->getChild(0))));
+        zone->add(new Plant(*static_cast<Plant*>(zone->getChild(0))));
+        zone->add(new Plant(*static_cast<Plant*>(zone->getChild(0))));
+        zone->add(new Plant(*static_cast<Plant*>(zone->getChild(0))));
+        zone->add(new Plant(*static_cast<Plant*>(zone->getChild(0))));
+        zone->add(new Plant(*static_cast<Plant*>(zone->getChild(0))));
+        zone->add(new Plant(*static_cast<Plant*>(zone->getChild(0))));
+
+
     }
 
     // Cleanup
