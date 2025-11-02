@@ -3,6 +3,7 @@
 #include "Plant.h"
 #include "NurseryMediator.h"
 #include "Inventory.h"
+#include "InStorage.h"
 
 inline std::string toLowerCase(std::string str) {
     std::transform(str.begin(), str.end(), str.begin(), 
@@ -58,11 +59,13 @@ std::map<std::string, bool> CareStaff::get() {
 void CareStaff::insertToInventory(Plant* plant, bool& toUpdate) {
     std::string plantName = toLowerCase(plant->getName());
 
+    plant->setStatus(new InStorage());
     // flowers
     if(plantName.compare("rose") == 0){
         if(inv->isRosesEmpty()){
             toUpdate = true;
         }
+
         inv->addRose(plant);
         inv->addSeed(static_cast<Plant*>(plant->clone()));
         stockAvailability["rose"] = true;
@@ -338,8 +341,7 @@ void CareStaff::update() {
     bool toUpdate = false;
     for(std::vector<Greenhouse*>::const_iterator it = static_cast<Zone*>(zone)->getChildren().begin(); it != static_cast<Zone*>(zone)->getChildren().end(); ++it) {
         Plant* plant = static_cast<Plant*>(*it);
-        std::string plantName = toLowerCase(plant->getName());
-
+       
         // flowers
         if(plant->isMature()) {
             insertToInventory(plant, toUpdate);
@@ -347,6 +349,8 @@ void CareStaff::update() {
         
         // After processing, remove the plant from the zone
         zone->remove(*it); 
+        Plant* seed = inv->removeSeed(toLowerCase(plant->getName()));
+        zone->add(seed);
     }
     if(toUpdate){
         changed();

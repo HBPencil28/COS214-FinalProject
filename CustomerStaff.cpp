@@ -1,9 +1,13 @@
 #include "CustomerStaff.h"
 #include "NurseryMediator.h"
+#include "Inventory.h"
+#include "Sold.h"
 
-inline std::string toLowerCase(std::string str) {
-    std::transform(str.begin(), str.end(), str.begin(), 
-                   [](unsigned char c){ return std::tolower(c); });
+inline std::string toLowerCase(std::string str)
+{
+    std::transform(str.begin(), str.end(), str.begin(),
+                   [](unsigned char c)
+                   { return std::tolower(c); });
     return str;
 }
 
@@ -106,13 +110,13 @@ BasePlant* CustomerStaff::getRequestedPlant(Order plantDetails) {
     bool toPot, toUpdate = false;
 
     if(plantDetails.base == "Potted"){
-        plant = new PottedPlant(getFromInventory(plantDetails.flowerName, toUpdate));
-        builder = new PotPlantBuilder(plant);
+        Plant* p = getFromInventory(plantDetails.flowerName, toUpdate);
+        p->sell();
+        builder = new PotPlantBuilder(p);
         toPot = true;
     }
     else if(plantDetails.base == "Wrapped"){
-        plant = new WrappedPlant();
-        builder = new WrapPlantBuilder(plant);
+        builder = new WrapPlantBuilder();
         toPot = false;
     }
 
@@ -123,6 +127,7 @@ BasePlant* CustomerStaff::getRequestedPlant(Order plantDetails) {
     if(plantDetails.num > 1){
         for(int i = 0; i < plantDetails.num; i++){
             Plant* p = getFromInventory(plantDetails.flowerName, toUpdate);
+            p->sell();
             static_cast<WrappedPlant*>(plant)->addPlant(p);
         }
     }
