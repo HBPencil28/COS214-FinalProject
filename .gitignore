@@ -1,3 +1,9 @@
 .vscode
 test.cpp
 tests
+*.vpp.*
+.lock
+/tmp
+/.vpprefdata
+temp.txt
+error.txt

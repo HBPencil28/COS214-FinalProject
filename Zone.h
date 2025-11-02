@@ -3,7 +3,7 @@
 #define ZONE_H
 /**
  * @file Zone.h
- * @author Bandile Mnyandu (github: bandilem-git)
+ * @author Bandile Mnyandu (github: bandilem-git), me
  * @brief 
  * @version 0.1
  * @date 2025-10-20
@@ -14,7 +14,10 @@
 #include "Greenhouse.h"
 #include <algorithm>
 #include <vector>
-#include "Plant.h"
+#include <string>
+
+class CareStrategy;
+class CareStaff;
 
 /**
  * @class Zone
@@ -25,13 +28,20 @@ private:
     std::vector<Greenhouse*> children; /**< Container for child components */
     std::string zoneName;
     std::string zoneCategory;
+    /**
+     * @brief strategy to be used for all plants
+     *
+     */
+    CareStrategy *strategy;
+    CareStaff* staff;
 
 public:
+
     /** @brief Paramaterised constructor */
-    Zone(std::string Z_Name, std::string C_Name);
+    Zone(std::string Z_Name, std::string C_Name, CareStaff* s);
     
     /** @brief Virtual destructor */
-    virtual ~Zone() override = default;
+    virtual ~Zone();
 
     /**
      * @brief Add a child component
@@ -89,6 +99,31 @@ public:
      * @param category 
      */
     void setZoneCategory(std::string category);
+
+    /**
+     * @brief Get the Zone Category object
+     *
+     * @return std::string
+     */
+    std::string getZoneCategory();
+
+    /**
+     * @brief Studded clone method
+     * @return nullptr
+     */
+    Greenhouse* clone() override{ return nullptr;}
+
+    /**
+     * @brief Get the Zone strategy object
+     *
+     * @return CareStrategy
+     */
+    CareStrategy* getStrategy();
+
+
+
+    void setStrategy(CareStrategy *strategy);
+    void setStaff(CareStaff* staff);
 };
 
 #endif
