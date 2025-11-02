@@ -13,9 +13,9 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
-#include "Plant.h"
 #include <exception>
 
+class Plant;
 
 class PlantIterator; ///< Forward declaration for PlantIterator
 
