@@ -88,7 +88,7 @@ public:
     * @brief clearInventory calls destructor for cleaner look
     */
     void clearInventory(){
-        ~Inventory();
+       delete instance;
     }
 
     /**
@@ -601,3 +601,4 @@ public:
 
 
 #endif // INVENTORY_H
+
