@@ -80,7 +80,7 @@ private:
     /**
      * @brief Destructor - deletes owned Plant pointers in all collections.
      */
-    ~Inventory();
+   static ~Inventory();
 
 public:
 
@@ -601,4 +601,5 @@ public:
 
 
 #endif // INVENTORY_H
+
 
