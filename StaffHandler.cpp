@@ -1,3 +1,8 @@
+/**
+ * @file StaffHandler.cpp
+ * @brief Implements the StaffHandler base class.
+ */
+
 #include "StaffHandler.h"
 
 StaffHandler::StaffHandler() : nextHandler(nullptr) {}
