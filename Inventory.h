@@ -84,6 +84,11 @@ private:
 public:
 
     /**
+    * @brief calls destructor
+    * @return void
+    */
+    static void clearInventory();
+    /**
      * @brief Get the singleton instance of Inventory.
      * @return Refrence to the Inventory instance.
      */
@@ -593,6 +598,7 @@ public:
 
 
 #endif // INVENTORY_H
+
 
 
 
