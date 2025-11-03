@@ -3,6 +3,9 @@
 
 #include <vector>
 #include <map>
+#include <random>
+#include <SFML/System.hpp>
+#include <SFML/Graphics.hpp>
 
 #include "Plant.h"
 #include "Greenhouse.h"
@@ -3766,43 +3769,8 @@ TEST_CASE("State Pattern - Edge Cases and Comprehensive Testing")
         delete plant;
     }
 }// #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-// #include "doctest.h"
-// #include <iostream>
-// #include <string>
-// #include <vector>
-#include <map>
-#include <random>
-#include <SFML/System.hpp>
-#include <SFML/Graphics.hpp>
 
 
-// // Mediator stuff
-// #include "NurseryMediator.h"
-// #include "Manager.h"
-// #include "Staff.h"
-// #include "CustomerStaff.h"
-// #include "CareStaff.h"
-
-// // Observer Stuff
-// #include "PlantObserver.h"
-// #include "Greenhouse.h"
-// #include "Zone.h"
-// #include "Plant.h"
-
-// // CustomerCommand Stuff
-// #include "CustomerCommand.h"
-// #include "BuyPlant.h"
-// #include "RequestHelp.h"
-// #include "CustomisePlant.h"
-// #include "Customer.h"
-
-// // necessary files too...
-// #include "BasePlant.h"
-// #include "Inventory.h"
-// #include "Mature.h"
-// #include "InStorage.h"
-// #include "PlantIterator.h"
-// #include "Withered.h"
 
 sf::Clock timer;
 std::random_device rd;
