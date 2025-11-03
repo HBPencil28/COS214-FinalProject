@@ -10,6 +10,7 @@ public:
 
     const char* code() const override { return "InStorage"; }
     void onSell(Plant& p) override; // -> Sold
+    void enter(Plant& p) override;// No action on enter
 };
 
 #endif // INSTORAGE_H

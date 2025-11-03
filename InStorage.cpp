@@ -6,3 +6,7 @@ void InStorage::onSell(Plant& plant) {
     // Move to Sold state
     plant.setStatus(new Sold());
 }
+
+void InStorage::enter(Plant& p){
+    p.setLastReturnReason("");
+}

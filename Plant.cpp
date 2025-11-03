@@ -143,16 +143,14 @@ void Plant::notify()
 // functionality added for status
 void Plant::setStatus(PlantStatus *newStatus)
 {
-    if (status)
-    {
-        status->exit(*this);
-        delete status; // should help keep track of memeory and not leak after changinging state each time
-    }
+    PlantStatus* old = status;
+
     status = newStatus;
-    if (status)
-    {
+
+    if(status){
         status->enter(*this);
     }
+    delete old;
 }
 
 void Plant::sell()
