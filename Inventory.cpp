@@ -10,8 +10,14 @@
 
 Inventory::Inventory() {}
 
-Inventory& Inventory::getInstance() {
-    static Inventory instance;
+/**
+*@brief returns new instance
+@return Instance of Inventory
+*/
+Inventory* Inventory::getInstance() {
+    if(instance == nullptr){
+        instance = new Inventory();
+    }
     return instance;
 }
 
@@ -19,7 +25,7 @@ Inventory::~Inventory() {
     // Deletes owned Plant pointers in every collection 
     //using lambda function
     //define anonymous function in var called cleanup
-    
+    std::cout << "lwk deleteing" << std::endl;
     auto cleanup = [](std::vector<Plant*>& v){ // cleanup all memory
         //takes in vector of plant* [](vector<Plant*>&)
         for (Plant* p : v) {
@@ -55,13 +61,17 @@ Inventory::~Inventory() {
     cleanup(seeds);
 }
 
-
+void Inventory::clearInventory(){
+    delete instance;
+}
 std::string Inventory::lower(const std::string &s) { // lowercase comparison
     std::string result = s;
     std::transform(result.begin(), result.end(), result.begin(),
                    [](unsigned char c){ return std::tolower(c); });
     return result;
 }
+
+
 
 ///////////////////////
 // Flowers
@@ -676,3 +686,4 @@ Plant* Inventory::removeBaobab(Plant* p){
     }   
 
     
+
