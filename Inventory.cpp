@@ -66,6 +66,7 @@ Inventory::~Inventory() {
 
 void Inventory::clearInventory(){
     delete instance;
+    instance = nullptr;
 }
 std::string Inventory::lower(const std::string &s) { // lowercase comparison
     std::string result = s;
