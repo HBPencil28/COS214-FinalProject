@@ -9,7 +9,10 @@
  */
 
 Inventory::Inventory() {}
-
+/**
+* @brief actual instance
+*/
+Inventory* Inventory::instance = nullptr;
 /**
 *@brief returns new instance
 @return Instance of Inventory
@@ -686,4 +689,5 @@ Plant* Inventory::removeBaobab(Plant* p){
     }   
 
     
+
 
