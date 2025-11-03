@@ -2,6 +2,7 @@
 #define CAREFACTORY_H
 
 #include "StaffFactory.h"
+#include "CareStaff.h"
 
 #include <string>
 #include <vector>

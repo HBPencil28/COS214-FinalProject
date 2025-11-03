@@ -12,8 +12,8 @@ using namespace std;
 
 class CustomerFactory :public StaffFactory{
     public:
-        virtual Staff* createStaff(const string& name) const {
-            cout << "Creating Customer Staff: " << name << endl;
+        virtual Staff* createStaff() const {
+            //cout << "Creating Customer Staff: " << endl;
             return new CustomerStaff();
         }
 };

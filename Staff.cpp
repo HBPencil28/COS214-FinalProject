@@ -7,6 +7,8 @@ Staff::Staff(){
     inv = Inventory::getInstance();
 }
 
+Staff::~Staff(){}
+
 void Staff::registerMediator(NurseryMediator* med){
     mediator = med;
 }

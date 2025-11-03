@@ -19,6 +19,7 @@ protected:
     map<string, bool> stockAvailability; // keeps track of available stock, true = available, false = out of stock
 public:
     Staff();
+    virtual ~Staff();
     void registerMediator(NurseryMediator* mediator);
     void deregisterMediator();
 
