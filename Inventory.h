@@ -34,11 +34,6 @@ private:
      */
     Inventory();
 
-    /**
-     * @brief Pointer to the singleton instance.
-     */
-    static Inventory* instance;
-
     ///////////////////////
     // Flowers
     ///////////////////////
@@ -77,15 +72,25 @@ private:
     ///////////////////////
     std::vector<Plant*> seeds; ///< Collection of seedling plants
 
-public:
     /**
      * @brief Destructor - deletes owned Plant pointers in all collections.
      */
-    ~Inventory();
+     ~Inventory();
 
     /**
+    *@brief static instance of instance
+    */
+    static Inventory* instance;
+public:
+
+    /**
+    * @brief calls destructor
+    * @return void
+    */
+    static void clearInventory();
+    /**
      * @brief Get the singleton instance of Inventory.
-     * @return Pointer to the Inventory instance.
+     * @return Refrence to the Inventory instance.
      */
     static Inventory* getInstance();
 
@@ -591,4 +596,14 @@ public:
     friend class PlantIterator;
 };
 
+
 #endif // INVENTORY_H
+
+
+
+
+
+
+
+
+

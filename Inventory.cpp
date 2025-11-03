@@ -9,11 +9,16 @@
  */
 
 Inventory::Inventory() {}
-
+/**
+* @brief actual instance
+*/
 Inventory* Inventory::instance = nullptr;
-
+/**
+*@brief returns new instance
+@return Instance of Inventory
+*/
 Inventory* Inventory::getInstance() {
-    if (instance == nullptr) {
+    if(instance == nullptr){
         instance = new Inventory();
     }
     return instance;
@@ -23,10 +28,12 @@ Inventory::~Inventory() {
     // Deletes owned Plant pointers in every collection 
     //using lambda function
     //define anonymous function in var called cleanup
-    
+    std::cout << "lwk deleteing" << std::endl;
     auto cleanup = [](std::vector<Plant*>& v){ // cleanup all memory
         //takes in vector of plant* [](vector<Plant*>&)
         for (Plant* p : v) {
+            std::cout << "deleting plant" << std::endl;
+            p->getName();
             delete p;
         }
         v.clear();
@@ -55,17 +62,19 @@ Inventory::~Inventory() {
     cleanup(Baobab);
 
     cleanup(seeds);
-
-    if(instance) delete instance;
 }
 
-
+void Inventory::clearInventory(){
+    delete instance;
+}
 std::string Inventory::lower(const std::string &s) { // lowercase comparison
     std::string result = s;
     std::transform(result.begin(), result.end(), result.begin(),
                    [](unsigned char c){ return std::tolower(c); });
     return result;
 }
+
+
 
 ///////////////////////
 // Flowers
@@ -153,7 +162,7 @@ void Inventory::addSucculent(Plant* p) {
     if (!p) { std::cout << "Cannot add null Succulent\n"; 
             throw std::runtime_error("tried to add null"); 
             return; }
-    if(lower(p->getName()) == "succulent"){
+    if(lower(p->getName()) != "succulent"){
     Succulents.push_back(p);
     std::cout << "Added Succulent to Succulents in Inventory"<< '\n';
     }
@@ -174,13 +183,16 @@ Plant* Inventory::removeSucculent() {
 
 bool Inventory::isCactusesEmpty() const { return Cactuses.empty(); }
 void Inventory::addCactus(Plant* p) {
-    if (!p) { std::cout << "Cannot add null Cactus\n"; return; }
-    if(lower(p->getName()) == "cactus"){
+    if (!p) { std::cout << "Cannot add null Cactus\n"; 
     throw std::runtime_error("tried to add null"); 
+            }
+    if(lower(p->getName()) == "cactus"){
+    
     Cactuses.push_back(p);
     std::cout << "Added Cactus to Cactuses in Inventory"<< '\n';
     }
     else{
+        throw std::runtime_error("tried to add non cactus to cactus"); 
         std::cout << "Plant is NOT a Cactus";
     }
 }
@@ -678,4 +690,8 @@ Plant* Inventory::removeBaobab(Plant* p){
         }
         return nullptr; // Return nullptr if the plant was not found
     }   
+
     
+
+
+

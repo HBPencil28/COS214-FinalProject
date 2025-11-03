@@ -69,7 +69,7 @@ PlantIterator::PlantIterator(const std::string& category) {
         plants = &(inventory->seeds);
     }
 
-    currentIndex = -1; // start before first element
+    currentIndex = 0; // start before first element
 }
 bool PlantIterator::hasNext() const {
     if (!plants) return false;
@@ -120,4 +120,5 @@ int PlantIterator::count()const{
 std::string PlantIterator::getCategory() const {
     return category;
 }
+
 

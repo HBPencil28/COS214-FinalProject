@@ -9,7 +9,7 @@
 
 using namespace std;
 
-class SeniorManager{
+class SeniorManager : public StaffHandler {
     public:
         virtual void handleRequest(const string& request);
 };

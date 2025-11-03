@@ -33,6 +33,38 @@ TEST_OBJ = $(TEST_OBJECTS)
 TEST_MAIN_OBJECTS = $(TEST_MAIN_SRC:%.cpp=$(OBJ_DIR)/%.o)
 TEST_MAIN_OBJ = $(TEST_MAIN_OBJECTS)
 
+MAIN_SRC = $(COMMON_SRC)
+MAIN_OBJECTS = $(MAIN_SRC:%.cpp=$(OBJ_DIR)/%.o)
+MAIN_OBJ = $(MAIN_OBJECTS)
+MAIN_TARGET = MainTest
+
+# Compile and link main test
+$(BUILD_DIR)/$(MAIN_TARGET): $(MAIN_OBJ) | $(BUILD_DIR)
+	$(CXX) $(CXXFLAGS) $(SFML_CFLAGS) -o $@ $(MAIN_OBJ) $(LDFLAGS) $(SFML_LIBS)
+
+run_main: $(BUILD_DIR)/$(MAIN_TARGET)
+	./$(BUILD_DIR)/$(MAIN_TARGET)
+
+gdb_main: $(BUILD_DIR)/$(MAIN_TARGET)
+	gdb ./$(BUILD_DIR)/$(MAIN_TARGET)
+
+valgrind_main: $(BUILD_DIR)/$(MAIN_TARGET)
+	valgrind --leak-check=full --show-leak-kinds=all ./$(BUILD_DIR)/$(MAIN_TARGET)
+
+coverage_main: $(BUILD_DIR)/$(MAIN_TARGET)
+	@echo "Running main test to generate coverage data..."
+	./$(BUILD_DIR)/$(MAIN_TARGET)
+	@echo "Generating coverage report..."
+	gcov -o $(OBJ_DIR) *.cpp
+	@echo "Coverage report generated (.gcov files)."
+
+.PHONY: all run_demo run_test run_test_main run_main run_all \
+        gdb_demo gdb_test gdb_test_main gdb_main \
+        valgrind_demo valgrind_test valgrind_test_main valgrind_main \
+        doxy clean \
+        coverage_demo coverage_test coverage_test_main coverage_main coverage_all
+
+
 # Output executables
 DEMO_TARGET = DemoMain
 TEST_TARGET = UnitTest
