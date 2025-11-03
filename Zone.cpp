@@ -15,10 +15,10 @@ void Zone::add(Greenhouse* child) {
                                   + "' to zone with category '" + zoneCategory + "'");
     }
     
-    if(child){
-        dynamic_cast<Plant*>(child)->setZone(this);
-        children.push_back(child);
-    }
+    
+    static_cast<Plant*>(child)->setZone(this);
+    children.push_back(child);
+    
     
 }
 

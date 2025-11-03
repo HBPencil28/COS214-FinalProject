@@ -1,7 +1,8 @@
 #ifndef PLANTOBSERVER_H
 #define PLANTOBSERVER_H
 
-class Greenhouse;
+#include "Greenhouse.h"
+
 class Plant;
 
 class PlantObserver{
@@ -10,7 +11,7 @@ protected:
 
 public:
     void setSubject(Greenhouse* subject);
-    
+    virtual ~PlantObserver();
     virtual void update(/*PlantState* state*/) = 0;
     virtual void update(Plant* p) = 0;
 };

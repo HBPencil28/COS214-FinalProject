@@ -14,17 +14,23 @@ Customer::~Customer(){
 void Customer::buyPlant(Staff* attender, Order* purchaseDetails){
     CustomerCommand* c = new BuyPlant(*purchaseDetails, attender, this);
     c->execute();
+
+    delete c;
 }
 
 void Customer::requestHelp(Staff* attender, std::string& question){
     CustomerCommand* c = new RequestHelp(question, attender);
     c->execute();
+
+    delete c;
 }
 
 void Customer::customiseMyPlant(Staff* attender, std::string& accessory){
     BasePlant* p = purchases.at(0);
     CustomerCommand* c = new CustomisePlant(accessory, attender, p, this);
     c->execute();
+
+    delete c;
 }
 
 void Customer::addPurchases(BasePlant* p){

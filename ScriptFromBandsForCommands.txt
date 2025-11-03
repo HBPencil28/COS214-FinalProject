@@ -1,0 +1,71 @@
+==============
+
+utest: NurseryMediator.o Staff.o CustomerStaff.o CareStaff.o PlantObserver.o Greenhouse.o Zone.o Plant.o BuyPlant.o RequestHelp.o CustomisePlant.o Customer.o BasePlant.o Inventory.o UnitTest.o
+	g++ -std=c++23 NurseryMediator.o Staff.o CustomerStaff.o CareStaff.o PlantObserver.o Greenhouse.o Zone.o Plant.o BuyPlant.o RequestHelp.o CustomisePlant.o Customer.o BasePlant.o Inventory.o UnitTest.o -o utest
+
+NurseryMediator.o : NurseryMediator.h NurseryMediator.cpp
+	g++ -c -std=c++23 NurseryMediator.cpp
+
+Staff.o : Staff.h Staff.cpp
+	g++ -c -std=c++23 Staff.cpp
+
+BasePlant.o : BasePlant.h BasePlant.cpp
+	g++ -c -std=c++23 BasePlant.cpp
+
+PottedPlant.o : PottedPlant.h PottedPlant.cpp
+	g++ -c -std=c++23 PottedPlant.cpp
+
+WrappedPlant.o : WrappedPlant.h WrappedPlant.cpp
+	g++ -c -std=c++23 WrappedPlant.cpp
+
+BuildPlantDirector.o : BuildPlantDirector.h BuildPlantDirector.cpp
+	g++ -c -std=c++23 BuildPlantDirector.cpp
+
+PotPlantBuilder.o : PotPlantBuilder.h PotPlantBuilder.cpp
+	g++ -c -std=c++23 PotPlantBuilder.cpp
+
+WrapPlantBuilder.o : WrapPlantBuilder.h WrapPlantBuilder.cpp
+	g++ -c -std=c++23 WrapPlantBuilder.cpp
+
+
+CustomisePlant.o : CustomisePlant.h CustomisePlant.cpp
+	g++ -c -std=c++23 CustomisePlant.cpp
+
+CareStaff.o : CareStaff.h CareStaff.cpp
+	g++ -c -std=c++23 CareStaff.cpp
+
+PlantObserver.o : PlantObserver.h PlantObserver.cpp
+	g++ -c -std=c++23 PlantObserver.cpp
+
+Greenhouse.o : Greenhouse.h Greenhouse.cpp
+	g++ -c -std=c++23 Greenhouse.cpp
+
+Zone.o : Zone.h Zone.cpp
+	g++ -c -std=c++23 Zone.cpp
+
+Plant.o : Plant.h Plant.cpp
+	g++ -c -std=c++23 Plant.cpp
+
+BuyPlant.o : BuyPlant.h BuyPlant.cpp
+	g++ -c -std=c++23 BuyPlant.cpp
+
+RequestHelp.o : RequestHelp.h RequestHelp.cpp
+	g++ -c -std=c++23 RequestHelp.cpp
+
+CustomisePlant.o : CustomisePlant.h CustomisePlant.cpp
+	g++ -c -std=c++23 CustomisePlant.cpp
+
+Customer.o : Customer.h Customer.cpp
+	g++ -c -std=c++23 Customer.cpp
+
+Inventory.o : Inventory.h Inventory.cpp
+	g++ -c -std=c++23 Inventory.cpp
+
+UnitTest.o : UnitTest.cpp
+	g++ -c -std=c++23 UnitTest.cpp
+
+run: utest
+	./utest
+
+clean:
+	rm -f *.o utest *~

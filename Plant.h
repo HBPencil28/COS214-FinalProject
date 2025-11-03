@@ -1,18 +1,18 @@
 #ifndef PLANT_H
 #define PLANT_H
 
-// #include "CareStaff.h"
+#include "CareStaff.h"
 #include "CareCommand.h"
 #include "PlantState.h"
 #include "PlantStatus.h"
 #include "Zone.h"
-// #include "Greenhouse.h"
+#include "Greenhouse.h"
 
 #include <string>
 #include <vector>
 #include <iostream>
 
-#include "PlantStatus.h"
+// #include "PlantStatus.h"
 
 using namespace std;
 

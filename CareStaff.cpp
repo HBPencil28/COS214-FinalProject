@@ -328,6 +328,7 @@ void CareStaff::set(std::map<std::string, bool> message) {
 }
 
 void CareStaff::update(Plant* p){
+    std::cout << "Received discard plant notification" << std::endl;
     bool toUpdate = false;
     Plant* toRemove = removeFromInventory(p, toUpdate);
     delete toRemove;
@@ -337,20 +338,25 @@ void CareStaff::update(Plant* p){
 }
 
 void CareStaff::update() {
+    std::cout << "Received harvest plant notification" << std::endl;
     // Implementation for updating based on plant state changes
     bool toUpdate = false;
-    for(std::vector<Greenhouse*>::const_iterator it = static_cast<Zone*>(zone)->getChildren().begin(); it != static_cast<Zone*>(zone)->getChildren().end(); ++it) {
-        Plant* plant = static_cast<Plant*>(*it);
-       
-        // flowers
+    auto& children = static_cast<Zone*>(zone)->getChildren();
+    for(size_t i = 0; i < children.size(); ) {
+        Plant* plant = static_cast<Plant*>(children[i]);
+        
         if(plant->isMature()) {
             insertToInventory(plant, toUpdate);
+            zone->remove(children[i]);
+            
+            Plant* seed = inv->removeSeed(toLowerCase(plant->getName()));
+            if(seed) {
+                zone->add(seed);
+            }
+            // Don't increment i since we removed current element
+        } else {
+            ++i;  // Only increment if we didn't remove
         }
-        
-        // After processing, remove the plant from the zone
-        zone->remove(*it); 
-        Plant* seed = inv->removeSeed(toLowerCase(plant->getName()));
-        zone->add(seed);
     }
     if(toUpdate){
         changed();

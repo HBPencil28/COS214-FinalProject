@@ -136,7 +136,8 @@ BasePlant* CustomerStaff::getRequestedPlant(Order plantDetails) {
     if(toUpdate){
         changed();
     }
-
+    delete builder;
+    
     return plant;
 }
 
