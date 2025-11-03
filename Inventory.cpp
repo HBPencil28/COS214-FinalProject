@@ -162,7 +162,7 @@ void Inventory::addSucculent(Plant* p) {
     if (!p) { std::cout << "Cannot add null Succulent\n"; 
             throw std::runtime_error("tried to add null"); 
             return; }
-    if(lower(p->getName()) == "succulent"){
+    if(lower(p->getName()) != "succulent"){
     Succulents.push_back(p);
     std::cout << "Added Succulent to Succulents in Inventory"<< '\n';
     }
@@ -183,13 +183,16 @@ Plant* Inventory::removeSucculent() {
 
 bool Inventory::isCactusesEmpty() const { return Cactuses.empty(); }
 void Inventory::addCactus(Plant* p) {
-    if (!p) { std::cout << "Cannot add null Cactus\n"; return; }
-    if(lower(p->getName()) == "cactus"){
+    if (!p) { std::cout << "Cannot add null Cactus\n"; 
     throw std::runtime_error("tried to add null"); 
+            }
+    if(lower(p->getName()) == "cactus"){
+    
     Cactuses.push_back(p);
     std::cout << "Added Cactus to Cactuses in Inventory"<< '\n';
     }
     else{
+        throw std::runtime_error("tried to add non cactus to cactus"); 
         std::cout << "Plant is NOT a Cactus";
     }
 }
@@ -689,5 +692,6 @@ Plant* Inventory::removeBaobab(Plant* p){
     }   
 
     
+
 
 
