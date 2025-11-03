@@ -1,3 +1,8 @@
+/**
+ * @file BuyPlant.cpp
+ * @brief Implements the BuyPlant command.
+ */
+
 #include "BuyPlant.h"
 #include "CustomerStaff.h"
 
