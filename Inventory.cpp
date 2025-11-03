@@ -10,12 +10,8 @@
 
 Inventory::Inventory() {}
 
-Inventory* Inventory::instance = nullptr;
-
-Inventory* Inventory::getInstance() {
-    if (instance == nullptr) {
-        instance = new Inventory();
-    }
+Inventory& Inventory::getInstance() {
+    static Inventory instance;
     return instance;
 }
 
@@ -57,8 +53,6 @@ Inventory::~Inventory() {
     cleanup(Baobab);
 
     cleanup(seeds);
-
-    if(instance) delete instance;
 }
 
 
