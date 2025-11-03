@@ -648,10 +648,10 @@ void displayInventory() {
     // }
     
     // Helper function to remove a customer (call this when customer is served)
-    void removeCustomer(int index) {
-        if (index >= 0 && index < activeCustomers.size()) {
-            activeCustomers.erase(activeCustomers.begin() + index);
-        }
-    }
+    // void removeCustomer(int index) {
+    //     if (index >= 0 && index < activeCustomers.size()) {
+    //         activeCustomers.erase(activeCustomers.begin() + index);
+    //     }
+    // }
 };
 #endif
