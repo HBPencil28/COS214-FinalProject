@@ -15,6 +15,7 @@ void Zone::add(Greenhouse* child) {
                                   + "' to zone with category '" + zoneCategory + "'");
     }
 
+    static_cast<Plant*>(child)->setZone(this);
     children.push_back(child);
 }
 
@@ -52,7 +53,15 @@ void Zone::execute() {
 }
 
 Zone::Zone(std::string Z_Name, std::string C_Name, CareStaff *s) : zoneName(Z_Name), zoneCategory(C_Name), strategy(nullptr),staff(s) {
-    this->strategy = new HighCare(this, this->staff);
+    if (C_Name.compare("Flower") == 0){
+        this->strategy = new HighCare(this, this->staff);
+    }
+    else if (C_Name.compare("Herbs&Aromatics") == 0){
+        this->strategy = new MediumCare(this, this->staff);
+    }
+    else{
+        this->strategy = new LowCare(this, this->staff);
+    }
 }
 
 void Zone::setZoneName(std::string name){

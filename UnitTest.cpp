@@ -3029,3 +3029,740 @@ TEST_SUITE("Iterator Tests")
         delete it;
     }
 }
+
+// State Pattern - Edge Cases and Comprehensive Testing
+TEST_CASE("State Pattern - Edge Cases and Comprehensive Testing")
+{
+
+    SUBCASE("Plant State - Initial State is Seedling")
+    {
+        Plant *plant = new Plant("Rose", "flower");
+
+        CHECK(plant->getStateName() == "Seedling");
+
+        delete plant;
+    }
+
+    SUBCASE("Seedling State - Water Without State Transition")
+    {
+        Plant *plant = new Plant("Basil", "herb");
+
+        // Not enough age or hydration for transition
+        plant->water(30);
+
+        CHECK(plant->getStateName() == "Seedling");
+
+        delete plant;
+    }
+
+    SUBCASE("Seedling State - Fertilize Without State Transition")
+    {
+        Plant *plant = new Plant("Mint", "herb");
+
+        // Not enough conditions for transition
+        plant->fertilize(5);
+
+        CHECK(plant->getStateName() == "Seedling");
+
+        delete plant;
+    }
+
+    SUBCASE("Seedling to Growing - Water Transition")
+    {
+        Plant *plant = new Plant("Tulip", "flower");
+
+        // Age the plant
+        for (int i = 0; i < 7; i++)
+        {
+            plant->dailyTick();
+        }
+
+        // Add enough water (60+)
+        plant->water(70);
+
+        // Should transition to Growing
+        CHECK(plant->getStateName() == "Growing");
+
+        delete plant;
+    }
+
+    SUBCASE("Seedling to Growing - Fertilize Transition")
+    {
+        Plant *plant = new Plant("Cactus", "succulent");
+
+        // Age the plant
+        for (int i = 0; i < 7; i++)
+        {
+            plant->dailyTick();
+        }
+
+        // Add water first
+        plant->water(65);
+
+        // Fertilize should trigger transition
+        plant->fertilize(5);
+
+        CHECK(plant->getStateName() == "Growing");
+
+        delete plant;
+    }
+
+    SUBCASE("Seedling State - Insufficient Age for Transition")
+    {
+        Plant *plant = new Plant("Rose", "flower");
+
+        // Only 5 days (need 7+)
+        for (int i = 0; i < 5; i++)
+        {
+            plant->dailyTick();
+        }
+
+        plant->water(80);
+
+        // Should remain Seedling
+        CHECK(plant->getStateName() == "Seedling");
+
+        delete plant;
+    }
+
+    SUBCASE("Seedling State - Insufficient Hydration for Transition")
+    {
+        Plant *plant = new Plant("Daisy", "flower");
+
+        // Enough age
+        for (int i = 0; i < 10; i++)
+        {
+            plant->dailyTick();
+        }
+
+        // Not enough water (need 60+)
+        plant->water(50);
+
+        // Should remain Seedling
+        CHECK(plant->getStateName() == "Seedling");
+
+        delete plant;
+    }
+
+    SUBCASE("Growing State - Water Without Transition")
+    {
+        Plant *plant = new Plant("Lavender", "herb");
+
+        // Transition to Growing
+        for (int i = 0; i < 7; i++)
+        {
+            plant->dailyTick();
+        }
+        plant->water(65);
+
+        CHECK(plant->getStateName() == "Growing");
+
+        // Water again (not enough conditions for Mature)
+        plant->water(20);
+
+        CHECK(plant->getStateName() == "Growing");
+
+        delete plant;
+    }
+
+    SUBCASE("Growing State - Fertilize Without Transition")
+    {
+        Plant *plant = new Plant("Parsley", "herb");
+
+        // Transition to Growing
+        for (int i = 0; i < 7; i++)
+        {
+            plant->dailyTick();
+        }
+        plant->water(60);
+
+        CHECK(plant->getStateName() == "Growing");
+
+        // Fertilize without meeting Mature conditions
+        plant->fertilize(5);
+
+        CHECK(plant->getStateName() == "Growing");
+
+        delete plant;
+    }
+
+    SUBCASE("Growing to Mature - Water Transition")
+    {
+        Plant *plant = new Plant("Oak", "tree");
+
+        // Get to Growing
+        for (int i = 0; i < 7; i++)
+        {
+            plant->dailyTick();
+        }
+        plant->water(60);
+
+        CHECK(plant->getStateName() == "Growing");
+
+        // Age to 20+ and hydrate to 65+
+        for (int i = 0; i < 14; i++)
+        {
+            plant->dailyTick();
+        }
+        plant->water(80);
+
+        CHECK(plant->getStateName() == "Mature");
+
+        delete plant;
+    }
+
+    SUBCASE("Growing to Mature - Fertilize Transition")
+    {
+        Plant *plant = new Plant("Boxwood", "shrub");
+
+        // Get to Growing
+        for (int i = 0; i < 7; i++)
+        {
+            plant->dailyTick();
+        }
+        plant->water(60);
+
+        // Age to 20+ and hydrate to 65+
+        for (int i = 0; i < 14; i++)
+        {
+            plant->dailyTick();
+        }
+        plant->water(70);
+
+        // Fertilize to trigger Mature
+        plant->fertilize(5);
+
+        CHECK(plant->getStateName() == "Mature");
+
+        delete plant;
+    }
+
+    SUBCASE("Growing State - Insufficient Age for Mature")
+    {
+        Plant *plant = new Plant("Hibiscus", "shrub");
+
+        // Get to Growing
+        for (int i = 0; i < 7; i++)
+        {
+            plant->dailyTick();
+        }
+        plant->water(60);
+
+        // Only 15 days total (need 20+)
+        for (int i = 0; i < 8; i++)
+        {
+            plant->dailyTick();
+        }
+        plant->water(80);
+
+        CHECK(plant->getStateName() == "Growing");
+
+        delete plant;
+    }
+
+    SUBCASE("Growing State - Insufficient Hydration for Mature")
+    {
+        Plant *plant = new Plant("Hydrangea", "shrub");
+
+        // Get to Growing
+        for (int i = 0; i < 7; i++)
+        {
+            plant->dailyTick();
+        }
+        plant->water(60);
+
+        // Age enough
+        for (int i = 0; i < 15; i++)
+        {
+            plant->dailyTick();
+        }
+
+        // Not enough hydration (need 65+)
+        plant->water(50);
+
+        CHECK(plant->getStateName() == "Growing");
+
+        delete plant;
+    }
+
+    SUBCASE("Mature State - Water Maintains State")
+    {
+        Plant *plant = new Plant("Baobab", "tree");
+
+        // Get to Mature
+        for (int i = 0; i < 7; i++)
+        {
+            plant->dailyTick();
+        }
+        plant->water(60);
+
+        for (int i = 0; i < 14; i++)
+        {
+            plant->dailyTick();
+        }
+        plant->water(70);
+
+        CHECK(plant->getStateName() == "Mature");
+
+        // Water again
+        plant->water(50);
+
+        CHECK(plant->getStateName() == "Mature");
+
+        delete plant;
+    }
+
+    SUBCASE("Mature State - Fertilize Maintains State")
+    {
+        Plant *plant = new Plant("Succulent", "succulent");
+
+        // Get to Mature
+        for (int i = 0; i < 7; i++)
+        {
+            plant->dailyTick();
+        }
+        plant->water(60);
+
+        for (int i = 0; i < 14; i++)
+        {
+            plant->dailyTick();
+        }
+        plant->fertilize(10);
+
+        CHECK(plant->getStateName() == "Mature");
+
+        // Fertilize again
+        plant->fertilize(5);
+
+        CHECK(plant->getStateName() == "Mature");
+
+        delete plant;
+    }
+
+    SUBCASE("Mature State - Low Hydration Warning")
+    {
+        Plant *plant = new Plant("LemonBalm", "herb");
+
+        // Get to Mature
+        for (int i = 0; i < 7; i++)
+        {
+            plant->dailyTick();
+        }
+        plant->water(60);
+
+        for (int i = 0; i < 14; i++)
+        {
+            plant->dailyTick();
+        }
+        plant->water(70);
+
+        // Let hydration drop (dailyTick reduces by 10)
+        for (int i = 0; i < 10; i++)
+        {
+            plant->dailyTick();
+        }
+
+        // Fertilize with low hydration (should warn but stay Mature)
+        plant->fertilize(5);
+
+        CHECK(plant->getStateName() == "Mature");
+
+        delete plant;
+    }
+
+    SUBCASE("Withered State - Water Has No Effect")
+    {
+        Plant *plant = new Plant("Coriander", "herb");
+
+        // Manually set to Withered
+        plant->setState(new Withered());
+
+        CHECK(plant->getStateName() == "Withered");
+
+        plant->water(100);
+
+        CHECK(plant->getStateName() == "Withered");
+
+        delete plant;
+    }
+
+    SUBCASE("Withered State - Fertilize Has No Effect")
+    {
+        Plant *plant = new Plant("Rosemary", "herb");
+
+        // Manually set to Withered
+        plant->setState(new Withered());
+
+        CHECK(plant->getStateName() == "Withered");
+
+        plant->fertilize(20);
+
+        CHECK(plant->getStateName() == "Withered");
+
+        delete plant;
+    }
+
+    SUBCASE("State Transitions - Complete Lifecycle")
+    {
+        Plant *plant = new Plant("Rose", "flower");
+
+        // Start as Seedling
+        CHECK(plant->getStateName() == "Seedling");
+
+        // Transition to Growing
+        for (int i = 0; i < 7; i++)
+        {
+            plant->dailyTick();
+        }
+        plant->water(65);
+        CHECK(plant->getStateName() == "Growing");
+
+        // Transition to Mature
+        for (int i = 0; i < 14; i++)
+        {
+            plant->dailyTick();
+        }
+        plant->water(70);
+        CHECK(plant->getStateName() == "Mature");
+
+        delete plant;
+    }
+
+    SUBCASE("State Transitions - Multiple Plants Independent")
+    {
+        Plant *p1 = new Plant("Rose", "flower");
+        Plant *p2 = new Plant("Tulip", "flower");
+        Plant *p3 = new Plant("Daisy", "flower");
+
+        // Advance p1 to Growing
+        for (int i = 0; i < 7; i++)
+        {
+            p1->dailyTick();
+        }
+        p1->water(60);
+
+        // p2 and p3 should still be Seedling
+        CHECK(p1->getStateName() == "Growing");
+        CHECK(p2->getStateName() == "Seedling");
+        CHECK(p3->getStateName() == "Seedling");
+
+        delete p1;
+        delete p2;
+        delete p3;
+    }
+
+    SUBCASE("State Pattern - InitState Method")
+    {
+        Plant *plant = new Plant("Mint", "herb");
+
+        CHECK(plant->getStateName() == "Seedling");
+
+        // Manually initialize to Growing
+        plant->initState(new Growing());
+
+        CHECK(plant->getStateName() == "Growing");
+
+        delete plant;
+    }
+
+    SUBCASE("State Pattern - SetState Method")
+    {
+        Plant *plant = new Plant("Basil", "herb");
+
+        CHECK(plant->getStateName() == "Seedling");
+
+        // Manually set to Mature
+        plant->setState(new Mature());
+
+        CHECK(plant->getStateName() == "Mature");
+
+        delete plant;
+    }
+
+    SUBCASE("State Pattern - Multiple State Changes")
+    {
+        Plant *plant = new Plant("Lavender", "herb");
+
+        plant->setState(new Growing());
+        CHECK(plant->getStateName() == "Growing");
+
+        plant->setState(new Mature());
+        CHECK(plant->getStateName() == "Mature");
+
+        plant->setState(new Withered());
+        CHECK(plant->getStateName() == "Withered");
+
+        plant->setState(new Seedling());
+        CHECK(plant->getStateName() == "Seedling");
+
+        delete plant;
+    }
+
+    SUBCASE("State Pattern - IsMature Check")
+    {
+        Plant *plant = new Plant("Oak", "tree");
+
+        CHECK_FALSE(plant->isMature());
+
+        // Transition to Mature
+        for (int i = 0; i < 7; i++)
+        {
+            plant->dailyTick();
+        }
+        plant->water(60);
+
+        for (int i = 0; i < 14; i++)
+        {
+            plant->dailyTick();
+        }
+        plant->water(70);
+
+        CHECK(plant->isMature());
+
+        delete plant;
+    }
+
+    SUBCASE("State Transitions - Hydration Management")
+    {
+        Plant *plant = new Plant("Cactus", "succulent");
+
+        int initial = plant->getHydrationLevel();
+
+        plant->water(50);
+        CHECK(plant->getHydrationLevel() == initial + 50);
+
+        plant->dailyTick();
+        CHECK(plant->getHydrationLevel() == initial + 40); // -10 per day
+
+        delete plant;
+    }
+
+    SUBCASE("State Transitions - Age Management")
+    {
+        Plant *plant = new Plant("Parsley", "herb");
+
+        CHECK(plant->getAgeDays() == 0);
+
+        for (int i = 0; i < 10; i++)
+        {
+            plant->dailyTick();
+        }
+
+        CHECK(plant->getAgeDays() == 10);
+
+        delete plant;
+    }
+
+    SUBCASE("State Transitions - Boundary Conditions for Seedling to Growing")
+    {
+        Plant *plant = new Plant("Thyme", "herb");
+
+        // Exactly 7 days
+        for (int i = 0; i < 7; i++)
+        {
+            plant->dailyTick();
+        }
+
+        // Exactly 60 hydration
+        plant->water(60);
+
+        // Should transition
+        CHECK(plant->getStateName() == "Growing");
+
+        delete plant;
+    }
+
+    SUBCASE("State Transitions - Boundary Conditions for Growing to Mature")
+    {
+        Plant *plant = new Plant("Hibiscus", "shrub");
+
+        // Get to Growing
+        for (int i = 0; i < 7; i++)
+        {
+            plant->dailyTick();
+        }
+        plant->water(60);
+
+        // Exactly 20 days and 65 hydration
+        for (int i = 0; i < 13; i++)
+        {
+            plant->dailyTick();
+        }
+        plant->water(70);
+
+        CHECK(plant->getStateName() == "Mature");
+
+        delete plant;
+    }
+
+    SUBCASE("State Pattern - Null Plant Handling in State Methods")
+    {
+        Seedling seedling;
+        Growing growing;
+        Mature mature;
+        Withered withered;
+
+        // Should not crash with nullptr
+        seedling.water(nullptr, 50);
+        seedling.fertilize(nullptr, 5);
+        growing.water(nullptr, 50);
+        growing.fertilize(nullptr, 5);
+        mature.water(nullptr, 50);
+        mature.fertilize(nullptr, 5);
+        withered.water(nullptr, 50);
+        withered.fertilize(nullptr, 5);
+
+        CHECK(true);
+    }
+
+    SUBCASE("State Transitions - Rapid State Changes")
+    {
+        Plant *plant = new Plant("Boxwood", "shrub");
+
+        for (int i = 0; i < 10; i++)
+        {
+            plant->setState(new Seedling());
+            plant->setState(new Growing());
+            plant->setState(new Mature());
+        }
+
+        CHECK(plant->getStateName() == "Mature");
+
+        delete plant;
+    }
+
+    SUBCASE("State Pattern - GetStateName for All States")
+    {
+        Seedling seedling;
+        Growing growing;
+        Mature mature;
+        Withered withered;
+
+        CHECK(seedling.getStateName() == "Seedling");
+        CHECK(growing.getStateName() == "Growing");
+        CHECK(mature.getStateName() == "Mature");
+        CHECK(withered.getStateName() == "Withered");
+    }
+
+    SUBCASE("State Transitions - Water Effect on Different States")
+    {
+        // Seedling
+        Plant *seedling = new Plant("Rose", "flower");
+        int h1 = seedling->getHydrationLevel();
+        seedling->water(30);
+        CHECK(seedling->getHydrationLevel() == h1 + 30);
+
+        // Growing
+        Plant *growing = new Plant("Tulip", "flower");
+        growing->setState(new Growing());
+        int h2 = growing->getHydrationLevel();
+        growing->water(30);
+        CHECK(growing->getHydrationLevel() == h2 + 30);
+
+        // Mature
+        Plant *mature = new Plant("Daisy", "flower");
+        mature->setState(new Mature());
+        int h3 = mature->getHydrationLevel();
+        mature->water(30);
+        CHECK(mature->getHydrationLevel() == h3 + 30);
+
+        // Withered
+        Plant *withered = new Plant("Dead", "flower");
+        withered->setState(new Withered());
+        int h4 = withered->getHydrationLevel();
+        withered->water(30);
+        CHECK(withered->getHydrationLevel() == h4 + 30); // Water is applied before state check
+
+        delete seedling;
+        delete growing;
+        delete mature;
+        delete withered;
+    }
+
+    SUBCASE("State Transitions - DailyTick Hydration Decrease")
+    {
+        Plant *plant = new Plant("Mint", "herb");
+
+        plant->water(100);
+        int hydration = plant->getHydrationLevel();
+
+        plant->dailyTick();
+        CHECK(plant->getHydrationLevel() == std::max(0, hydration - 10));
+
+        plant->dailyTick();
+        CHECK(plant->getHydrationLevel() == std::max(0, hydration - 20));
+
+        delete plant;
+    }
+
+    SUBCASE("State Transitions - Hydration Cannot Go Below Zero")
+    {
+        Plant *plant = new Plant("Cactus", "succulent");
+
+        // Start with low hydration
+        plant->water(5);
+
+        // Multiple daily ticks
+        for (int i = 0; i < 10; i++)
+        {
+            plant->dailyTick();
+        }
+
+        // Should not go below 0
+        CHECK(plant->getHydrationLevel() >= 0);
+
+        delete plant;
+    }
+
+    SUBCASE("State Pattern - Memory Safety with State Changes")
+    {
+        Plant *plant = new Plant("Lavender", "herb");
+
+        // Multiple state changes should properly delete old states
+        for (int i = 0; i < 100; i++)
+        {
+            plant->setState(new Seedling());
+        }
+
+        CHECK(plant->getStateName() == "Seedling");
+
+        delete plant;
+    }
+
+    SUBCASE("State Transitions - Complex Growth Scenario")
+    {
+        Plant *plant = new Plant("Oak", "tree");
+
+        // Start as Seedling
+        CHECK(plant->getStateName() == "Seedling");
+
+        // Water and age, but don't meet conditions
+        plant->water(50);
+        plant->dailyTick();
+        plant->dailyTick();
+        CHECK(plant->getStateName() == "Seedling");
+
+        // Meet conditions for Growing
+        for (int i = 0; i < 5; i++)
+        {
+            plant->dailyTick();
+        }
+        plant->water(20); // Total 70 now
+        CHECK(plant->getStateName() == "Growing");
+
+        // Try to reach Mature with insufficient conditions
+        plant->water(30);
+        plant->fertilize(5);
+        CHECK(plant->getStateName() == "Growing");
+
+        // Finally reach Mature
+        for (int i = 0; i < 14; i++)
+        {
+            plant->dailyTick();
+        }
+        plant->water(80);
+        CHECK(plant->getStateName() == "Mature");
+
+        delete plant;
+    }
+}

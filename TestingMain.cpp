@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 #include <map>
-#include <SFML/System
+#include <SFML/System.hpp>
 
 #include "Plant.h"
 #include "Greenhouse.h"
@@ -64,7 +64,11 @@ int main() {
     std::cout << "===== SUBSYSTEM 1: GREENHOUSE/GARDEN AREA TESTING =====\n\n";
     // Setup
     CareStaff careStaff;
+    NurseryMediator mediator;
+    careStaff.registerMediator(&mediator);
+    // mediator.attach(&careStaff);
     std::vector<Zone*> zones;
+    std::cout << "Setting Up The Zone" << std::endl;
     zones.push_back(new Zone("Rose","Flowers",&careStaff));
     zones.push_back(new Zone("Daisy","Flowers",&careStaff));
     zones.push_back(new Zone("Tulip","Flowers",&careStaff));
@@ -86,9 +90,11 @@ int main() {
     // Planting the Seeds
     for(Zone* zone:zones){
         // Attach observer
+        std::cout << "Attaching Observer" << std::endl;
         zone->attach(&careStaff);
 
         // Plant seeds
+        std::cout << "Planting Seeds" << std::endl;
         zone->add(new Plant(zone->getZoneName(), zone->getZoneCategory()));
         zone->add(new Plant(*static_cast<Plant*>(zone->getChild(0))));
         zone->add(new Plant(*static_cast<Plant*>(zone->getChild(0))));
@@ -99,13 +105,98 @@ int main() {
         zone->add(new Plant(*static_cast<Plant*>(zone->getChild(0))));
         zone->add(new Plant(*static_cast<Plant*>(zone->getChild(0))));
 
-
     }
+
+    // Simulate growth
+    std::cout << "Simulating Plant Growth" << std::endl;
+    sf::Clock c;
+    while (c.getElapsedTime().asSeconds() < 60){
+        if (c.getElapsedTime().asSeconds() == 5){
+            for(Zone* zone: zones){
+                for(Greenhouse* plant: zone->getChildren()){
+                    Plant* p = static_cast<Plant*>(plant);
+                    std::cout << "Watering Plant" << std::endl;
+                    p->water(59);
+                    while (p->getHydrationLevel() > 10)
+                    {
+                        std::string prevState = p->getStateName();
+                        int prevAge = p->getAgeDays();
+                        p->dailyTick();
+                        std::string newState = p->getStateName();
+                        int newAge = p->getAgeDays();
+                        if(prevAge < newAge)
+                            std::cout << "Day " << newAge << ": ";
+                        if (prevState != newState)
+                        {
+                            std::cout << "[STATE CHANGE] " << prevState << " -> " << newState << " ";
+                        }
+                        std::cout << "(hydration=" << p->getHydrationLevel() << ")\n";
+                    }
+                    // ...existing code...
+                }
+            }
+        }else if(c.getElapsedTime().asSeconds() >= 10 && c.getElapsedTime().asSeconds() <= 15){
+            for (Zone *zone : zones){
+                for (Greenhouse *plant : zone->getChildren()){
+                    Plant *p = static_cast<Plant *>(plant);
+                    std::cout << "Watering Plant" << std::endl;
+                    p->water(100);
+                    // ...existing code...
+                    while (p->getHydrationLevel() > 10)
+                    {
+                        std::string prevState = p->getStateName();
+                        int prevAge = p->getAgeDays();
+                        p->dailyTick();
+                        std::string newState = p->getStateName();
+                        int newAge = p->getAgeDays();
+                        if (prevAge < newAge)
+                            std::cout << "Day " << newAge << ": ";
+                        if (prevState != newState)
+                        {
+                            std::cout << "[STATE CHANGE] " << prevState << " -> " << newState << " ";
+                        }
+                        std::cout << "(hydration=" << p->getHydrationLevel() << ")\n";
+                    }
+                    // ...existing code...
+                }
+            }
+        }else{
+            for (Zone *zone : zones){
+                for (Greenhouse *plant : zone->getChildren()){
+                    Plant *p = static_cast<Plant *>(plant);
+                    std::cout << "Watering Plant" << std::endl;
+                    p->water(100);
+                    while (p->getHydrationLevel() > 10)
+                    {
+                        std::string prevState = p->getStateName();
+                        int prevAge = p->getAgeDays();
+                        p->dailyTick();
+                        std::string newState = p->getStateName();
+                        int newAge = p->getAgeDays();
+                        if (prevAge < newAge)
+                            std::cout << "Day " << newAge << ": ";
+                        if (prevState != newState)
+                        {
+                            std::cout << "[STATE CHANGE] " << prevState << " -> " << newState << " ";
+                        }
+                        std::cout << "(hydration=" << p->getHydrationLevel() << ")\n";
+                    }
+                    // ...existing code...
+                }
+            }
+        }
+        c.restart();
+    }
+    
+
+    // Harvest, Store and Replant
 
     // Cleanup
     for(std::vector<Zone*>::iterator it = zones.begin(); it != zones.end(); ++it){
         delete (*it);
     }
     std::cout << "\n===== GREENHOUSE SUBSYSTEM TESTING COMPLETE =====\n";
+
+
     return 0;
 }
