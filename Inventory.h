@@ -77,6 +77,10 @@ private:
      */
      ~Inventory();
 
+    /**
+    *@brief static instance of instance
+    */
+    static inventory* instance;
 public:
 
     /**
@@ -589,6 +593,7 @@ public:
 
 
 #endif // INVENTORY_H
+
 
 
 
