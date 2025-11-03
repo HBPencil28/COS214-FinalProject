@@ -39,7 +39,7 @@ class Plant: public Greenhouse{
         // sf::Clock timer;
 
     public: 
-        Plant(const string& plantName, const string& plantType);
+        Plant(const string& plantName = "Unknown", const string& plantType = "Generic");
         Plant(const Plant& plant);
         virtual ~Plant();
 
