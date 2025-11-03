@@ -77,11 +77,19 @@ private:
     ///////////////////////
     std::vector<Plant*> seeds; ///< Collection of seedling plants
 
-public:
     /**
      * @brief Destructor - deletes owned Plant pointers in all collections.
      */
     ~Inventory();
+
+public:
+
+    /**
+    * @brief clearInventory calls destructor for cleaner look
+    */
+    void clearInventory(){
+        ~Inventory();
+    }
 
     /**
      * @brief Get the singleton instance of Inventory.
@@ -590,5 +598,6 @@ public:
     std::string lower(const std::string&);
     friend class PlantIterator;
 };
+
 
 #endif // INVENTORY_H
