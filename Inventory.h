@@ -34,11 +34,6 @@ private:
      */
     Inventory();
 
-    /**
-     * @brief Pointer to the singleton instance.
-     */
-    static Inventory* instance;
-
     ///////////////////////
     // Flowers
     ///////////////////////
@@ -80,15 +75,15 @@ private:
     /**
      * @brief Destructor - deletes owned Plant pointers in all collections.
      */
-    ~Inventory();
+    static ~Inventory();
 
 public:
 
     /**
      * @brief Get the singleton instance of Inventory.
-     * @return Pointer to the Inventory instance.
+     * @return Refrence to the Inventory instance.
      */
-    static Inventory* getInstance();
+    static Inventory& getInstance();
 
     /**
      * @brief checks to see if roses is empty
@@ -594,6 +589,7 @@ public:
 
 
 #endif // INVENTORY_H
+
 
 
 
