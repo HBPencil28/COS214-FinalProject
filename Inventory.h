@@ -80,16 +80,9 @@ private:
     /**
      * @brief Destructor - deletes owned Plant pointers in all collections.
      */
-   static ~Inventory();
+    ~Inventory();
 
 public:
-
-    /**
-    * @brief clearInventory calls destructor for cleaner look
-    */
-    void clearInventory(){
-       delete instance;
-    }
 
     /**
      * @brief Get the singleton instance of Inventory.
@@ -601,5 +594,6 @@ public:
 
 
 #endif // INVENTORY_H
+
 
 
