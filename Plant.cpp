@@ -2,7 +2,7 @@
 #include "Seedling.h"
 
 // Plant::Plant(const string& plantName = "Unknown", const string& plantType = "Generic", CareStrategy strat = NULL)  
-Plant::Plant(const string& plantName = "Unknown", const string& plantType = "Generic")  
+Plant::Plant(const string& plantName, const string& plantType)  
     : name(plantName), type(plantType), state(new Seedling()), zone(nullptr), ageDays(0), hydrationLevel(0),
     status(nullptr), lastReturnReason("") {}
 
