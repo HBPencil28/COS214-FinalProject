@@ -83,7 +83,7 @@ public:
      * @brief Get the singleton instance of Inventory.
      * @return Refrence to the Inventory instance.
      */
-    static Inventory& getInstance();
+    static Inventory* getInstance();
 
     /**
      * @brief checks to see if roses is empty
@@ -589,6 +589,7 @@ public:
 
 
 #endif // INVENTORY_H
+
 
 
 
