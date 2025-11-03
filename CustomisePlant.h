@@ -15,7 +15,8 @@ private:
     Customer* customer;
 
 public:
-    CustomisePlant(const std::string &details, Staff *staff, BasePlant *toCustomise, Customer *receiver) : CustomerCommand(staff), toBeCustomized(toCustomise), customisationDetails(details), customer(receiver) {};
+    CustomisePlant( const std::string& details, Staff* staff , BasePlant* toCustomise, Customer* receiver):
+        CustomerCommand(staff), toBeCustomized(toCustomise), customisationDetails(details), customer(receiver) {};
     void execute() override;    
 };
 

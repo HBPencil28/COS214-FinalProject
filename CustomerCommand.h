@@ -13,6 +13,7 @@ protected:
 
 public:
     CustomerCommand(Staff* staff) : assistant(staff) {};
+    virtual ~CustomerCommand(){};
     virtual void execute() = 0; 
 };
 

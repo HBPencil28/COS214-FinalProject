@@ -5,8 +5,7 @@
 #include <string>  
 #include "CustomerCommand.h"
 #include "order.h"
-
-class Customer;
+#include "Customer.h"
 
 class BuyPlant : public CustomerCommand {
 

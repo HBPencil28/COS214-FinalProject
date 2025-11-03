@@ -1,6 +1,5 @@
 #include "BuyPlant.h"
 #include "CustomerStaff.h"
-#include "Customer.h"
 
 void BuyPlant::execute() {
     // Notify the staff to handle the buy plant request

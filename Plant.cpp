@@ -3,7 +3,8 @@
 
 // Plant::Plant(const string& plantName = "Unknown", const string& plantType = "Generic", CareStrategy strat = NULL)  
 Plant::Plant(const string& plantName = "Unknown", const string& plantType = "Generic")  
-    : name(plantName), type(plantType), state(new Seedling()), zone(nullptr), ageDays(0), hydrationLevel(0) {}
+    : name(plantName), type(plantType), state(new Seedling()), zone(nullptr), ageDays(0), hydrationLevel(0),
+    status(nullptr), lastReturnReason("") {}
 
 Plant::Plant(const Plant& plant){
     this->name = plant.getName();
@@ -12,11 +13,14 @@ Plant::Plant(const Plant& plant){
     this->zone = nullptr;
     this->ageDays = 0;
     this->hydrationLevel = 0;
+    this->lastReturnReason = "";
+    this->status = nullptr;
 }
 
 Plant::~Plant()
 {
     delete state;
+    delete status;
 
     // for(size_t i = 0; i < decorations.size(); i++)
     // {
@@ -71,10 +75,12 @@ void Plant::setState(PlantState *newState)
     }
     state = newState;
 
-    if (isMature())
-        zone->notify();
-    else if (state->getStateName() == "Withered")
+    if (isMature()){
+        if(zone) zone->notify();
+    }
+    else if (state->getStateName() == "Withered"){
         notify();
+    }
 }
 
 void Plant::display() const 

@@ -2,6 +2,13 @@
 test.cpp
 tests
 *.vpp.*
+UML_Class_Diagram.jpg
+Inventory.h
+main.cpp
+settings.json
+doctest.h
+Makefile
+doctest.h
 .lock
 /tmp
 /.vpprefdata
