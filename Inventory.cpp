@@ -27,6 +27,8 @@ Inventory::~Inventory() {
     auto cleanup = [](std::vector<Plant*>& v){ // cleanup all memory
         //takes in vector of plant* [](vector<Plant*>&)
         for (Plant* p : v) {
+            std::cout << "deleting plant" << std::endl;
+            p->getName();
             delete p;
         }
         v.clear();
@@ -678,4 +680,5 @@ Plant* Inventory::removeBaobab(Plant* p){
         }
         return nullptr; // Return nullptr if the plant was not found
     }   
+
     
