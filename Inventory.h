@@ -80,7 +80,7 @@ private:
     /**
     *@brief static instance of instance
     */
-    static inventory* instance;
+    static Inventory* instance;
 public:
 
     /**
@@ -598,6 +598,7 @@ public:
 
 
 #endif // INVENTORY_H
+
 
 
 
