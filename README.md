@@ -35,7 +35,7 @@ It emphasizes modularity, scalability, and flexibility, ensuring that new featur
 
 ## Configuration Instructions
 **Requirements**
-- C++11 or later
+- C++17 or later
 - GNU Make 4.3 or newer
 - SFML library (`libsfml-dev`)
 - doctest (included in `/lib`)
