@@ -83,6 +83,8 @@ Plant::Plant(const Plant& plant){
     this->height = 0;
     this->timesWatered = 0;
     this->hInc = plant.hInc;
+    this->gInterval = 5.0f;
+    this->aInterval = 20.0f;
 }
 
 Plant::~Plant()
