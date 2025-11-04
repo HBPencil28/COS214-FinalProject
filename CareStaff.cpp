@@ -332,7 +332,6 @@ void CareStaff::update(Plant* p){
     bool toUpdate = false;
     Plant* toRemove = removeFromInventory(p, toUpdate);
     delete toRemove;
-
     if(toUpdate)
         changed();
 }
@@ -358,6 +357,7 @@ void CareStaff::update() {
             ++i;  // Only increment if we didn't remove
         }
     }
+    
     if(toUpdate){
         changed();
     }

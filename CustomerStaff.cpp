@@ -11,10 +11,31 @@ inline std::string toLowerCase(std::string str)
     return str;
 }
 
-void CustomerStaff::changed() {
-    // CustomerStaff would add a mature plant to the inventory
-    // tell the mediator about the change, to notify other staff
-    mediator->notify(this);
+// void CustomerStaff::changed() {
+//     // CustomerStaff would add a mature plant to the inventory
+//     // tell the mediator about the change, to notify other staff
+//     mediator->notify(this);
+// }
+
+void CustomerStaff::changed()
+{
+    if (mediator == nullptr)
+    {
+        std::cerr << "ERROR: mediator is nullptr!" << std::endl;
+        return;
+    }
+    try
+    {
+        mediator->notify(this);
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << "EXCEPTION in mediator->notify: " << e.what() << std::endl;
+    }
+    catch (...)
+    {
+        std::cerr << "UNKNOWN EXCEPTION in mediator->notify" << std::endl;
+    }
 }
 
 std::map<std::string, bool> CustomerStaff::get() {
@@ -111,6 +132,10 @@ BasePlant* CustomerStaff::getRequestedPlant(Order plantDetails) {
 
     if(plantDetails.base == "Potted"){
         Plant* p = getFromInventory(plantDetails.flowerName, toUpdate);
+        if (p == nullptr){
+            std::cerr << "ERROR: getFromInventory returned NULL!" << std::endl;
+            return nullptr;
+        }
         p->sell();
         builder = new PotPlantBuilder(p);
         toPot = true;
@@ -173,6 +198,7 @@ BasePlant* CustomerStaff::customise(BasePlant* plant, std::string accessory) {
 Plant* CustomerStaff::getFromInventory(std::string plantName, bool& depleted) {
     // flowers
     Plant* ret = NULL;
+    plantName = toLowerCase(plantName);
     if(plantName.compare("rose") == 0){
         ret = inv->removeRose();
         if(inv->isRosesEmpty()){ 
@@ -183,14 +209,14 @@ Plant* CustomerStaff::getFromInventory(std::string plantName, bool& depleted) {
     }
     else if(plantName.compare("daisy") == 0){
         ret = inv->removeDaisy();
-        if(inv->isRosesEmpty()){ 
+        if(inv->isDaisiesEmpty()){ 
             stockAvailability.insert(std::pair<std::string, bool>("daisy", false));
             depleted = true;
         }
     }
     else if(plantName.compare("tulip") == 0){
         ret = inv->removeTulip();
-        if(inv->isRosesEmpty()){ 
+        if(inv->isTulipsEmpty()){ 
             stockAvailability.insert(std::pair<std::string, bool>("tulip", false));
             depleted = true;
         }
@@ -198,14 +224,14 @@ Plant* CustomerStaff::getFromInventory(std::string plantName, bool& depleted) {
     // succulents & cactuses
     else if(plantName.compare("cactus") == 0){
         ret = inv->removeCactus();
-        if(inv->isRosesEmpty()){ 
+        if(inv->isCactusesEmpty()){ 
             stockAvailability.insert(std::pair<std::string, bool>("cactus", false));
             depleted = true;
         }
     }
     else if(plantName.compare("succulent") == 0){
         ret = inv->removeSucculent();
-        if(inv->isRosesEmpty()){ 
+        if(inv->isSucculentsEmpty()){ 
             stockAvailability.insert(std::pair<std::string, bool>("succulent", false));
             depleted = true;
         }
@@ -213,49 +239,49 @@ Plant* CustomerStaff::getFromInventory(std::string plantName, bool& depleted) {
     // herbs & aromatics
     else if(plantName.compare("basil") == 0){
         ret = inv->removeBasil();
-        if(inv->isRosesEmpty()){ 
+        if(inv->isBasilsEmpty()){ 
             stockAvailability.insert(std::pair<std::string, bool>("basil", false));
             depleted = true;
         }
     }
     else if(plantName.compare("mint") == 0){
         ret = inv->removeMint();
-        if(inv->isRosesEmpty()){ 
+        if(inv->isMintsEmpty()){ 
             stockAvailability.insert(std::pair<std::string, bool>("mint", false));
             depleted = true;
         }
     }
     else if(plantName.compare("parsley") == 0){
         ret = inv->removeParsley();
-        if(inv->isRosesEmpty()){ 
+        if(inv->isParsleysEmpty()){ 
             stockAvailability.insert(std::pair<std::string, bool>("parsley", false));
             depleted = true;
         }
     }
     else if(plantName.compare("coriander") == 0){
         ret = inv->removeCoriander();
-        if(inv->isRosesEmpty()){ 
+        if(inv->isCoriandersEmpty()){ 
             stockAvailability.insert(std::pair<std::string, bool>("coriander", false));
             depleted = true;
         }
     }
     else if(plantName.compare("lavender") == 0){
         ret = inv->removeLavender();
-        if(inv->isRosesEmpty()){ 
+        if(inv->isLavendersEmpty()){ 
             stockAvailability.insert(std::pair<std::string, bool>("lavender", false));
             depleted = true;
         }
     }
     else if(plantName.compare("rosemary") == 0){
         ret = inv->removeRosemary();
-        if(inv->isRosesEmpty()){ 
+        if(inv->isRosemaryEmpty()){ 
             stockAvailability.insert(std::pair<std::string, bool>("rosemary", false));
             depleted = true;
         }
     }
     else if(plantName.compare("lemonbalm") == 0){
         ret = inv->removeLemonBalm();
-        if(inv->isRosesEmpty()){ 
+        if(inv->isLemonBalmsEmpty()){ 
             stockAvailability.insert(std::pair<std::string, bool>("lemonbalm", false));
             depleted = true;
         }
@@ -263,35 +289,35 @@ Plant* CustomerStaff::getFromInventory(std::string plantName, bool& depleted) {
     // trees & shrubs
     else if(plantName.compare("hibiscus") == 0){
         ret = inv->removeHibiscus();
-        if(inv->isRosesEmpty()){ 
+        if(inv->isHibiscusEmpty()){ 
             stockAvailability.insert(std::pair<std::string, bool>("hibiscus", false));
             depleted = true;
         }
     }
     else if(plantName.compare("hydrangea") == 0){
         ret = inv->removeHydrangea();
-        if(inv->isRosesEmpty()){ 
+        if(inv->isHydrangeaEmpty()){ 
             stockAvailability.insert(std::pair<std::string, bool>("hydrangea", false));
             depleted = true;
         }
     }
     else if(plantName.compare("boxwood") == 0){
         ret = inv->removeBoxwood();
-        if(inv->isRosesEmpty()){ 
+        if(inv->isBoxwoodEmpty()){ 
             stockAvailability.insert(std::pair<std::string, bool>("boxwood", false));
             depleted = true;
         }
     }
     else if(plantName.compare("oak") == 0){
         ret = inv->removeOak();
-        if(inv->isRosesEmpty()){ 
+        if(inv->isOakEmpty()){ 
             stockAvailability.insert(std::pair<std::string, bool>("oak", false));
             depleted = true;
         }
     }
     else if(plantName.compare("baobab") == 0){
         ret = inv->removeBaobab();
-        if(inv->isRosesEmpty()){ 
+        if(inv->isBaobabEmpty()){ 
             stockAvailability.insert(std::pair<std::string, bool>("baobab", false));
             depleted = true;
         }

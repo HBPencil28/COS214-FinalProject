@@ -12,7 +12,8 @@ void CustomisePlant::execute() {
     if (customerStaff) {
         // Perform customization through the staff member
         BasePlant* p = customerStaff->customise(toBeCustomized, customisationDetails);
-        customer->addPurchases(p);
+        // customer->addPurchases(p);
+        customer->replacePurchase(toBeCustomized, p);
     } else {
         std::cerr << "Error: Staff member is not a CustomerStaff." << std::endl;
     }

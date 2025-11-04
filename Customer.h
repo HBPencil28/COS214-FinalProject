@@ -60,6 +60,8 @@ public:
      * @param p Pointer to the BasePlant object purchased.
      */
     void addPurchases(BasePlant* p);
+
+    void replacePurchase(BasePlant *oldPlant, BasePlant *newPlant);
 };
 
 #endif // CUSTOMER_H

@@ -9,34 +9,38 @@ inline std::string toLowerCase(std::string str) {
     return str;
 }
 
-// Plant::Plant(const string& plantName = "Unknown", const string& plantType = "Generic", CareStrategy strat = NULL)  
-Plant::Plant(const string& plantName, const string& plantType)  
+// Plant::Plant(const string& plantName = "Unknown", const string& plantType = "Generic", CareStrategy strat = NULL)
+Plant::Plant(const string &plantName, const string &plantType)
     : name(plantName), type(plantType), state(new Seedling()), zone(nullptr), ageDays(0), hydrationLevel(0),
-    status(nullptr), lastReturnReason(""), height(0), fertiliserAmount(0), timesWatered(0) {
-        
-        fDec = 15;
-        hBoost = 2;
-        hInc = 5;
-        gInterval = 5.0f;
-        aInterval = 20.0f;
-        if(toLowerCase(plantType).compare("flowers") != std::string::npos){
-            // high care
-            wDec = 20;
-        }
-        else if(toLowerCase(plantType).compare("herbs&aromatics") != std::string::npos){
-            // medium care
-            wDec = 10;
-        }
-        else{
-            // low care
-            wDec = 5;
-            if(toLowerCase(plantName).compare("baobab") != std::string::npos ||
-            toLowerCase(plantName).compare("oak") != std::string::npos){
-                hInc = 12;
-            }
-        }
-}
+      status(nullptr), lastReturnReason(""), fertiliserAmount(0), height(0), timesWatered(0)
+{
 
+    fDec = 15;
+    hBoost = 2;
+    hInc = 5;
+    gInterval = 5.0f;
+    aInterval = 20.0f;
+    if (toLowerCase(plantType).find("flowers") != std::string::npos)
+    {
+        // high care
+        wDec = 20;
+    }
+    else if (toLowerCase(plantType).find("herbs&aromatics") != std::string::npos)
+    {
+        // medium care
+        wDec = 10;
+    }
+    else
+    {
+        // low care
+        wDec = 5;
+        if (toLowerCase(plantName).find("baobab") != std::string::npos ||
+            toLowerCase(plantName).find("oak") != std::string::npos)
+        {
+            hInc = 12;
+        }
+    }
+}
 
 void Plant::dailyTick() 
 {

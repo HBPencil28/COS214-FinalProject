@@ -163,7 +163,7 @@ void Inventory::addSucculent(Plant* p) {
     if (!p) { std::cout << "Cannot add null Succulent\n"; 
             throw std::runtime_error("tried to add null"); 
             return; }
-    if(lower(p->getName()) != "succulent"){
+    if(lower(p->getName()) == "succulent"){
     Succulents.push_back(p);
     std::cout << "Added Succulent to Succulents in Inventory"<< '\n';
     }

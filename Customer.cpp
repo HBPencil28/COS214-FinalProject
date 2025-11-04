@@ -38,3 +38,14 @@ void Customer::customiseMyPlant(Staff* attender, std::string& accessory) {
 void Customer::addPurchases(BasePlant* p) {
     purchases.push_back(p);
 }
+
+void Customer::replacePurchase(BasePlant *oldPlant, BasePlant *newPlant){
+    auto it = std::find(purchases.begin(), purchases.end(), oldPlant);
+    if (it != purchases.end())
+    {
+        // Remove the old plant (but don't delete it - the decorator owns it now)
+        purchases.erase(it);
+        // Add the new decorated plant
+        purchases.push_back(newPlant);
+    }
+}
