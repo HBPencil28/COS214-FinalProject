@@ -1,15 +1,18 @@
 #include "CareStaff.h"
 #include "GUI.h"
+#include "Customer.h"
 #include "Inventory.h"
 #include "Plant.h"
 #include <iostream>
 #include <algorithm>
+#include "CustomerStaff.h"
 #include <ctime>
 #include <cstdlib>
 #include <map>
 #include <utility>
 #include "Mature.h"
 #include <memory>
+#include "order.h"
 using namespace std;
 
 #include <random>
@@ -55,7 +58,7 @@ int main() {
     };
 
     //create x Roses
-        for(int i = 0; i < getRandomInt(0, 20); i++){
+        for(int i = 0; i < getRandomInt(1, 20); i++){
             Plant* p = new Plant("Rose","Flower");
             p->setState(new Mature());
             inv->addRose(p);
@@ -97,13 +100,13 @@ int main() {
 
     //FlowerBed
     vector<std::string> flowers ={"Rose","Tulip","Daisy"};
-    for(int i = 0; i < getRandomInt(0, 6); i++){
+    for(int i = 0; i < getRandomInt(1, 6); i++){
         zones[0]->add(new Plant(flowers[getRandomInt(0,flowers.size()-1)],"Flower"));
     } 
    
     //Succulents and Cactuses
     vector<std::string> succulentsAndCactuses ={"Cactus","Succulent"};
-    for(int i = 0; i < getRandomInt(0, 3); i++){
+    for(int i = 0; i < getRandomInt(1, 3); i++){
         zones[1]->add(new Plant(succulentsAndCactuses[getRandomInt(0,succulentsAndCactuses.size()-1)],"Cactus&Succulent"));
     } 
 
@@ -120,14 +123,19 @@ int main() {
         zones[3]->add(new Plant(TreeAndShrubGarden[getRandomInt(0,TreeAndShrubGarden.size()-1)],"Tree&Shrub"));
     } 
 
-    
-    // Create the main GUI window
-    gui window(VideoMode(1680, 820), "Nursery Management System", Style::Default, inv, &zones);
+    //CustomerStaff
+    CustomerStaff* custStaff = new CustomerStaff();
+
+    std::vector<Customer*> customers;
+    customers.push_back(new Customer());
+    customers.push_back(new Customer());
+    customers.push_back(new Customer());
+
+    gui window(VideoMode(1680, 820), "Nursery Management System", Style::Default, inv, &zones, &customers,new CustomerStaff());
 
     // Run the GUI event loop (draws shelves, customers, and inventory)
     window.displayWindow();
 
-    inv->clearInventory();
 
     std::cout << "Program exited successfully." << std::endl;
     return 0;
