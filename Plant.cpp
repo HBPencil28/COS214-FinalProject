@@ -9,37 +9,32 @@ inline std::string toLowerCase(std::string str) {
     return str;
 }
 
-// Plant::Plant(const string& plantName = "Unknown", const string& plantType = "Generic", CareStrategy strat = NULL)
-Plant::Plant(const string &plantName, const string &plantType)
-    : name(plantName), type(plantType), state(new Seedling()), zone(nullptr), ageDays(0), hydrationLevel(0),
-      status(nullptr), lastReturnReason(""), fertiliserAmount(0), height(0), timesWatered(0)
-{
-
-    fDec = 15;
-    hBoost = 2;
-    hInc = 5;
-    gInterval = 5.0f;
-    aInterval = 20.0f;
-    if (toLowerCase(plantType).find("flowers") != std::string::npos)
-    {
-        // high care
-        wDec = 20;
-    }
-    else if (toLowerCase(plantType).find("herbs&aromatics") != std::string::npos)
-    {
-        // medium care
-        wDec = 10;
-    }
-    else
-    {
-        // low care
-        wDec = 5;
-        if (toLowerCase(plantName).find("baobab") != std::string::npos ||
-            toLowerCase(plantName).find("oak") != std::string::npos)
-        {
-            hInc = 12;
+// Plant::Plant(const string& plantName = "Unknown", const string& plantType = "Generic", CareStrategy strat = NULL)  
+Plant::Plant(const string& plantName, const string& plantType)  
+    : name(plantName), type(plantType), state(new Seedling()), zone(nullptr), ageDays(0), hydrationLevel(100),
+    status(nullptr), lastReturnReason(""), fertiliserAmount(0), height(0), timesWatered(0) {
+        
+        fDec = 15;
+        hBoost = 2;
+        hInc = 5;
+        gInterval = 5.0f;
+        aInterval = 10.0f;
+        if(toLowerCase(plantType).find("flower") != std::string::npos){
+            // high care
+            wDec = 20;
         }
-    }
+        else if(toLowerCase(plantType).find("herbs&aromatics") != std::string::npos){
+            // medium care
+            wDec = 10;
+        }
+        else{
+            // low care
+            wDec = 5;
+            if(toLowerCase(plantName).find("baobab") != std::string::npos ||
+            toLowerCase(plantName).find("oak") != std::string::npos){
+                hInc = 12;
+            }
+        }
 }
 
 void Plant::dailyTick() 
@@ -47,13 +42,15 @@ void Plant::dailyTick()
     // Need to increase height (decrement water, fertiliser)
     if(!status){
         if(hTimer.getElapsedTime().asSeconds() >= gInterval){
-            height += hInc * ((fertiliserAmount > 0) ? hBoost : 1);
-            hydrationLevel -= wDec;
-            fertiliserAmount -= fDec;
-            if(needsWatering() && needsFertilizing()){
+            if(hydrationLevel > 0){
+                height += hInc * ((fertiliserAmount > 0) ? hBoost : 1);
+                hydrationLevel = std::max(0, hydrationLevel - wDec);
+                fertiliserAmount = std::max(0, fertiliserAmount - fDec);
+            }
+            if(needsFertilizing()){
                 zone->getStrategy()->care();
             }
-
+              
             hTimer.restart();
         }
     }
@@ -167,13 +164,13 @@ void Plant::water(int amount)
 {
     // hydrationLevel = std::min(100, hydrationLevel + 50);
     timesWatered++;
-    hydrationLevel += std::min(100, amount);
+    hydrationLevel = std::min(100, hydrationLevel + amount);
     state->water(this, amount);
 }
 
 void Plant::fertilize(int amount) 
 {
-    fertiliserAmount += amount;
+    fertiliserAmount = std::min(100, fertiliserAmount + amount);
     state->fertilize(this, amount);
 }
 
@@ -182,7 +179,7 @@ bool Plant::needsWatering() const{
 }
 
 bool Plant::needsFertilizing() const {
-    return fertiliserAmount < 45; // Default: needs fertilizing every 7 days
+    return ageDays % 3 == 0; // Default: needs fertilizing every 7 days
 } 
 
 bool Plant::isMature() const {
