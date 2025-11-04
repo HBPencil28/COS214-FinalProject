@@ -1,3 +1,4 @@
+# Best Makefile Version
 # Compiler
 CXX = g++
 CXXFLAGS = -std=c++11 -Wall -Werror=sign-compare -Werror=delete-non-virtual-dtor -Wextra -g -fprofile-arcs -ftest-coverage
