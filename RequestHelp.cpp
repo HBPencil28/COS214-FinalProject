@@ -1,3 +1,8 @@
+/**
+ * @file RequestHelp.cpp
+ * @brief Implements the RequestHelp command.
+ */
+
 #include "RequestHelp.h"
 #include "CustomerStaff.h"
 

@@ -1,3 +1,8 @@
+/**
+ * @file CustomisePlant.cpp
+ * @brief Implements the CustomisePlant command.
+ */
+
 #include "CustomisePlant.h"
 #include "CustomerStaff.h"
 
@@ -5,7 +10,7 @@ void CustomisePlant::execute() {
     // Downcast Staff* to CustomerStaff*
     CustomerStaff* customerStaff = dynamic_cast<CustomerStaff*>(assistant);
     if (customerStaff) {
-        // it is going to be nullptr for now, other there should be a Plant* passed here
+        // Perform customization through the staff member
         BasePlant* p = customerStaff->customise(toBeCustomized, customisationDetails);
         customer->addPurchases(p);
     } else {

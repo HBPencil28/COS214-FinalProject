@@ -11,6 +11,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <SFML/System.hpp>
 
 #include "PlantStatus.h"
 
@@ -33,10 +34,21 @@ class Plant: public Greenhouse{
         Zone *zone;
         int ageDays;
         int hydrationLevel;
-        // vector<Plant*> decorations; // For Decorator pattern
         PlantStatus *status;
         string lastReturnReason;
-        // sf::Clock timer;
+        sf::Clock hTimer; // for height inc, water & fertiliser dec
+        sf::Clock aTimer; // for aging plant 
+        
+        // Permanent... Only possibly
+        float gInterval;
+        float aInterval;
+        int fertiliserAmount; // how much fertiliser is in soil
+        int height; // height of the plant
+        int hInc; // how much to increment (will have a "bonus" if plant is fertiliser)
+        int hBoost; // growth rate inc for when plant is fertilised
+        int wDec; // water decrement amount
+        int fDec; // fertiliser decrement amount
+        int timesWatered; // times plant was watered
 
     public: 
         Plant(const string& plantName = "Unknown", const string& plantType = "Generic");
@@ -50,6 +62,9 @@ class Plant: public Greenhouse{
         string getType() const;
         int getAgeDays() const;
         int getHydrationLevel() const;
+        int getHeight() const;
+        int getFertiliserAmount() const;
+        int getTimesWatered() const;
 
         void setState(PlantState* newState);
 
@@ -71,7 +86,7 @@ class Plant: public Greenhouse{
         bool isMature() const;
         void notify() override;
 
-        void execute() {};
+        void execute();
 
         // adding PlantStatus functionality
         void setStatus(PlantStatus *newStatus);
