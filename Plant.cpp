@@ -1,5 +1,7 @@
 #include "Plant.h"
 #include "Seedling.h"
+#include "CareStrategy.h"
+#include "Withered.h"
 
 inline std::string toLowerCase(std::string str) {
     std::transform(str.begin(), str.end(), str.begin(), 
@@ -14,35 +16,50 @@ Plant::Plant(const string& plantName, const string& plantType)
         
         fDec = 15;
         hBoost = 2;
+        hInc = 5;
+        gInterval = 5.0f;
+        aInterval = 20.0f;
         if(toLowerCase(plantType).compare("flowers") != std::string::npos){
             // high care
             wDec = 20;
-            hInc = 5;
         }
         else if(toLowerCase(plantType).compare("herbs&aromatics") != std::string::npos){
             // medium care
             wDec = 10;
-            hInc = 5;
         }
         else{
             // low care
             wDec = 5;
             if(toLowerCase(plantName).compare("baobab") != std::string::npos ||
             toLowerCase(plantName).compare("oak") != std::string::npos){
-
+                hInc = 12;
             }
-            else{
-
-            }
-
         }
-
 }
 
 
 void Plant::dailyTick() 
 {
     // Need to increase height (decrement water, fertiliser)
+    if(!status){
+        if(hTimer.getElapsedTime().asSeconds() >= gInterval){
+            height += hInc * ((fertiliserAmount > 0) ? hBoost : 1);
+            hydrationLevel -= wDec;
+            fertiliserAmount -= fDec;
+            if(needsWatering() && needsFertilizing()){
+                zone->getStrategy()->care();
+            }
+
+            hTimer.restart();
+        }
+    }
+
+    if(aTimer.getElapsedTime().asSeconds() >= aInterval){
+        ageDays++;
+        if(ageDays > 16)
+            setState(new Withered());
+        aTimer.restart();
+    }
 }
 
 
@@ -54,7 +71,14 @@ Plant::Plant(const Plant& plant){
     this->ageDays = 0;
     this->hydrationLevel = 0;
     this->lastReturnReason = "";
+    this->fertiliserAmount = 0;
     this->status = nullptr;
+    this->fDec = plant.fDec;
+    this->wDec = plant.wDec;
+    this->hBoost = plant.hBoost;
+    this->height = 0;
+    this->timesWatered = 0;
+    this->hInc = plant.hInc;
 }
 
 Plant::~Plant()

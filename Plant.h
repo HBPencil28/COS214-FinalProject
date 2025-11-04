@@ -40,7 +40,8 @@ class Plant: public Greenhouse{
         sf::Clock aTimer; // for aging plant 
         
         // Permanent... Only possibly
-        float interval;
+        float gInterval;
+        float aInterval;
         int fertiliserAmount; // how much fertiliser is in soil
         int height; // height of the plant
         int hInc; // how much to increment (will have a "bonus" if plant is fertiliser)

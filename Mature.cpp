@@ -5,7 +5,7 @@
 
 namespace {
     // Optional: thresholds for decline if poorly maintained; used in fertilize/water decisions.
-    constexpr int MATURE_MIN_HYDRATION_OK = 40; // %
+    constexpr int MATURE_MIN_HYDRATION_OK = 16; // %
 }
 
 void Mature::water(Plant* plant, int amount)
